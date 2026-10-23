@@ -1,0 +1,90 @@
+﻿No. de Contrato,Proveedor,RFC del proveedor,Institución,Tipo de procedimiento,Fecha de contrato,Descripción del bien,Unidad de medida,Cantidad solicitada,Cantidad entregada,Precio unitario,Monto contratado,Estatus
+CT-2026-0001,Laboratorios Aurora SA de CV,LAU020202CD2,Hospital Regional Sur,Invitación a cuando menos tres,05/01/2026,Omeprazol 20 mg,Pieza,320,320,$163.28,"$52,249.60",Vigente
+CT-2026-0002,Farmacéutica Sierra SA de CV,FSI040404GH4,Hospital Regional Sur,Invitación a cuando menos tres,13/01/2026,Gasa estéril,Pieza,1080,1080,$196.61,"$212,338.80",Vigente
+CT-2026-0002,Farmacéutica Sierra SA de CV,FSI040404GH4,Hospital Regional Sur,Invitación a cuando menos tres,13/01/2026,Omeprazol 20 mg,Pieza,1460,1476,$291.77,"$425,984.20",En proceso
+CT-2026-0003,Suministros Hospitalarios Centro SA,SHC030303EF3,Hospital General Zona 1,Licitación Pública,13/01/2026,Solución salina 1000 ml,Pieza,650,650,$278.06,"$180,739.00",Concluido
+CT-2026-0003,Suministros Hospitalarios Centro SA,SHC030303EF3,Hospital General Zona 1,Licitación Pública,13/01/2026,Omeprazol 20 mg,Pieza,2740,2740,$244.65,"$670,341.00",En proceso
+CT-2026-0003,Suministros Hospitalarios Centro SA,SHC030303EF3,Hospital General Zona 1,Licitación Pública,13/01/2026,Paracetamol 500 mg,Pieza,2600,2605,$292.93,"$761,618.00",Concluido
+CT-2026-0004,Suministros Hospitalarios Centro SA,SHC030303EF3,Unidad Médica Norte,Invitación a cuando menos tres,28/01/2026,Jeringa 5 ml,Pieza,910,704,$282.35,"$256,938.50",En proceso
+CT-2026-0004,Suministros Hospitalarios Centro SA,SHC030303EF3,Unidad Médica Norte,Invitación a cuando menos tres,28/01/2026,Solución salina 1000 ml,Pieza,2670,2670,$145.52,"$388,538.40",Concluido
+CT-2026-0005,Insumos Clínicos del Pacífico SC,ICP050505IJ5,Unidad Médica Norte,Licitación Pública,26/01/2026,Omeprazol 20 mg,Pieza,2890,2890,$121.80,"$352,002.00",Vigente
+CT-2026-0005,Insumos Clínicos del Pacífico SC,ICP050505IJ5,Unidad Médica Norte,Licitación Pública,26/01/2026,Guante de nitrilo,Pieza,270,140,$334.55,"$90,328.50",Concluido
+CT-2026-0005,Insumos Clínicos del Pacífico SC,ICP050505IJ5,Unidad Médica Norte,Licitación Pública,26/01/2026,Jeringa 5 ml,Pieza,3460,3460,$84.71,"$293,096.60",Vigente
+CT-2026-0006,Suministros Hospitalarios Centro SA,SHC030303EF3,Hospital General Zona 1,Licitación Pública,26/01/2026,Guante de nitrilo,Pieza,4380,4380,$59.92,"$262,449.60",En proceso
+CT-2026-0006,Suministros Hospitalarios Centro SA,SHC030303EF3,Hospital General Zona 1,Licitación Pública,26/01/2026,Solución salina 1000 ml,Pieza,2180,2180,$119.05,"$259,529.00",Vigente
+CT-2026-0007,Distribuidora Médica del Norte SA de CV,DMN010101AB1,Hospital General Zona 1,Adjudicación Directa,04/01/2026,Gasa estéril,Pieza,1940,1970,$284.73,"$552,376.20",En proceso
+CT-2026-0007,Distribuidora Médica del Norte SA de CV,DMN010101AB1,Hospital General Zona 1,Adjudicación Directa,04/01/2026,Paracetamol 500 mg,Pieza,1070,228,$157.60,"$168,632.00",En proceso
+CT-2026-0007,Distribuidora Médica del Norte SA de CV,DMN010101AB1,Hospital General Zona 1,Adjudicación Directa,04/01/2026,Paracetamol 500 mg,Pieza,3900,1656,$6.16,"$24,024.00",Concluido
+CT-2026-0008,Laboratorios Aurora SA de CV,LAU020202CD2,Hospital General Zona 1,Adjudicación Directa,02/01/2026,Jeringa 5 ml,Pieza,1010,1024,$52.78,"$53,307.80",Vigente
+CT-2026-0008,Laboratorios Aurora SA de CV,LAU020202CD2,Hospital General Zona 1,Adjudicación Directa,02/01/2026,Gasa estéril,Pieza,1240,1240,$155.53,"$192,857.20",Vigente
+CT-2026-0008,Laboratorios Aurora SA de CV,LAU020202CD2,Hospital General Zona 1,Adjudicación Directa,02/01/2026,Gasa estéril,Pieza,3790,3795,$208.22,"$789,153.80",Vigente
+CT-2026-0009,Farmacéutica Sierra SA de CV,FSI040404GH4,Unidad Médica Norte,Invitación a cuando menos tres,27/01/2026,Solución salina 1000 ml,Pieza,1250,1252,$49.00,"$61,250.00",Vigente
+CT-2026-0009,Farmacéutica Sierra SA de CV,FSI040404GH4,Unidad Médica Norte,Invitación a cuando menos tres,27/01/2026,Omeprazol 20 mg,Pieza,120,120,$263.81,"$31,657.20",Concluido
+CT-2026-0010,Insumos Clínicos del Pacífico SC,ICP050505IJ5,Hospital General Zona 1,Adjudicación Directa,25/01/2026,Gasa estéril,Pieza,4290,4290,$133.02,"$570,655.80",Concluido
+CT-2026-0010,Insumos Clínicos del Pacífico SC,ICP050505IJ5,Hospital General Zona 1,Adjudicación Directa,25/01/2026,Omeprazol 20 mg,Pieza,2760,1892,$247.20,"$682,272.00",Vigente
+CT-2026-0010,Insumos Clínicos del Pacífico SC,ICP050505IJ5,Hospital General Zona 1,Adjudicación Directa,25/01/2026,Omeprazol 20 mg,Pieza,1740,1740,$254.77,"$443,299.80",Vigente
+CT-2026-0011,Insumos Clínicos del Pacífico SC,ICP050505IJ5,Hospital Regional Sur,Adjudicación Directa,12/01/2026,Guante de nitrilo,Pieza,2740,1169,$314.39,"$861,428.60",Concluido
+CT-2026-0011,Insumos Clínicos del Pacífico SC,ICP050505IJ5,Hospital Regional Sur,Adjudicación Directa,12/01/2026,Omeprazol 20 mg,Pieza,4430,1249,$154.55,"$684,656.50",En proceso
+CT-2026-0011,Insumos Clínicos del Pacífico SC,ICP050505IJ5,Hospital Regional Sur,Adjudicación Directa,12/01/2026,Guante de nitrilo,Pieza,1150,1170,$337.84,"$388,516.00",En proceso
+CT-2026-0012,Insumos Clínicos del Pacífico SC,ICP050505IJ5,Unidad Médica Norte,Adjudicación Directa,12/01/2026,Gasa estéril,Pieza,3090,3090,$198.53,"$613,457.70",En proceso
+CT-2026-0012,Insumos Clínicos del Pacífico SC,ICP050505IJ5,Unidad Médica Norte,Adjudicación Directa,12/01/2026,Gasa estéril,Pieza,4390,4390,$201.81,"$885,945.90",Concluido
+CT-2026-0012,Insumos Clínicos del Pacífico SC,ICP050505IJ5,Unidad Médica Norte,Adjudicación Directa,12/01/2026,Solución salina 1000 ml,Pieza,4090,1177,$394.76,"$1,614,568.40",Concluido
+CT-2026-0013,Insumos Clínicos del Pacífico SC,ICP050505IJ5,Hospital Regional Sur,Invitación a cuando menos tres,21/01/2026,Jeringa 5 ml,Pieza,1950,1958,$103.71,"$202,234.50",En proceso
+CT-2026-0013,Insumos Clínicos del Pacífico SC,ICP050505IJ5,Hospital Regional Sur,Invitación a cuando menos tres,21/01/2026,Gasa estéril,Pieza,4340,4340,$318.41,"$1,381,899.40",Concluido
+CT-2026-0014,Distribuidora Médica del Norte SA de CV,DMN010101AB1,Unidad Médica Norte,Licitación Pública,25/01/2026,Solución salina 1000 ml,Pieza,4810,4810,$13.73,"$66,041.30",Vigente
+CT-2026-0014,Distribuidora Médica del Norte SA de CV,DMN010101AB1,Unidad Médica Norte,Licitación Pública,25/01/2026,Omeprazol 20 mg,Pieza,1450,1465,$348.14,"$504,803.00",Concluido
+CT-2026-0014,Distribuidora Médica del Norte SA de CV,DMN010101AB1,Unidad Médica Norte,Licitación Pública,25/01/2026,Gasa estéril,Pieza,570,570,$131.37,"$74,880.90",Vigente
+CT-2026-0015,Distribuidora Médica del Norte SA de CV,DMN010101AB1,Hospital General Zona 1,Adjudicación Directa,26/01/2026,Paracetamol 500 mg,Pieza,4270,1593,$92.82,"$396,341.40",En proceso
+CT-2026-0015,Distribuidora Médica del Norte SA de CV,DMN010101AB1,Hospital General Zona 1,Adjudicación Directa,26/01/2026,Guante de nitrilo,Pieza,1770,1770,$367.02,"$649,625.40",En proceso
+CT-2026-0016,Suministros Hospitalarios Centro SA,SHC030303EF3,Hospital Regional Sur,Licitación Pública,06/01/2026,Solución salina 1000 ml,Pieza,860,860,$44.41,"$38,192.60",Vigente
+CT-2026-0016,Suministros Hospitalarios Centro SA,SHC030303EF3,Hospital Regional Sur,Licitación Pública,06/01/2026,Paracetamol 500 mg,Pieza,1600,1600,$48.06,"$76,896.00",Vigente
+CT-2026-0017,Distribuidora Médica del Norte SA de CV,DMN010101AB1,Unidad Médica Norte,Adjudicación Directa,06/01/2026,Gasa estéril,Pieza,3370,3370,$295.78,"$996,778.60",Concluido
+CT-2026-0018,Distribuidora Médica del Norte SA de CV,DMN010101AB1,Unidad Médica Norte,Adjudicación Directa,03/01/2026,Omeprazol 20 mg,Pieza,770,777,$73.69,"$56,741.30",Vigente
+CT-2026-0019,Farmacéutica Sierra SA de CV,FSI040404GH4,Hospital General Zona 1,Adjudicación Directa,15/01/2026,Omeprazol 20 mg,Pieza,3240,3267,$233.45,"$756,378.00",En proceso
+CT-2026-0019,Farmacéutica Sierra SA de CV,FSI040404GH4,Hospital General Zona 1,Adjudicación Directa,15/01/2026,Guante de nitrilo,Pieza,3640,3663,$348.08,"$1,267,011.20",En proceso
+CT-2026-0019,Farmacéutica Sierra SA de CV,FSI040404GH4,Hospital General Zona 1,Adjudicación Directa,15/01/2026,Gasa estéril,Pieza,1050,1072,$334.04,"$350,742.00",Concluido
+CT-2026-0020,Farmacéutica Sierra SA de CV,FSI040404GH4,Unidad Médica Norte,Adjudicación Directa,18/01/2026,Guante de nitrilo,Pieza,4230,4247,$307.86,"$1,302,247.80",Concluido
+CT-2026-0020,Farmacéutica Sierra SA de CV,FSI040404GH4,Unidad Médica Norte,Adjudicación Directa,18/01/2026,Omeprazol 20 mg,Pieza,2530,2530,$18.81,"$47,589.30",Concluido
+CT-2026-0020,Farmacéutica Sierra SA de CV,FSI040404GH4,Unidad Médica Norte,Adjudicación Directa,18/01/2026,Gasa estéril,Pieza,4930,4930,$250.46,"$1,234,767.80",Vigente
+CT-2026-0021,Distribuidora Médica del Norte SA de CV,DMN010101AB1,Hospital General Zona 1,Licitación Pública,15/01/2026,Jeringa 5 ml,Pieza,4030,4030,$152.22,"$613,446.60",En proceso
+CT-2026-0021,Distribuidora Médica del Norte SA de CV,DMN010101AB1,Hospital General Zona 1,Licitación Pública,15/01/2026,Paracetamol 500 mg,Pieza,3170,2336,$46.98,"$148,926.60",Concluido
+CT-2026-0021,Distribuidora Médica del Norte SA de CV,DMN010101AB1,Hospital General Zona 1,Licitación Pública,15/01/2026,Omeprazol 20 mg,Pieza,620,620,$193.35,"$119,877.00",En proceso
+CT-2026-0022,Suministros Hospitalarios Centro SA,SHC030303EF3,Hospital Regional Sur,Invitación a cuando menos tres,12/01/2026,Omeprazol 20 mg,Pieza,3530,808,$29.07,"$102,617.10",Vigente
+CT-2026-0022,Suministros Hospitalarios Centro SA,SHC030303EF3,Hospital Regional Sur,Invitación a cuando menos tres,12/01/2026,Gasa estéril,Pieza,1940,1940,$124.18,"$240,909.20",En proceso
+CT-2026-0022,Suministros Hospitalarios Centro SA,SHC030303EF3,Hospital Regional Sur,Invitación a cuando menos tres,12/01/2026,Guante de nitrilo,Pieza,4120,894,$235.70,"$971,084.00",Concluido
+CT-2026-0023,Farmacéutica Sierra SA de CV,FSI040404GH4,Hospital Regional Sur,Invitación a cuando menos tres,13/01/2026,Solución salina 1000 ml,Pieza,3460,3476,$139.70,"$483,362.00",En proceso
+CT-2026-0023,Farmacéutica Sierra SA de CV,FSI040404GH4,Hospital Regional Sur,Invitación a cuando menos tres,13/01/2026,Omeprazol 20 mg,Pieza,650,670,$147.88,"$96,122.00",En proceso
+CT-2026-0024,Farmacéutica Sierra SA de CV,FSI040404GH4,Hospital General Zona 1,Adjudicación Directa,17/01/2026,Gasa estéril,Pieza,980,980,$39.95,"$39,151.00",En proceso
+CT-2026-0024,Farmacéutica Sierra SA de CV,FSI040404GH4,Hospital General Zona 1,Adjudicación Directa,17/01/2026,Guante de nitrilo,Pieza,1210,376,$379.35,"$459,013.50",Vigente
+CT-2026-0024,Farmacéutica Sierra SA de CV,FSI040404GH4,Hospital General Zona 1,Adjudicación Directa,17/01/2026,Paracetamol 500 mg,Pieza,170,170,$129.98,"$22,096.60",Vigente
+CT-2026-0025,Distribuidora Médica del Norte SA de CV,DMN010101AB1,Unidad Médica Norte,Licitación Pública,24/01/2026,Gasa estéril,Pieza,1640,1640,$325.96,"$534,574.40",Concluido
+CT-2026-0026,Suministros Hospitalarios Centro SA,SHC030303EF3,Hospital General Zona 1,Invitación a cuando menos tres,08/01/2026,Omeprazol 20 mg,Pieza,590,597,$366.83,"$216,429.70",En proceso
+CT-2026-0027,Farmacéutica Sierra SA de CV,FSI040404GH4,Hospital General Zona 1,Invitación a cuando menos tres,17/01/2026,Paracetamol 500 mg,Pieza,840,582,$374.80,"$314,832.00",Concluido
+CT-2026-0028,Distribuidora Médica del Norte SA de CV,DMN010101AB1,Hospital Regional Sur,Invitación a cuando menos tres,23/01/2026,Jeringa 5 ml,Pieza,240,265,$129.46,"$31,070.40",Vigente
+CT-2026-0028,Distribuidora Médica del Norte SA de CV,DMN010101AB1,Hospital Regional Sur,Invitación a cuando menos tres,23/01/2026,Jeringa 5 ml,Pieza,380,189,$108.93,"$41,393.40",En proceso
+CT-2026-0028,Distribuidora Médica del Norte SA de CV,DMN010101AB1,Hospital Regional Sur,Invitación a cuando menos tres,23/01/2026,Guante de nitrilo,Pieza,3180,3180,$282.79,"$899,272.20",En proceso
+CT-2026-0029,Laboratorios Aurora SA de CV,LAU020202CD2,Hospital General Zona 1,Licitación Pública,26/01/2026,Solución salina 1000 ml,Pieza,890,890,$263.14,"$234,194.60",Vigente
+CT-2026-0029,Laboratorios Aurora SA de CV,LAU020202CD2,Hospital General Zona 1,Licitación Pública,26/01/2026,Solución salina 1000 ml,Pieza,1870,1897,$364.07,"$680,810.90",En proceso
+CT-2026-0029,Laboratorios Aurora SA de CV,LAU020202CD2,Hospital General Zona 1,Licitación Pública,26/01/2026,Guante de nitrilo,Pieza,3260,3266,$43.22,"$140,897.20",En proceso
+CT-2026-0030,Suministros Hospitalarios Centro SA,SHC030303EF3,Unidad Médica Norte,Licitación Pública,18/01/2026,Jeringa 5 ml,Pieza,2270,2270,$138.42,"$314,213.40",Vigente
+CT-2026-0031,Insumos Clínicos del Pacífico SC,ICP050505IJ5,Hospital Regional Sur,Licitación Pública,15/01/2026,Gasa estéril,Pieza,820,844,$336.77,"$276,151.40",Concluido
+CT-2026-0031,Insumos Clínicos del Pacífico SC,ICP050505IJ5,Hospital Regional Sur,Licitación Pública,15/01/2026,Solución salina 1000 ml,Pieza,1920,1920,$157.53,"$302,457.60",En proceso
+CT-2026-0032,Farmacéutica Sierra SA de CV,FSI040404GH4,Hospital Regional Sur,Adjudicación Directa,01/01/2026,Guante de nitrilo,Pieza,2900,2900,$11.46,"$33,234.00",Vigente
+CT-2026-0032,Farmacéutica Sierra SA de CV,FSI040404GH4,Hospital Regional Sur,Adjudicación Directa,01/01/2026,Omeprazol 20 mg,Pieza,3200,2290,$283.58,"$907,456.00",En proceso
+CT-2026-0033,Distribuidora Médica del Norte SA de CV,DMN010101AB1,Unidad Médica Norte,Licitación Pública,04/01/2026,Solución salina 1000 ml,Pieza,1510,1510,$103.10,"$155,681.00",Vigente
+CT-2026-0034,Distribuidora Médica del Norte SA de CV,DMN010101AB1,Hospital Regional Sur,Invitación a cuando menos tres,13/01/2026,Guante de nitrilo,Pieza,4830,4836,$295.91,"$1,429,245.30",Concluido
+CT-2026-0034,Distribuidora Médica del Norte SA de CV,DMN010101AB1,Hospital Regional Sur,Invitación a cuando menos tres,13/01/2026,Omeprazol 20 mg,Pieza,4920,4922,$335.66,"$1,651,447.20",En proceso
+CT-2026-0034,Distribuidora Médica del Norte SA de CV,DMN010101AB1,Hospital Regional Sur,Invitación a cuando menos tres,13/01/2026,Jeringa 5 ml,Pieza,4600,4600,$208.01,"$956,846.00",En proceso
+CT-2026-0035,Farmacéutica Sierra SA de CV,FSI040404GH4,Hospital Regional Sur,Adjudicación Directa,16/01/2026,Jeringa 5 ml,Pieza,700,700,$366.74,"$256,718.00",En proceso
+CT-2026-0035,Farmacéutica Sierra SA de CV,FSI040404GH4,Hospital Regional Sur,Adjudicación Directa,16/01/2026,Guante de nitrilo,Pieza,3000,3000,$181.43,"$544,290.00",Vigente
+CT-2026-0035,Farmacéutica Sierra SA de CV,FSI040404GH4,Hospital Regional Sur,Adjudicación Directa,16/01/2026,Guante de nitrilo,Pieza,910,693,$144.48,"$131,476.80",Vigente
+CT-2026-0036,Farmacéutica Sierra SA de CV,FSI040404GH4,Unidad Médica Norte,Invitación a cuando menos tres,03/01/2026,Gasa estéril,Pieza,4360,4383,$178.14,"$776,690.40",En proceso
+CT-2026-0037,Laboratorios Aurora SA de CV,LAU020202CD2,Hospital Regional Sur,Adjudicación Directa,03/01/2026,Paracetamol 500 mg,Pieza,3320,3320,$160.96,"$534,387.20",En proceso
+CT-2026-0037,Laboratorios Aurora SA de CV,LAU020202CD2,Hospital Regional Sur,Adjudicación Directa,03/01/2026,Paracetamol 500 mg,Pieza,1030,348,$229.57,"$236,457.10",En proceso
+CT-2026-0037,Laboratorios Aurora SA de CV,LAU020202CD2,Hospital Regional Sur,Adjudicación Directa,03/01/2026,Jeringa 5 ml,Pieza,2340,2340,$210.36,"$492,242.40",Concluido
+CT-2026-0038,Distribuidora Médica del Norte SA de CV,DMN010101AB1,Unidad Médica Norte,Adjudicación Directa,16/01/2026,Paracetamol 500 mg,Pieza,3080,834,$105.60,"$325,248.00",Vigente
+CT-2026-0038,Distribuidora Médica del Norte SA de CV,DMN010101AB1,Unidad Médica Norte,Adjudicación Directa,16/01/2026,Paracetamol 500 mg,Pieza,1080,1094,$44.69,"$48,265.20",Vigente
+CT-2026-0038,Distribuidora Médica del Norte SA de CV,DMN010101AB1,Unidad Médica Norte,Adjudicación Directa,16/01/2026,Paracetamol 500 mg,Pieza,1900,560,$269.71,"$512,449.00",En proceso
+CT-2026-0039,Farmacéutica Sierra SA de CV,FSI040404GH4,Unidad Médica Norte,Licitación Pública,26/01/2026,Solución salina 1000 ml,Pieza,4980,4980,$312.01,"$1,553,809.80",En proceso
+CT-2026-0039,Farmacéutica Sierra SA de CV,FSI040404GH4,Unidad Médica Norte,Licitación Pública,26/01/2026,Jeringa 5 ml,Pieza,1300,1300,$88.68,"$115,284.00",En proceso
+CT-2026-0040,Distribuidora Médica del Norte SA de CV,DMN010101AB1,Hospital Regional Sur,Invitación a cuando menos tres,03/01/2026,Gasa estéril,Pieza,1730,1758,$376.93,"$652,088.90",Concluido

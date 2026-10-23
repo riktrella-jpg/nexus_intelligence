@@ -1,0 +1,39 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: nexus-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - NEXUS_DATA_DIR=/app/data
+      - NEXUS_MAX_UPLOAD_MB=500
+      - NEXUS_CORS_ORIGINS=https://${DOMAIN:-localhost},http://${DOMAIN:-localhost}:3000,http://localhost:3000
+      - NEXUS_AI_API_KEY=${NEXUS_AI_API_KEY:-}
+    volumes:
+      - nexus_data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Si deseas alojar también el Frontend en el mismo servidor (opcional):
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:8000}
+    container_name: nexus-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  nexus_data:
+    driver: local

@@ -1,0 +1,32 @@
+# Python
+backend/venv/
+backend/.venv/
+**/__pycache__/
+*.py[cod]
+*$py.class
+backend/.pytest_cache/
+backend/data/uploads/*
+!backend/data/uploads/.gitkeep
+backend/data/staging/*
+!backend/data/staging/.gitkeep
+backend/data/datasets/*
+!backend/data/datasets/.gitkeep
+backend/data/*.sqlite
+backend/data/*.sqlite-journal
+
+# Node / Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+
+# Entornos y secretos
+.env
+.env.local
+.env.production
+*.env
+
+# SO y Editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
