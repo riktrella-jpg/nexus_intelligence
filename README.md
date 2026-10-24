@@ -4,6 +4,16 @@ Plataforma de Inteligencia Analítica de Contrataciones y Auditoría Cuantitativ
 
 ---
 
+## 🌐 URLs Oficiales de Producción en Vivo
+
+- **Plataforma Web (Frontend):** [https://nexus-intelligence-app.vercel.app](https://nexus-intelligence-app.vercel.app)
+- **Dominio Alternativo:** [https://nexus-intelligence-mx.vercel.app](https://nexus-intelligence-mx.vercel.app)
+- **API Backend:** [https://nexus-backend-dskz.onrender.com](https://nexus-backend-dskz.onrender.com)
+- **Documentación de la API (Swagger):** [https://nexus-backend-dskz.onrender.com/docs](https://nexus-backend-dskz.onrender.com/docs)
+- **Código Fuente GitHub:** [https://github.com/riktrella-jpg/nexus_intelligence](https://github.com/riktrella-jpg/nexus_intelligence)
+
+---
+
 ## ⚡ Inicio Rápido Local (Windows)
 
 Ejecuta el script de inicio en la raíz del proyecto:
@@ -19,16 +29,6 @@ Esto levantará automáticamente el **Backend FastAPI** en `http://127.0.0.1:800
 
 ---
 
-## 🚀 Despliegue en Servidor y Producción (Vercel / VPS / Cloud)
+## 🚀 Despliegue y Arquitectura en Servidor
 
-Para desplegar la plataforma con acceso público a internet, dominio propio (`nexus.tuempresa.com`) y certificado seguro SSL/HTTPS:
-
-👉 **Consulta la guía paso a paso:** [`docs/GUIA_DESPLIEGUE_SERVIDOR.md`](docs/GUIA_DESPLIEGUE_SERVIDOR.md)
-
-### Resumen de Opciones:
-1. **Frontend en Vercel + Backend en Railway o Render (Recomendado):**
-   - El frontend Next.js se conecta a Vercel con un par de clics y SSL automático.
-   - El backend FastAPI se aloja con disco persistente para DuckDB/Parquet en Railway o Render.
-2. **Servidor Propio VPS (Docker Compose + Nginx):**
-   - Ejecuta `docker compose up -d` en tu servidor Ubuntu/Debian.
-   - Configura Nginx con el archivo [`nginx.conf`](nginx.conf) y Certbot para HTTPS.
+👉 **Consulta la guía detallada:** [`docs/GUIA_DESPLIEGUE_SERVIDOR.md`](docs/GUIA_DESPLIEGUE_SERVIDOR.md)
