@@ -6,11 +6,11 @@ const txt = { color: "#667588", fontFamily: "Inter, Segoe UI, sans-serif", fontS
 const tooltipBase = { backgroundColor: "#101c2e", borderWidth: 0, textStyle: { color: "#fff", fontSize: 12 }, confine: true };
 
 export type XRow = { keys: string[]; label: string; values: (number | null)[]; rows: number; share?: (number | null)[] };
-export type XCol = { key: string; values: (number | null)[]; rows: number };
+export type XCol = { key: string; keys?: string[]; values: (number | null)[]; rows: number };
 export type XCell = { r: number; c: number; values: (number | null)[]; rows: number };
 export type XResult = {
   metrics: { label: string; additive: boolean; op: string; col?: string }[];
-  row_dims: string[]; col_dim: string | null; rows: XRow[]; row_groups: number; cols: XCol[]; col_groups: number;
+  row_dims: string[]; col_dim: string | null; col_dims?: string[]; rows: XRow[]; row_groups: number; cols: XCol[]; col_groups: number;
   cells: XCell[]; others: { r: number; values: (number | null)[]; rows: number }[];
   grand: { values: (number | null)[]; rows: number }; rows_considered: number;
   concentration: Record<string, number> | null; truncated_rows: boolean; truncated_cols: boolean; ms?: number;

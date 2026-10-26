@@ -15,12 +15,12 @@ import { MetricPicker } from "@/components/KpiGrid";
 import { NoDataset } from "@/components/Notices";
 
 type Cfg = {
-  rows: Dim[]; col: Dim | null; metrics: any[]; topRows: number; topCols: number;
+  rows: Dim[]; cols: Dim[]; col?: Dim | null; metrics: any[]; topRows: number; topCols: number;
   sort: "desc" | "asc" | "label"; sortMetric: number; chart: string; mi: number; mode: "value" | "row" | "col" | "total";
 };
 type Preset = { id: string; name: string; desc: string; cfg: Partial<Cfg> };
 
-const MAX_ROWS = 4, MAX_METRICS = 12;
+const MAX_ROWS = 4, MAX_COLS = 3, MAX_METRICS = 12;
 const GRAINS = [{ v: "month", l: "Mes" }, { v: "quarter", l: "Trimestre" }, { v: "year", l: "Año" }, { v: "day", l: "Día" }];
 
 const colType = (ds: Dataset, col: string) => (col === "_period" ? "category" : ds.columns.find((c) => c.name === col)?.type || "text");
@@ -40,25 +40,29 @@ function presets(ds: Dataset): Preset[] {
   const proc = role("procedure"), cat = role("category"), desc = role("description"), unit = role("admin_unit"), price = role("unit_price");
   const main = amount ? { op: "sum", col: amount } : { op: "count" };
   const out: Preset[] = [];
-  if (date) out.push({ id: "trend", name: "Evolución mensual", desc: "Tendencia en el tiempo con dos indicadores", cfg: { rows: [{ col: date, grain: "month" }], col: null, metrics: amount ? [main, { op: "count" }] : [main], chart: amount ? "combo" : "line" } });
-  if (provider && date) out.push({ id: "prov-month", name: "Proveedores × mes", desc: "Quién concentra el gasto y cuándo", cfg: { rows: [{ col: provider }], col: { col: date, grain: "month" }, metrics: [main, { op: "count" }], chart: "stacked", topRows: 15 } });
-  if (inst && status) out.push({ id: "inst-status", name: "Institución × estatus", desc: "Avance por unidad", cfg: { rows: [{ col: inst }], col: { col: status }, metrics: [{ op: "count" }, ...(amount ? [main] : [])], chart: "stacked100" } });
-  if (proc && provider) out.push({ id: "proc-prov", name: "Procedimiento × proveedor", desc: "Tipo de contratación por proveedor", cfg: { rows: [{ col: provider }], col: { col: proc }, metrics: [main], chart: "heatmap", topRows: 20 } });
-  if (unit && cat) out.push({ id: "unit-cat", name: "Unidad × categoría", desc: "Mezcla de compras por área", cfg: { rows: [{ col: unit }], col: { col: cat }, metrics: [main], chart: "heatmap" } });
-  if (desc && price && provider) out.push({ id: "price", name: "Precio por producto y proveedor", desc: "Dispersión de precios unitarios", cfg: { rows: [{ col: desc }], col: { col: provider }, metrics: [{ op: "avg", col: price }, { op: "count" }], chart: "heatmap", sort: "desc", sortMetric: 1, topRows: 20 } });
-  if (provider) out.push({ id: "pareto", name: "Pareto de proveedores", desc: "Regla 80/20 de concentración", cfg: { rows: [{ col: provider }], col: null, metrics: [main, { op: "count" }], chart: "pareto", topRows: 25 } });
+  if (date) out.push({ id: "trend", name: "Evolución mensual", desc: "Tendencia en el tiempo con dos indicadores", cfg: { rows: [{ col: date, grain: "month" }], cols: [], col: null, metrics: amount ? [main, { op: "count" }] : [main], chart: amount ? "combo" : "line" } });
+  if (provider && date) out.push({ id: "prov-month", name: "Proveedores × mes", desc: "Quién concentra el gasto y cuándo", cfg: { rows: [{ col: provider }], cols: [{ col: date, grain: "month" }], col: { col: date, grain: "month" }, metrics: [main, { op: "count" }], chart: "stacked", topRows: 15 } });
+  if (inst && status) out.push({ id: "inst-status", name: "Institución × estatus", desc: "Avance por unidad", cfg: { rows: [{ col: inst }], cols: [{ col: status }], col: { col: status }, metrics: [{ op: "count" }, ...(amount ? [main] : [])], chart: "stacked100" } });
+  if (proc && provider) out.push({ id: "proc-prov", name: "Procedimiento × proveedor", desc: "Tipo de contratación por proveedor", cfg: { rows: [{ col: provider }], cols: [{ col: proc }], col: { col: proc }, metrics: [main], chart: "heatmap", topRows: 20 } });
+  if (unit && cat) out.push({ id: "unit-cat", name: "Unidad × categoría", desc: "Mezcla de compras por área", cfg: { rows: [{ col: unit }], cols: [{ col: cat }], col: { col: cat }, metrics: [main], chart: "heatmap" } });
+  if (desc && price && provider) out.push({ id: "price", name: "Precio por producto y proveedor", desc: "Dispersión de precios unitarios", cfg: { rows: [{ col: desc }], cols: [{ col: provider }], col: { col: provider }, metrics: [{ op: "avg", col: price }, { op: "count" }], chart: "heatmap", sort: "desc", sortMetric: 1, topRows: 20 } });
+  if (provider) out.push({ id: "pareto", name: "Pareto de proveedores", desc: "Regla 80/20 de concentración", cfg: { rows: [{ col: provider }], cols: [], col: null, metrics: [main, { op: "count" }], chart: "pareto", topRows: 25 } });
   if (!out.length) {
     const cats = ds.columns.filter((c) => c.type === "category" || c.type === "text").map((c) => c.name);
-    if (cats[0]) out.push({ id: "c1", name: `${cats[0]}${cats[1] ? " × " + cats[1] : ""}`, desc: "Cruce de las dos primeras categorías", cfg: { rows: [{ col: cats[0] }], col: cats[1] ? { col: cats[1] } : null, metrics: [{ op: "count" }], chart: cats[1] ? "stacked" : "bar" } });
+    if (cats[0]) out.push({ id: "c1", name: `${cats[0]}${cats[1] ? " × " + cats[1] : ""}`, desc: "Cruce de las dos primeras categorías", cfg: { rows: [{ col: cats[0] }], cols: cats[1] ? [{ col: cats[1] }] : [], col: cats[1] ? { col: cats[1] } : null, metrics: [{ op: "count" }], chart: cats[1] ? "stacked" : "bar" } });
   }
   return out;
 }
 
 function baseCfg(ds: Dataset): Cfg {
   const first = ds.columns.find((c) => c.type === "category")?.name || ds.columns.find((c) => c.type !== "empty")?.name || "";
-  const b: Cfg = { rows: first ? [mkDim(ds, first)] : [], col: null, metrics: [{ op: "count" }], topRows: 25, topCols: 10, sort: "desc", sortMetric: 0, chart: "bar", mi: 0, mode: "value" };
+  const b: Cfg = { rows: first ? [mkDim(ds, first)] : [], cols: [], col: null, metrics: [{ op: "count" }], topRows: 25, topCols: 10, sort: "desc", sortMetric: 0, chart: "bar", mi: 0, mode: "value" };
   const p = presets(ds)[0];
-  return p ? { ...b, ...p.cfg } : b;
+  if (p) {
+    const pCols = p.cfg.cols || (p.cfg.col ? [p.cfg.col] : []);
+    return { ...b, ...p.cfg, cols: pCols, col: pCols[0] || null };
+  }
+  return b;
 }
 
 function DimSelect({ ds, value, onChange, exclude, allowNone, id }: { ds: Dataset; value: Dim | null; onChange: (d: Dim | null) => void; exclude: string[]; allowNone?: boolean; id: string }) {
@@ -101,14 +105,23 @@ export default function CrossPage() {
   useEffect(() => {
     if (!active) return;
     let c: Cfg | null = null;
-    try { const raw = localStorage.getItem("nexus.cross." + active.id); if (raw) c = { ...baseCfg(active), ...JSON.parse(raw) }; } catch { /* noop */ }
-    const valid = (x: Cfg) => x.rows.every((d) => d.col === "_period" || active.columns.some((cc) => cc.name === d.col));
+    try {
+      const raw = localStorage.getItem("nexus.cross." + active.id);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        const parsedCols = parsed.cols || (parsed.col ? [parsed.col] : []);
+        c = { ...baseCfg(active), ...parsed, cols: parsedCols, col: parsedCols[0] || null };
+      }
+    } catch { /* noop */ }
+    const valid = (x: Cfg) =>
+      x.rows.every((d) => d.col === "_period" || active.columns.some((cc) => cc.name === d.col)) &&
+      (x.cols || []).every((d) => d.col === "_period" || active.columns.some((cc) => cc.name === d.col));
     setCfg(c && valid(c) ? c : baseCfg(active));
     setRes(null);
     api(`/api/datasets/${active.id}/views?kind=cross`).then(setSaved).catch(() => setSaved([]));
   }, [active?.id]); // eslint-disable-line
 
-  const queryKey = cfg ? JSON.stringify([cfg.rows, cfg.col, cfg.metrics, cfg.topRows, cfg.topCols, cfg.sort, cfg.sortMetric]) : "";
+  const queryKey = cfg ? JSON.stringify([cfg.rows, cfg.cols, cfg.metrics, cfg.topRows, cfg.topCols, cfg.sort, cfg.sortMetric]) : "";
   useEffect(() => {
     if (!active || !cfg || !cfg.rows.length) return;
     localStorage.setItem("nexus.cross." + active.id, JSON.stringify(cfg));
@@ -118,7 +131,7 @@ export default function CrossPage() {
     const t = setTimeout(() => {
       setLoading(true);
       track(api<XResult>(`/api/datasets/${active.id}/crosstab`, {
-        body: { metrics: cfg.metrics, rows: cfg.rows, col: cfg.col, filters: apiFilter, top_rows: cfg.topRows, top_cols: cfg.topCols,
+        body: { metrics: cfg.metrics, rows: cfg.rows, cols: cfg.cols, col: cfg.cols[0] || null, filters: apiFilter, top_rows: cfg.topRows, top_cols: cfg.topCols,
           sort: cfg.sort === "label" ? "desc" : cfg.sort, sort_by_label: cfg.sort === "label", sort_metric: cfg.sortMetric },
       })).then((r) => { if (my === reqId.current) { setRes(r); setResCfg(cfg); setErr(null); } })
         .catch((e) => my === reqId.current && setErr(e.message))
@@ -139,7 +152,7 @@ export default function CrossPage() {
   if (!cfg) return null;
 
   const set = (p: Partial<Cfg>) => setCfg({ ...cfg, ...p });
-  const usedDims = [...cfg.rows.map((d) => d.col), ...(cfg.col ? [cfg.col.col] : [])];
+  const usedDims = [...cfg.rows.map((d) => d.col), ...(cfg.cols || []).map((d) => d.col)];
   const allPresets = presets(active);
   const additive = res ? res.metrics[mi]?.additive : false;
   const mode = additive ? cfg.mode : "value";
@@ -149,7 +162,20 @@ export default function CrossPage() {
     if (!res || !resCfg) return [];
     const r = res.rows[ri];
     const cs = r.keys.map((k, i) => keyToCond(active, resCfg.rows[i], String(k))).filter(Boolean) as Cond[];
-    if (colKey !== undefined && resCfg.col) { const c = keyToCond(active, resCfg.col, String(colKey)); if (c) cs.push(c); }
+    if (colKey !== undefined && resCfg.cols?.length) {
+      const colObj = res.cols.find((c) => c.key === colKey);
+      if (colObj?.keys) {
+        colObj.keys.forEach((val, j) => {
+          if (resCfg.cols[j]) {
+            const c = keyToCond(active, resCfg.cols[j], String(val));
+            if (c) cs.push(c);
+          }
+        });
+      } else if (resCfg.cols[0]) {
+        const c = keyToCond(active, resCfg.cols[0], String(colKey));
+        if (c) cs.push(c);
+      }
+    }
     return cs;
   };
   const openDrill = (ri: number, colKey?: string) => {
@@ -177,16 +203,23 @@ export default function CrossPage() {
     const blob = new Blob([crossToCsv(res, mi)], { type: "text/csv;charset=utf-8" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
-    a.download = `${active.name}_cruce_${res.row_dims.join("_")}${res.col_dim ? "_x_" + res.col_dim : ""}.csv`;
+    a.download = `${active.name}_cruce_${res.row_dims.join("_")}${res.col_dim ? "_x_" + res.col_dim.replace(/\s*×\s*/g, "_") : ""}.csv`;
     a.click(); URL.revokeObjectURL(a.href);
   };
   const saveAnalysis = async () => {
-    const name = prompt("Nombre del análisis", `${cfg.rows.map(dimLabel).join(" × ")}${cfg.col ? " × " + dimLabel(cfg.col) : ""}`);
+    const colStr = (cfg.cols || []).map(dimLabel).join(" × ");
+    const name = prompt("Nombre del análisis", `${cfg.rows.map(dimLabel).join(" × ")}${colStr ? " × " + colStr : ""}`);
     if (!name?.trim()) return;
     const v = await api(`/api/datasets/${active.id}/views`, { body: { name: name.trim(), kind: "cross", payload: { cfg, filters: applied } } });
     setSaved([v, ...saved]); toast("Análisis guardado");
   };
-  const loadSaved = (v: any) => { setCfg({ ...baseCfg(active), ...v.payload.cfg }); if (v.payload.filters) applyFilters(v.payload.filters); toast(`Análisis «${v.name}» cargado con sus filtros`); };
+  const loadSaved = (v: any) => {
+    const pCfg = v.payload.cfg;
+    const pCols = pCfg.cols || (pCfg.col ? [pCfg.col] : []);
+    setCfg({ ...baseCfg(active), ...pCfg, cols: pCols, col: pCols[0] || null });
+    if (v.payload.filters) applyFilters(v.payload.filters);
+    toast(`Análisis «${v.name}» cargado con sus filtros`);
+  };
 
   return (
     <>
@@ -207,7 +240,10 @@ export default function CrossPage() {
       <div className="preset-bar" aria-label="Análisis sugeridos">
         <span className="small muted"><Lightbulb size={13} /> Sugeridos:</span>
         {allPresets.map((p) => (
-          <button key={p.id} className="preset" title={p.desc} id={"preset-" + p.id} onClick={() => setCfg({ ...baseCfg(active), ...p.cfg, mi: 0, mode: "value" })}>
+          <button key={p.id} className="preset" title={p.desc} id={"preset-" + p.id} onClick={() => {
+            const pCols = p.cfg.cols || (p.cfg.col ? [p.cfg.col] : []);
+            setCfg({ ...baseCfg(active), ...p.cfg, cols: pCols, col: pCols[0] || null, mi: 0, mode: "value" });
+          }}>
             <b>{p.name}</b><span>{p.desc}</span>
           </button>
         ))}
@@ -243,9 +279,80 @@ export default function CrossPage() {
           <section>
             <div className="row" style={{ justifyContent: "space-between" }}>
               <h3><Grid3x3 size={14} /> Columnas · cruzar con</h3>
-              {cfg.col && <button className="btn icon ghost sm" title="Intercambiar filas y columnas" id="cross-swap" onClick={() => set({ rows: [cfg.col!, ...cfg.rows.slice(1)], col: cfg.rows[0] })}><ArrowLeftRight size={14} /></button>}
+              {cfg.cols?.length > 0 && (
+                <button
+                  className="btn icon ghost sm"
+                  title="Intercambiar filas y columnas"
+                  id="cross-swap"
+                  onClick={() => set({ rows: cfg.cols, cols: cfg.rows, col: cfg.rows[0] || null })}
+                >
+                  <ArrowLeftRight size={14} />
+                </button>
+              )}
             </div>
-            <DimSelect ds={active} id="cross-col" value={cfg.col} allowNone exclude={usedDims} onChange={(d) => set({ col: d })} />
+
+            <div className="stack" style={{ gap: 6 }}>
+              {(!cfg.cols || cfg.cols.length === 0) ? (
+                <div className="row dim-row">
+                  <DimSelect
+                    ds={active}
+                    id="cross-col-0"
+                    value={null}
+                    allowNone
+                    exclude={usedDims}
+                    onChange={(d) => {
+                      if (d) set({ cols: [d], col: d });
+                    }}
+                  />
+                </div>
+              ) : (
+                cfg.cols.map((d, i) => (
+                  <div className="row dim-row" key={i}>
+                    <span className="lvl">{i + 1}</span>
+                    <DimSelect
+                      ds={active}
+                      id={`cross-col-${i}`}
+                      value={d}
+                      exclude={usedDims}
+                      onChange={(nd) => {
+                        if (nd) {
+                          const nCols = cfg.cols.map((x, j) => (j === i ? nd : x));
+                          set({ cols: nCols, col: nCols[0] || null });
+                        }
+                      }}
+                    />
+                    <button
+                      className="btn icon ghost sm"
+                      aria-label="Quitar columna"
+                      title="Quitar columna"
+                      onClick={() => {
+                        const nCols = cfg.cols.filter((_, j) => j !== i);
+                        set({ cols: nCols, col: nCols[0] || null });
+                      }}
+                    >
+                      <Trash2 size={14} />
+                    </button>
+                  </div>
+                ))
+              )}
+            </div>
+
+            {(!cfg.cols || cfg.cols.length < MAX_COLS) && (
+              <button
+                className="btn sm ghost add-btn"
+                id="cross-add-col"
+                onClick={() => {
+                  const c = active.columns.find((x) => x.type !== "empty" && !usedDims.includes(x.name));
+                  if (c) {
+                    const nCols = [...(cfg.cols || []), mkDim(active, c.name)];
+                    set({ cols: nCols, col: nCols[0] || null });
+                  }
+                }}
+              >
+                <Plus size={13} />
+                {(!cfg.cols || cfg.cols.length === 0) ? "Agregar columna (cruzar con)" : "Agregar nivel de columna"}
+              </button>
+            )}
           </section>
 
           <section>
@@ -280,7 +387,7 @@ export default function CrossPage() {
                 <select className="select" value={cfg.topRows} onChange={(e) => set({ topRows: +e.target.value })}>{[10, 15, 25, 50, 100, 250, 500].map((n) => <option key={n} value={n}>Top {n}</option>)}</select>
               </label>
               <label className="field">Columnas a mostrar
-                <select className="select" value={cfg.topCols} disabled={!cfg.col} onChange={(e) => set({ topCols: +e.target.value })}>{[5, 8, 10, 15, 25, 40].map((n) => <option key={n} value={n}>Top {n}</option>)}</select>
+                <select className="select" value={cfg.topCols} disabled={!cfg.cols || cfg.cols.length === 0} onChange={(e) => set({ topCols: +e.target.value })}>{[5, 8, 10, 15, 25, 40].map((n) => <option key={n} value={n}>Top {n}</option>)}</select>
               </label>
             </div>
             <p className="muted small" style={{ marginTop: 8 }}>Las columnas que no entran en el Top se suman en «Otros» (solo para sumas y conteos), por lo que los totales siempre cuadran.</p>
@@ -309,7 +416,7 @@ export default function CrossPage() {
           <section className={"card chart-card cross-chart" + (full ? " full" : "")} aria-label="Gráfica del cruce">
             <div className="card-head">
               <div style={{ minWidth: 0 }}>
-                <h2>{res ? `${res.metrics[mi]?.label} por ${resCfg?.rows.map(dimLabel).join(" × ")}${resCfg?.col ? " y " + dimLabel(resCfg.col) : ""}` : "Gráfica"}</h2>
+                <h2>{res ? `${res.metrics[mi]?.label} por ${resCfg?.rows.map(dimLabel).join(" × ")}${resCfg?.cols?.length ? " y " + resCfg.cols.map(dimLabel).join(" × ") : resCfg?.col ? " y " + dimLabel(resCfg.col) : ""}` : "Gráfica"}</h2>
                 <div className="muted small">Clic en una barra, punto o celda para ver los registros que la componen.{res?.ms != null ? ` · ${res.ms} ms` : ""}</div>
               </div>
               <div className="row" style={{ gap: 6 }}>

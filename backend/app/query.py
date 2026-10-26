@@ -277,17 +277,25 @@ def pivot(ctx: Ctx, metric: dict, rows: list[dict], cols: list[dict], filt: dict
             "grand_total": _json_val(g[0]), "rows_considered": g[1], "metric": metric_label(metric), "additive": is_additive(metric)}
 
 
-def crosstab(ctx: Ctx, metrics: list[dict], rows: list[dict], col: dict | None, filt: dict | None, search: str | None = None,
-             top_rows: int = 50, top_cols: int = 12, sort: str = "desc", sort_metric: int = 0, sort_by_label: bool = False) -> dict:
-    """Análisis cruzado: varias dimensiones en filas × una dimensión en columnas × varios indicadores.
+def crosstab(ctx: Ctx, metrics: list[dict], rows: list[dict], col: dict | list[dict] | None = None, filt: dict | None = None, search: str | None = None,
+             top_rows: int = 50, top_cols: int = 12, sort: str = "desc", sort_metric: int = 0, sort_by_label: bool = False,
+             cols: list[dict] | None = None) -> dict:
+    """Análisis cruzado: varias dimensiones en filas × una o más dimensiones en columnas × varios indicadores.
 
     Todo se agrega en DuckDB. Se limita a las Top-N filas/columnas según el indicador elegido; para indicadores
     aditivos (sumas, conteos) el resto de columnas se resume en «Otros» para que los totales cuadren.
     """
+    col_list = []
+    if cols is not None:
+        col_list = cols if isinstance(cols, list) else ([cols] if cols else [])
+    elif col is not None:
+        col_list = col if isinstance(col, list) else ([col] if col else [])
+    col_list = [d for d in col_list if d and d.get("col")]
+
     if not metrics:
         raise QueryError("Seleccione al menos un indicador.")
-    if len(metrics) > 12 or len(rows) > 6:
-        raise QueryError("Máximo 12 indicadores y 6 dimensiones en filas.")
+    if len(metrics) > 12 or len(rows) > 6 or len(col_list) > 4:
+        raise QueryError("Máximo 12 indicadores, 6 dimensiones en filas y 4 dimensiones en columnas.")
     if not rows:
         raise QueryError("Seleccione al menos una dimensión para las filas.")
     top_rows = max(1, min(int(top_rows or 50), 1000))
@@ -297,9 +305,18 @@ def crosstab(ctx: Ctx, metrics: list[dict], rows: list[dict], col: dict | None, 
     w, p = where(ctx, filt, search)
     msqls = [metric_sql(ctx, m) for m in metrics]
     rdims = [_dim_sql(ctx, d) for d in rows]
-    cdim = _dim_sql(ctx, col) if col else None
     rnames = [f"__r{i}" for i in range(len(rdims))]
-    sel = ", ".join(f"{e} AS {n}" for e, n in zip(rdims, rnames)) + (f", {cdim} AS __c0" if cdim else "")
+
+    if col_list:
+        cdims = [_dim_sql(ctx, d) for d in col_list]
+        cdim = " || ' · ' || ".join(cdims)
+        cnames = [f"__c_{j}" for j in range(len(cdims))]
+        csel = ", ".join(f"{e} AS {n}" for e, n in zip(cdims, cnames))
+        sel = ", ".join(f"{e} AS {n}" for e, n in zip(rdims, rnames)) + f", {cdim} AS __c0, {csel}"
+    else:
+        cdims, cdim, cnames = [], None, []
+        sel = ", ".join(f"{e} AS {n}" for e, n in zip(rdims, rnames))
+
     ctx.con.execute(f"CREATE OR REPLACE TEMP TABLE f AS SELECT *, {sel} FROM d WHERE {w}", p)
     mcols = ", ".join(f"{s} AS __m{i}" for i, s in enumerate(msqls))
     nm = len(msqls)
@@ -323,11 +340,18 @@ def crosstab(ctx: Ctx, metrics: list[dict], rows: list[dict], col: dict | None, 
 
     out_cols, cells, others, col_groups = [], [], [], 0
     if cdim:
-        c_is_time = ctx.cols[col["col"]] == "date"
+        c_is_time = ctx.cols[col_list[0]["col"]] == "date" and len(col_list) == 1
         c_order = "__c0" if c_is_time else f"__m{sort_metric} DESC NULLS LAST, __c0"
         col_groups = ctx.run("SELECT COUNT(DISTINCT __c0) FROM f")[0][0]
-        cres = ctx.run(f"SELECT __c0, {mcols}, COUNT(*) FROM f GROUP BY __c0 ORDER BY {c_order} LIMIT {top_cols}")
-        out_cols = [{"key": r[0], "values": vals(r, 1), "rows": r[-1]} for r in cres]
+        c_grp = ", ".join(["__c0"] + cnames)
+        cres = ctx.run(f"SELECT __c0, {', '.join(cnames)}, {mcols}, COUNT(*) FROM f GROUP BY {c_grp} ORDER BY {c_order} LIMIT {top_cols}")
+        nc = len(cnames)
+        out_cols = [{
+            "key": str(r[0]),
+            "keys": [str(x) for x in r[1: 1 + nc]],
+            "values": vals(r, 1 + nc),
+            "rows": r[-1]
+        } for r in cres]
         ctx.con.execute(f"CREATE OR REPLACE TEMP TABLE tc AS SELECT __c0, {msqls[sort_metric]} AS __m{sort_metric} FROM f "
                         f"GROUP BY __c0 ORDER BY {c_order} LIMIT {top_cols}")
         ridx = {tuple(r["keys"]): i for i, r in enumerate(out_rows)}
@@ -368,7 +392,9 @@ def crosstab(ctx: Ctx, metrics: list[dict], rows: list[dict], col: dict | None, 
                 conc[f"top{i}"] = acc_v / grand["values"][k0]
     return {
         "metrics": [{"label": metric_label(m), "additive": a, "op": m.get("op"), "col": m.get("col")} for m, a in zip(metrics, additive)],
-        "row_dims": [d["col"] for d in rows], "col_dim": col["col"] if col else None,
+        "row_dims": [d["col"] for d in rows],
+        "col_dim": (" × ".join(d["col"] for d in col_list)) if col_list else None,
+        "col_dims": [d["col"] for d in col_list],
         "rows": out_rows, "row_groups": row_groups, "cols": out_cols, "col_groups": col_groups,
         "cells": cells, "others": others, "grand": grand, "rows_considered": grand["rows"], "concentration": conc,
         "truncated_rows": row_groups > len(out_rows), "truncated_cols": col_groups > len(out_cols),

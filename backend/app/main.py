@@ -211,11 +211,19 @@ def pivot(dataset_id: str, body: dict = Body(...)):
 
 @app.post("/api/datasets/{dataset_id}/crosstab")
 def crosstab(dataset_id: str, body: dict = Body(...)):
-    """Análisis cruzado multi-columna: dimensiones en filas × columna opcional × varios indicadores."""
+    """Análisis cruzado multi-columna: dimensiones en filas × columnas opcionales × varios indicadores."""
     ctx = _ctx(dataset_id)
     t0 = time.time()
     try:
-        res = Q.crosstab(ctx, body.get("metrics") or [{"op": "count"}], body.get("rows") or [], body.get("col"),
+        raw_cols = body.get("cols")
+        raw_col = body.get("col")
+        if raw_cols is not None:
+            col_list = raw_cols if isinstance(raw_cols, list) else ([raw_cols] if raw_cols else [])
+        elif raw_col:
+            col_list = [raw_col]
+        else:
+            col_list = []
+        res = Q.crosstab(ctx, body.get("metrics") or [{"op": "count"}], body.get("rows") or [], col_list,
                          body.get("filters"), body.get("search"), body.get("top_rows", 50), body.get("top_cols", 12),
                          body.get("sort", "desc"), int(body.get("sort_metric", 0) or 0), bool(body.get("sort_by_label")))
         res["ms"] = round((time.time() - t0) * 1000, 1)

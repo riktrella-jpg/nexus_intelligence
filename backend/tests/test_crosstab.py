@@ -74,3 +74,23 @@ def test_crosstab_supports_eight_or_more_metrics(client):
     assert len(d["grand"]["values"]) == 8
     if d["rows"]:
         assert len(d["rows"][0]["values"]) == 8
+
+
+def test_crosstab_supports_multiple_column_dimensions(client):
+    ds = _seed(client)
+    cats = _cols(ds, "category") + _cols(ds, "text")
+    assert len(cats) >= 2
+    body = {
+        "metrics": [{"op": "count"}],
+        "rows": [{"col": cats[0]}],
+        "cols": [{"col": cats[1]}, {"col": cats[0]}],
+        "top_rows": 10,
+        "top_cols": 6,
+    }
+    r = client.post(f"/api/datasets/{ds['id']}/crosstab", json=body)
+    assert r.status_code == 200, r.text
+    d = r.json()
+    assert d["col_dim"] is not None
+    assert len(d["col_dims"]) == 2
+    if d["cols"]:
+        assert len(d["cols"][0]["keys"]) == 2
