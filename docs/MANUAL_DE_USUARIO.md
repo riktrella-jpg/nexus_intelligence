@@ -129,8 +129,8 @@ Panel de control visual de alta dirección con filtrado dinámico en tiempo real
 ### 4.4. Módulo de Análisis Cruzado Multidimensional (`/cross`)
 Herramienta de análisis exploratorio para correlacionar variables complejas:
 
-* **Matriz Pivot 2D:** Permite cruzar hasta 3 dimensiones en filas contra 1 dimensión en columnas (ejemplo: *Proveedor* en filas vs *Mes de entrega* en columnas).
-* **Múltiples Métricas Simultáneas:** Visualice a la vez el Monto Total y la Cantidad de Entregas.
+* **Matriz Pivot 2D:** Permite cruzar hasta 4 dimensiones en filas contra 1 dimensión en columnas (ejemplo: *Institución + Procedimiento + Proveedor* en filas vs *Mes de entrega* en columnas).
+* **Múltiples Métricas Simultáneas (hasta 12 indicadores):** Compare al mismo tiempo registros, conteos únicos de proveedores y contratos, montos comprometidos/ejercidos, y cantidades físicas contratadas, solicitadas y entregadas en una sola tabla consolidada con totales generales automáticos.
 * **Vistas Gráficas Avanzadas:**
   * Barras apiladas al 100% para evaluar participación porcentual.
   * Mapas de calor (*Heatmap*) para detectar picos atípicos de gasto o concentración temporal.

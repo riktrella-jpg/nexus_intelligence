@@ -249,7 +249,7 @@ dl.kv dt { color: var(--muted); } dl.kv dd { margin: 0; word-break: break-word; 
 
 .cross-layout { display: grid; grid-template-columns: 360px 1fr; gap: 18px; align-items: start; }
 @media (max-width: 1200px) { .cross-layout { grid-template-columns: 1fr; } }
-.cfg { padding: 18px; display: flex; flex-direction: column; gap: 18px; position: sticky; top: 120px; }
+.cfg { padding: 18px; display: flex; flex-direction: column; gap: 18px; position: sticky; top: 120px; max-height: calc(100vh - 140px); overflow-y: auto; }
 .cfg section { display: flex; flex-direction: column; gap: 10px; border-bottom: 1px solid var(--line); padding-bottom: 16px; }
 .cfg section:last-child { border-bottom: 0; padding-bottom: 0; }
 .cfg h3 { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--deep); font-weight: 650; text-transform: uppercase; letter-spacing: .04em; }

@@ -51,3 +51,26 @@ def test_crosstab_rejects_unknown_column(client):
     ds = _seed(client)
     r = client.post(f"/api/datasets/{ds['id']}/crosstab", json={"metrics": [{"op": "count"}], "rows": [{"col": "no_existe"}]})
     assert r.status_code == 400
+
+
+def test_crosstab_supports_eight_or_more_metrics(client):
+    ds = _seed(client)
+    cats = _cols(ds, "category") + _cols(ds, "text")
+    nums = _cols(ds, "number")
+    # Construir 8 indicadores simultáneos
+    metrics = [
+        {"op": "count"},
+        {"op": "count_distinct", "col": cats[0]},
+        {"op": "count_distinct", "col": cats[1] if len(cats) > 1 else cats[0]},
+    ]
+    for n in (nums * 3)[:5]:
+        metrics.append({"op": "sum", "col": n})
+    assert len(metrics) == 8
+    body = {"metrics": metrics, "rows": [{"col": cats[0]}], "top_rows": 20}
+    r = client.post(f"/api/datasets/{ds['id']}/crosstab", json=body)
+    assert r.status_code == 200, r.text
+    d = r.json()
+    assert len(d["metrics"]) == 8
+    assert len(d["grand"]["values"]) == 8
+    if d["rows"]:
+        assert len(d["rows"][0]["values"]) == 8

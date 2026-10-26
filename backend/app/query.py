@@ -286,8 +286,8 @@ def crosstab(ctx: Ctx, metrics: list[dict], rows: list[dict], col: dict | None, 
     """
     if not metrics:
         raise QueryError("Seleccione al menos un indicador.")
-    if len(metrics) > 6 or len(rows) > 4:
-        raise QueryError("Máximo 6 indicadores y 4 dimensiones en filas.")
+    if len(metrics) > 12 or len(rows) > 6:
+        raise QueryError("Máximo 12 indicadores y 6 dimensiones en filas.")
     if not rows:
         raise QueryError("Seleccione al menos una dimensión para las filas.")
     top_rows = max(1, min(int(top_rows or 50), 1000))

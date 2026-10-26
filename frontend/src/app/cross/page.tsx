@@ -20,7 +20,7 @@ type Cfg = {
 };
 type Preset = { id: string; name: string; desc: string; cfg: Partial<Cfg> };
 
-const MAX_ROWS = 3, MAX_METRICS = 4;
+const MAX_ROWS = 4, MAX_METRICS = 12;
 const GRAINS = [{ v: "month", l: "Mes" }, { v: "quarter", l: "Trimestre" }, { v: "year", l: "Año" }, { v: "day", l: "Día" }];
 
 const colType = (ds: Dataset, col: string) => (col === "_period" ? "category" : ds.columns.find((c) => c.name === col)?.type || "text");
