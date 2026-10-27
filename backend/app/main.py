@@ -10,7 +10,7 @@ from fastapi import Body, FastAPI, File, HTTPException, Query, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 
-from . import db, kpis, query as Q, store, risks as R, ai as AI, reports as REP
+from . import db, kpis, query as Q, store, risks as R, ai as AI, reports as REP, reconciliation as REC
 from .config import AI_PROVIDER_KEY, CORS_ORIGINS, CORS_ORIGIN_REGEX, ensure_dirs
 from .ingest import ROLE_LABELS
 
@@ -469,6 +469,126 @@ def seed_demo_data():
 
     db.audit("demo_seed", {"dataset_id": res["dataset_id"], "name": "Contrataciones Médicas y Suministros Hospitalarios 2026"})
     return res
+
+
+# ------------------------------------------------------------------ módulo V: conciliación de montos contratados (motor V2)
+@app.get("/api/reconciliation/summary")
+def reconciliation_summary(
+    institucion: str | None = None,
+    proveedor: str | None = None,
+    contrato: str | None = None,
+    estado: str | None = None,
+    search: str | None = None,
+):
+    filters = {k: v for k, v in {"institucion": institucion, "proveedor": proveedor, "contrato": contrato, "estado": estado, "search": search}.items() if v}
+    return REC.get_summary(filters)
+
+
+@app.get("/api/reconciliation/contracts")
+def reconciliation_contracts(
+    institucion: str | None = None,
+    proveedor: str | None = None,
+    contrato: str | None = None,
+    estado: str | None = None,
+    search: str | None = None,
+    page: int = 1,
+    page_size: int = 50,
+    sort_by: str = "monto_inferido",
+    sort_dir: str = "desc",
+):
+    filters = {k: v for k, v in {"institucion": institucion, "proveedor": proveedor, "contrato": contrato, "estado": estado, "search": search}.items() if v}
+    return REC.get_contracts(filters, page, page_size, sort_by, sort_dir)
+
+
+@app.get("/api/reconciliation/items")
+def reconciliation_items(
+    clave_medicamento: str | None = None,
+    estado: str | None = None,
+    search: str | None = None,
+    grupo_contrato: str | None = None,
+    page: int = 1,
+    page_size: int = 50,
+    sort_by: str = "monto_inferido",
+    sort_dir: str = "desc",
+):
+    filters = {k: v for k, v in {"clave_medicamento": clave_medicamento, "estado": estado, "search": search, "grupo_contrato": grupo_contrato}.items() if v}
+    return REC.get_items(filters, page, page_size, sort_by, sort_dir)
+
+
+@app.get("/api/reconciliation/details")
+def reconciliation_details(
+    institucion: str | None = None,
+    proveedor: str | None = None,
+    contrato: str | None = None,
+    clave_medicamento: str | None = None,
+    estado: str | None = None,
+    search: str | None = None,
+    page: int = 1,
+    page_size: int = 50,
+    sort_by: str = "fila_excel",
+    sort_dir: str = "asc",
+):
+    filters = {k: v for k, v in {"institucion": institucion, "proveedor": proveedor, "contrato": contrato, "clave_medicamento": clave_medicamento, "estado": estado, "search": search}.items() if v}
+    return REC.get_details(filters, page, page_size, sort_by, sort_dir)
+
+
+@app.get("/api/reconciliation/filters")
+def reconciliation_filter_options():
+    return REC.get_filter_options()
+
+
+@app.get("/api/reconciliation/export")
+def reconciliation_export(
+    view_type: str = "contratos",
+    institucion: str | None = None,
+    proveedor: str | None = None,
+    contrato: str | None = None,
+    clave_medicamento: str | None = None,
+    estado: str | None = None,
+    search: str | None = None,
+):
+    filters = {k: v for k, v in {"institucion": institucion, "proveedor": proveedor, "contrato": contrato, "clave_medicamento": clave_medicamento, "estado": estado, "search": search}.items() if v}
+    buf = REC.export_csv(view_type, filters)
+    filename = f"conciliacion_{view_type}.csv"
+    return StreamingResponse(
+        buf,
+        media_type="text/csv",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )
+
+
+@app.get("/api/reconciliation/files")
+def reconciliation_files():
+    return REC.list_available_files()
+
+
+@app.post("/api/reconciliation/process")
+def reconciliation_process(body: dict = Body(...)):
+    """Ejecuta el motor V2 sobre un archivo existente o recién cargado."""
+    file_path = body.get("file_path")
+    upload_id = body.get("upload_id")
+    sheet_name = body.get("sheet_name")
+
+    if upload_id:
+        file_path = store.staged_path(upload_id)
+    elif not file_path:
+        available = REC.list_available_files()
+        if available:
+            file_path = available[0]["path"]
+        else:
+            raise HTTPException(400, "No se especificó ningún archivo para conciliar.")
+
+    target_path = Path(file_path)
+    if not target_path.exists():
+        raise HTTPException(404, f"El archivo '{file_path}' no existe en el servidor.")
+
+    try:
+        from .config import RECONCILIATION_DIR
+        report = REC.procesar_archivo(target_path, RECONCILIATION_DIR, sheet_name=sheet_name)
+        return {"status": "ok", "report": report}
+    except Exception as e:
+        raise HTTPException(500, f"Error al procesar el archivo con el motor V2: {e}")
+
 
 
 

@@ -111,3 +111,43 @@ export async function generateReport(datasetId: string, opts: any = {}) {
   return api(`/api/datasets/${datasetId}/reports/generate`, { method: "POST", body: opts });
 }
 
+export function buildQueryString(params: Record<string, any>): string {
+  const q = new URLSearchParams();
+  for (const [k, v] of Object.entries(params)) {
+    if (v !== undefined && v !== null && v !== "" && v !== "Todos") {
+      q.append(k, String(v));
+    }
+  }
+  const s = q.toString();
+  return s ? `?${s}` : "";
+}
+
+export async function getReconciliationSummary(params: Record<string, any> = {}) {
+  return api(`/api/reconciliation/summary${buildQueryString(params)}`);
+}
+
+export async function getReconciliationContracts(params: Record<string, any> = {}) {
+  return api(`/api/reconciliation/contracts${buildQueryString(params)}`);
+}
+
+export async function getReconciliationItems(params: Record<string, any> = {}) {
+  return api(`/api/reconciliation/items${buildQueryString(params)}`);
+}
+
+export async function getReconciliationDetails(params: Record<string, any> = {}) {
+  return api(`/api/reconciliation/details${buildQueryString(params)}`);
+}
+
+export async function getReconciliationFilters() {
+  return api("/api/reconciliation/filters");
+}
+
+export async function getReconciliationFiles() {
+  return api("/api/reconciliation/files");
+}
+
+export async function processReconciliation(body: { file_path?: string; upload_id?: string; sheet_name?: string }) {
+  return api("/api/reconciliation/process", { method: "POST", body });
+}
+
+

@@ -139,7 +139,32 @@ Herramienta de análisis exploratorio para correlacionar variables complejas:
 
 ---
 
-### 4.5. Explorador de Registros y Trazabilidad (`/explorer`)
+### 4.5. Conciliación de Montos Contratados (`/conciliacion`)
+Motor V2 de conciliación cuantitativa y deduplicación por contrato, clave, cantidad y precio:
+
+* **Reglas Reproducibles del Motor V2:**
+  * **Identidad Contractual:** Consolida por institución, unidad responsable, número de contrato y proveedor.
+  * **Firma de Partida:** Deduplica repeticiones exactas (misma clave, importe, cantidad y precio). Solo la primera fila aporta al total computable; las filas duplicadas se excluyen automáticamente sin doble contabilidad.
+  * **Validación Aritmética:** Concilia importes contra cantidad × precio unitario (o compatibilidad con IVA 16%). Partidas no conciliadas o importes atípicos se marcan como pendientes en revisión sin alterar la base original.
+* **Indicadores Ejecutivos Principales:**
+  * **Importe Conciliado Computable:** Suma total de partidas matemáticamente respaldadas.
+  * **Duplicaciones Excluidas:** Conteo de filas dobles identificadas y neutralizadas a $0.00.
+  * **Monto Pendiente / En Revisión:** Casos que requieren aclaración operativa o documental.
+  * **Contratos Consolidados:** Clasificación en Completos, Parciales con pendientes y Pendientes totales.
+* **Filtros Horizontales Dinámicos:**
+  * Filtrado simultáneo por Institución, Proveedor, Contrato, Clave de medicamento y Estado.
+* **Vistas de Análisis Especializadas:**
+  * **Contratos:** Resumen contractual con montos conciliados, montos de revisión y estado.
+  * **Partidas Únicas:** Candidatas de partidas con trazabilidad de filas fuente.
+  * **Auditoría Fila por Fila:** Inspección forense con importes declarados, cálculos de IVA y motivo forense.
+* **Ejecución y Carga Integrada:**
+  * Botón para subir nuevos libros de Excel (.xlsx) y procesarlos en tiempo real.
+  * Selector de archivos disponibles en el servidor (layout de suministro, catálogos).
+  * Exportación completa a Microsoft Excel (formato CSV con UTF-8 BOM).
+
+---
+
+### 4.6. Explorador de Registros y Trazabilidad (`/explorer`)
 La vista tabular exhaustiva para inspección a detalle:
 
 * **Buscador Universal en Tiempo Real:** Busca coincidencias instantáneas por cualquier campo (nombre de proveedor, folio de contrato, descripción del insumo).

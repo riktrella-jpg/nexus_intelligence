@@ -8,6 +8,7 @@ UPLOAD_DIR = DATA_DIR / "uploads"
 DATASET_DIR = DATA_DIR / "datasets"
 STAGING_DIR = DATA_DIR / "staging"
 DB_PATH = DATA_DIR / "nexus_meta.sqlite"
+RECONCILIATION_DIR = DATA_DIR / "reconciliation"
 
 ALLOWED_EXTENSIONS = {".xlsx", ".xlsm", ".xlsb", ".csv", ".txt"}
 MAX_UPLOAD_MB = int(os.environ.get("NEXUS_MAX_UPLOAD_MB", "500"))
@@ -25,5 +26,5 @@ AI_PROVIDER_KEY = os.environ.get("NEXUS_AI_API_KEY", "")
 
 
 def ensure_dirs() -> None:
-    for d in (DATA_DIR, UPLOAD_DIR, DATASET_DIR, STAGING_DIR):
+    for d in (DATA_DIR, UPLOAD_DIR, DATASET_DIR, STAGING_DIR, RECONCILIATION_DIR):
         d.mkdir(parents=True, exist_ok=True)

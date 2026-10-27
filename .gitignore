@@ -13,6 +13,11 @@ backend/data/datasets/*
 !backend/data/datasets/.gitkeep
 backend/data/*.sqlite
 backend/data/*.sqlite-journal
+backend/data/reconciliation/*.sqlite
+backend/data/reconciliation/*.sqlite-journal
+motor/resultados_v2/
+*.sqlite
+*.sqlite3
 
 # Node / Next.js
 frontend/node_modules/

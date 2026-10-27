@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { BarChart3, Bell, BookOpen, Brain, ChevronsLeft, ChevronsRight, Database, FileText, Home, LayoutDashboard, Settings, ShieldAlert, Table2 } from "lucide-react";
+import { BarChart3, Bell, BookOpen, Brain, Calculator, ChevronsLeft, ChevronsRight, Database, FileText, Home, LayoutDashboard, Settings, ShieldAlert, Table2 } from "lucide-react";
 import { useApp } from "@/lib/state";
 import { fmtDate } from "@/lib/format";
 
@@ -13,6 +13,7 @@ const NAV: NavItem[] = [
   { href: "/datasets", label: "Bases de datos", icon: Database },
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/cross", label: "Análisis cruzado", icon: BarChart3, tag: "Nuevo" },
+  { href: "/conciliacion", label: "Conciliación de montos contratados", icon: Calculator, tag: "Motor V2" },
   { href: "/explorer", label: "Explorador", icon: Table2 },
   { href: "/risks", label: "Análisis de riesgos", icon: ShieldAlert },
   { href: "/ai", label: "NEXUS AI", icon: Brain },
