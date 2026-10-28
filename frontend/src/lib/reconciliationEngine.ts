@@ -57,6 +57,7 @@ export function parseAndReconcileExcel(arrayBuffer: ArrayBuffer, fileName: strin
   let colContrato = -1;
   let colInst = -1;
   let colUr = -1;
+  let colUnidad = -1;
   let colProv = -1;
   let colClave = -1;
   let colDesc = -1;
@@ -84,6 +85,7 @@ export function parseAndReconcileExcel(arrayBuffer: ArrayBuffer, fileName: strin
       colContrato = findColIndex(rawHeaders, [/n[uú]m.*contrato/i, /no\..*contrato/i, /contrato/i, /pedido/i, /folio/i]);
       colInst = findColIndex(rawHeaders, [/instituci[oó]n/i, /dependencia/i, /siglas/i, /ente/i, /cliente/i]);
       colUr = findColIndex(rawHeaders, [/\bur\b/i, /cve_ur/i, /unidad\s*responsable/i, /area/i]);
+      colUnidad = findColIndex(rawHeaders, [/unidad\s*administrativa/i, /unidad\s*m[eé]dica/i, /destino/i, /almac[eé]n/i, /hospital/i, /cl[ií]nica/i]);
       colProv = findColIndex(rawHeaders, [/proveedor/i, /raz[oó]n\s*social/i, /empresa/i, /licitante/i]);
       colClave = findColIndex(rawHeaders, [/clave/i, /cucop/i, /medicamento/i, /art[ií]culo/i, /c[oó]digo/i, /insumo/i]);
       colDesc = findColIndex(rawHeaders, [/descripci[oó]n/i, /concepto/i, /partida/i, /bien/i]);
@@ -97,15 +99,16 @@ export function parseAndReconcileExcel(arrayBuffer: ArrayBuffer, fileName: strin
   // Si no se detectaron encabezados por nombre, usar layout estándar SSA (40+ cols)
   if (headerRowIdx === -1) {
     headerRowIdx = 1; // Suponer encabezados en fila 1-2
-    colInst = 3;      // Col D
-    colUr = 4;        // Col E
-    colContrato = 7;  // Col H
-    colProv = 10;     // Col K
-    colMonto = 15;    // Col P
-    colClave = 28;    // Col AC
-    colDesc = 29;     // Col AD
-    colCantidad = 35; // Col AJ
-    colPrecio = 36;   // Col AK
+    colInst = 3;      // Col D: Siglas
+    colUr = 4;        // Col E: Cve_UR
+    colUnidad = 5;    // Col F: Unidad Administrativa (o Col AA 26: Unidad Médica Destino)
+    colContrato = 7;  // Col H: No. de contrato
+    colProv = 10;     // Col K: Proveedor
+    colMonto = 15;    // Col P: Monto contratado
+    colClave = 16;    // Col Q: Clave del medicamento (o Col AC 28)
+    colDesc = 17;     // Col R: Descripción (o Col AD 29)
+    colCantidad = 18; // Col S: Cantidad contratada (o Col AJ 35)
+    colPrecio = 19;   // Col T: Precio Unitario (o Col AK 36)
   }
 
   const startRow = headerRowIdx + 1;
@@ -121,11 +124,33 @@ export function parseAndReconcileExcel(arrayBuffer: ArrayBuffer, fileName: strin
     let contrato = norm(colContrato >= 0 ? row[colContrato] : "");
     let prov = norm(colProv >= 0 ? row[colProv] : "PROVEEDOR GENERAL") || "PROVEEDOR GENERAL";
 
-    const clave = norm(colClave >= 0 ? row[colClave] : "");
-    const desc = norm(colDesc >= 0 ? row[colDesc] : "");
+    // Extraer unidad médica o administrativa (vital para CONASAMA y hospitales)
+    let unidad = "";
+    if (colUnidad >= 0 && row[colUnidad]) {
+      unidad = norm(row[colUnidad]);
+    } else if (row[5] || row[26]) {
+      unidad = norm(row[5] || row[26]);
+    }
+
+    // Clave: verificar en colClave o en columnas comunes (Q=16, AC=28)
+    let clave = norm(colClave >= 0 ? row[colClave] : "");
+    if (!clave && row[16]) clave = norm(row[16]);
+    if (!clave && row[28]) clave = norm(row[28]);
+
+    let desc = norm(colDesc >= 0 ? row[colDesc] : "");
+    if (!desc && row[17]) desc = norm(row[17]);
+    if (!desc && row[29]) desc = norm(row[29]);
+
     let monto = num(colMonto >= 0 ? row[colMonto] : null);
+    if (monto === null && row[15] !== undefined) monto = num(row[15]);
+
     let cantidad = num(colCantidad >= 0 ? row[colCantidad] : null);
+    if (cantidad === null && row[18] !== undefined) cantidad = num(row[18]);
+    if (cantidad === null && row[35] !== undefined) cantidad = num(row[35]);
+
     let precio = num(colPrecio >= 0 ? row[colPrecio] : null);
+    if (precio === null && row[19] !== undefined) precio = num(row[19]);
+    if (precio === null && row[36] !== undefined) precio = num(row[36]);
 
     if (!contrato && !prov && monto === null) continue;
 
@@ -153,12 +178,21 @@ export function parseAndReconcileExcel(arrayBuffer: ArrayBuffer, fileName: strin
     }
 
     const gid = `${inst}|${ur}|${contrato}|${prov}`;
-    const partida = clave ? `${gid}|${clave}` : `${gid}|SIN_CLAVE|${desc || "ITEM"}`;
+
+    // Regla especial CONASAMA / Unidades Médicas:
+    // En CONASAMA (y contratos con desglose por hospital o unidad), la misma clave de medicamento
+    // puede tener diferentes cantidades y montos contratados por cada unidad.
+    // Incluir la unidad en la clave de partida evita que se confundan o descarten entre hospitales.
+    const esConasama = inst.includes("CONASAMA");
+    const partida = (esConasama || unidad) && unidad
+      ? `${gid}|${unidad}|${clave || (desc || "ITEM")}`
+      : (clave ? `${gid}|${clave}` : `${gid}|SIN_CLAVE|${desc || "ITEM"}`);
 
     const rec = {
       fila_excel: i + 1,
       institucion: inst,
       ur,
+      unidad,
       contrato,
       proveedor: prov,
       clave,
@@ -207,6 +241,7 @@ export function parseAndReconcileExcel(arrayBuffer: ArrayBuffer, fileName: strin
     let revisionSum = 0;
     let razones: string[] = [];
     let partesTotal = 0;
+    const filasRevision: any[] = [];
 
     for (const [p, rr] of byPart.entries()) {
       // Agrupar por firma exacta Motor V2: partida|monto|cantidad|precio
@@ -248,7 +283,32 @@ export function parseAndReconcileExcel(arrayBuffer: ArrayBuffer, fileName: strin
           pendientes++;
           filasPendientes += fls.length;
           if (r0.monto !== null) revisionSum += r0.monto;
-          razones.push("Partida pendiente de validación aritmética");
+
+          let motivoDetallado = "Importe no conciliado con cantidad × precio";
+          if (r0.monto === null) {
+            motivoDetallado = "Monto en blanco o sin capturar";
+          } else if (r0.cantidad === null || r0.precio === null) {
+            motivoDetallado = "Falta cantidad o precio unitario en la fila";
+          } else if (r0.subtotal !== null && r0.monto !== null) {
+            motivoDetallado = `Monto capturado $${r0.monto.toLocaleString("es-MX", { minimumFractionDigits: 2 })} ≠ Subtotal $${r0.subtotal.toLocaleString("es-MX", { minimumFractionDigits: 2 })} (${r0.cantidad} pzas × $${r0.precio})`;
+          }
+          razones.push(motivoDetallado);
+
+          for (const item of fls) {
+            filasRevision.push({
+              fila_excel: item.fila_excel,
+              unidad: item.unidad || item.institucion || "N/A",
+              clave: item.clave || "SIN_CLAVE",
+              descripcion: item.descripcion || "",
+              cantidad: item.cantidad,
+              precio_unitario: item.precio,
+              subtotal_calculado: item.subtotal,
+              monto_declarado: item.monto,
+              monto_revision: item.monto || 0,
+              evaluacion_iva: item.iva,
+              motivo: motivoDetallado,
+            });
+          }
         }
       }
     }
@@ -283,6 +343,7 @@ export function parseAndReconcileExcel(arrayBuffer: ArrayBuffer, fileName: strin
       pendientes: String(pendientes),
       estado,
       razon: razones.length > 0 ? "Hay partidas con importes pendientes de revisión" : "Claves y firmas de partidas conciliadas aritméticamente",
+      filas_revision: filasRevision,
     });
   }
 

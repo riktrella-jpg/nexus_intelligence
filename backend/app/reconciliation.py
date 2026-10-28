@@ -31,6 +31,7 @@ FIELDS = {
     "tipo": "A",
     "institucion": "D",
     "ur": "E",
+    "unidad_admin": "F",
     "contrato": "H",
     "firma": "I",
     "proveedor": "K",
@@ -38,6 +39,7 @@ FIELDS = {
     "clase_contrato_excel": "Q",
     "clase_clave_excel": "R",
     "consolidado_excel": "S",
+    "unidad_destino": "AA",
     "clave": "AC",
     "descripcion": "AD",
     "cantidad": "AJ",
@@ -319,9 +321,13 @@ def procesar_archivo(archivo: Path | str, salida_dir: Path | str, sheet_name: st
     for row in xlsx_rows(archivo, sheet_name):
         identidad = tuple(norm(row[x]) for x in ("institucion", "ur", "contrato", "proveedor"))
         gid = "|".join(identidad)
+        unidad = norm(row.get("unidad_admin") or row.get("unidad_destino") or "")
         clave = norm(row["clave"])
         desc = norm(row["descripcion"])
-        partida = gid + "|" + clave if clave else gid + "|SIN_CLAVE|" + desc
+        if ("CONASAMA" in identidad[0] or unidad) and unidad:
+            partida = f"{gid}|{unidad}|{clave}" if clave else f"{gid}|{unidad}|SIN_CLAVE|{desc}"
+        else:
+            partida = gid + "|" + clave if clave else gid + "|SIN_CLAVE|" + desc
         monto = num(row["monto"])
         cantidad = num(row["cantidad"])
         precio = num(row["precio"])

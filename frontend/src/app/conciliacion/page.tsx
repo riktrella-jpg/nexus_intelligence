@@ -74,7 +74,33 @@ export default function ConciliacionPage() {
   const [showServerFilesModal, setShowServerFilesModal] = useState(false);
   const [serverFiles, setServerFiles] = useState<any[]>([]);
   const [selectedDrawerContract, setSelectedDrawerContract] = useState<any>(null);
+  const [drawerPendingRows, setDrawerPendingRows] = useState<any[]>([]);
+  const [loadingDrawerRows, setLoadingDrawerRows] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!selectedDrawerContract) {
+      setDrawerPendingRows([]);
+      return;
+    }
+    if (selectedDrawerContract.filas_revision && selectedDrawerContract.filas_revision.length > 0) {
+      setDrawerPendingRows(selectedDrawerContract.filas_revision);
+      return;
+    }
+    setLoadingDrawerRows(true);
+    getReconciliationDetails({
+      contrato: selectedDrawerContract.contrato,
+      estado: "PENDIENTE",
+      page_size: 100,
+    })
+      .then((res: any) => {
+        if (res?.items) {
+          setDrawerPendingRows(res.items);
+        }
+      })
+      .catch(() => {})
+      .finally(() => setLoadingDrawerRows(false));
+  }, [selectedDrawerContract]);
 
   // Load summary and filter options
   const loadMeta = async () => {
@@ -957,7 +983,7 @@ export default function ConciliacionPage() {
       {selectedDrawerContract && (
         <>
           <div className="backdrop" onClick={() => setSelectedDrawerContract(null)} />
-          <div className="drawer">
+          <div className="drawer" style={{ width: "min(780px, 95vw)" }}>
             <div className="dh">
               <h3>Ficha Técnica del Contrato</h3>
               <button className="btn icon ghost" onClick={() => setSelectedDrawerContract(null)}>
@@ -991,7 +1017,7 @@ export default function ConciliacionPage() {
                     : "—"}
                 </dd>
                 <dt>Monto en Revisión:</dt>
-                <dd style={{ color: "var(--burgundy)" }}>
+                <dd style={{ color: "var(--burgundy)", fontWeight: 700, fontSize: 15 }}>
                   {selectedDrawerContract.monto_revision
                     ? money(parseFloat(selectedDrawerContract.monto_revision))
                     : "$0.00"}
@@ -1002,10 +1028,86 @@ export default function ConciliacionPage() {
                 <dd className="muted">{selectedDrawerContract.razon}</dd>
               </dl>
 
-              <div className="alert info" style={{ fontSize: 12 }}>
+              {/* Sección: Desglose de Filas en Revisión */}
+              <div className="stack" style={{ gap: 10, marginTop: 4 }}>
+                <div className="row" style={{ justifyContent: "space-between", alignItems: "center" }}>
+                  <h4 style={{ margin: 0, color: "var(--burgundy)", display: "flex", alignItems: "center", gap: 6 }}>
+                    <AlertTriangle size={17} color="var(--burgundy)" />
+                    Filas y Montos que Requieren Revisión en el Excel
+                  </h4>
+                  {selectedDrawerContract.monto_revision && (
+                    <span className="badge bad" style={{ fontWeight: 700 }}>
+                      Monto Revisión: {money(parseFloat(selectedDrawerContract.monto_revision))}
+                    </span>
+                  )}
+                </div>
+
+                {loadingDrawerRows ? (
+                  <div className="alert info">
+                    <RefreshCw size={14} className="spin" />
+                    <span>Consultando filas específicas del archivo...</span>
+                  </div>
+                ) : drawerPendingRows.length === 0 ? (
+                  <div className="alert ok" style={{ fontSize: 12 }}>
+                    <CheckCircle2 size={16} />
+                    <span>Todas las partidas de este contrato están debidamente conciliadas.</span>
+                  </div>
+                ) : (
+                  <div className="table-wrap" style={{ maxHeight: 380, overflowY: "auto", border: "1px solid var(--line-strong)", borderRadius: 8 }}>
+                    <table className="t sm">
+                      <thead>
+                        <tr>
+                          <th>Fila Excel</th>
+                          <th>Unidad / Destino</th>
+                          <th>Clave y Descripción</th>
+                          <th className="right">Cantidad</th>
+                          <th className="right">P.U.</th>
+                          <th className="right">Subtotal</th>
+                          <th className="right">Monto Reportado</th>
+                          <th>Motivo del Descuadre</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {drawerPendingRows.map((r, idx) => (
+                          <tr key={idx} style={{ background: "rgba(239, 68, 68, 0.03)" }}>
+                            <td>
+                              <span className="badge" style={{ fontFamily: "monospace", fontWeight: 700, background: "#fee2e2", color: "#991b1b", whiteSpace: "nowrap" }}>
+                                Fila {r.fila_excel}
+                              </span>
+                            </td>
+                            <td style={{ fontSize: 11, maxWidth: 140 }}>
+                              <b>{r.unidad || r.ur || selectedDrawerContract.institucion || "N/A"}</b>
+                            </td>
+                            <td>
+                              <div style={{ fontFamily: "monospace", fontWeight: 600, fontSize: 11.5 }}>
+                                {r.clave_medicamento || r.clave || "SIN_CLAVE"}
+                              </div>
+                              <div className="muted small" style={{ fontSize: 10.5, maxWidth: 190, whiteSpace: "normal" }}>
+                                {r.descripcion}
+                              </div>
+                            </td>
+                            <td className="num">{num(r.cantidad)}</td>
+                            <td className="num">{r.precio_unitario || r.precio ? money(parseFloat(r.precio_unitario || r.precio)) : "—"}</td>
+                            <td className="num" style={{ fontWeight: 600 }}>
+                              {r.subtotal_calculado || r.subtotal ? money(parseFloat(r.subtotal_calculado || r.subtotal)) : "—"}
+                            </td>
+                            <td className="num" style={{ color: "var(--burgundy)", fontWeight: 700 }}>
+                              {r.monto_declarado || r.monto ? money(parseFloat(r.monto_declarado || r.monto)) : "—"}
+                            </td>
+                            <td style={{ fontSize: 11, color: "var(--muted)", maxWidth: 180, whiteSpace: "normal" }}>
+                              {r.motivo || r.razon_clasificacion || "Discrepancia aritmética entre cantidad × precio y monto"}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+
+              <div className="alert info" style={{ fontSize: 12, marginTop: 8 }}>
                 <span>
-                  <b>Regla V2 aplicada:</b> Si este contrato contenía filas duplicadas exactas con el mismo importe,
-                  cantidad y precio, únicamente la primera fila aportó al importe computable total.
+                  <b>Regla V2 aplicada:</b> Para contratos con desglose por hospital o unidad (como CONASAMA), las partidas se evalúan independientemente por unidad para respetar los montos asignados a cada centro de salud.
                 </span>
               </div>
             </div>
