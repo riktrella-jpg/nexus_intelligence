@@ -156,7 +156,7 @@ export default function ConciliacionPage() {
     if (claveFilter) q.append("clave_medicamento", claveFilter);
     if (selectedEstado !== "Todos") q.append("estado", selectedEstado);
 
-    window.open(`${API}/api/reconciliation/export?${q.toString()}`, "_blank");
+    window.open(`/api/reconciliation/export?${q.toString()}`, "_blank");
   };
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {

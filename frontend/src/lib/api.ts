@@ -9,12 +9,31 @@ export async function api<T = any>(path: string, opts: { method?: string; body?:
     init.body = JSON.stringify(opts.body);
     init.headers = { "Content-Type": "application/json" };
   }
-  let res: Response;
+  let res: Response | null = null;
   try {
     res = await fetch(API + path, init);
   } catch {
-    throw new ApiError("No se pudo conectar con el servidor de análisis (backend). Verifique que esté iniciado en " + API);
+    // If remote backend is unreachable, fallback to Next.js internal routes
+    if (typeof window !== "undefined" && path.startsWith("/api/reconciliation")) {
+      try {
+        res = await fetch(path, init);
+      } catch {}
+    }
+    if (!res) {
+      throw new ApiError("No se pudo conectar con el servidor de análisis (backend). Verifique que esté iniciado en " + API);
+    }
   }
+
+  // If remote backend returned 404 (e.g. Render pending deploy), fallback to Next.js internal routes
+  if (!res.ok && res.status === 404 && typeof window !== "undefined" && path.startsWith("/api/reconciliation")) {
+    try {
+      const fallbackRes = await fetch(path, init);
+      if (fallbackRes.ok) {
+        return fallbackRes.json();
+      }
+    } catch {}
+  }
+
   if (!res.ok) {
     let msg = res.statusText;
     try {
