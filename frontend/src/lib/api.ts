@@ -4,28 +4,46 @@ export class ApiError extends Error {}
 
 export async function api<T = any>(path: string, opts: { method?: string; body?: any; form?: FormData } = {}): Promise<T> {
   const init: RequestInit = { method: opts.method || (opts.body || opts.form ? "POST" : "GET") };
-  if (opts.form) init.body = opts.form;
-  else if (opts.body !== undefined) {
+  if (opts.form) {
+    init.body = opts.form;
+  } else if (opts.body !== undefined) {
     init.body = JSON.stringify(opts.body);
     init.headers = { "Content-Type": "application/json" };
   }
+
+  // Rutas locales de Next.js que operan de forma autónoma sin depender de Render
+  const isLocalSupported =
+    path.startsWith("/api/reconciliation") ||
+    path.startsWith("/api/uploads") ||
+    path.startsWith("/api/imports");
+
   let res: Response | null = null;
+
+  // En el navegador, para reconciliación o subidas, usar directamente la ruta local para evitar errores 502 de Render
+  if (isLocalSupported && typeof window !== "undefined") {
+    try {
+      res = await fetch(path, init);
+      if (res.ok) {
+        return res.json();
+      }
+    } catch {}
+  }
+
+  // Intentar backend remoto configurado (o local si es localhost)
   try {
     res = await fetch(API + path, init);
   } catch {
-    // If remote backend is unreachable, fallback to Next.js internal routes
-    if (typeof window !== "undefined" && path.startsWith("/api/reconciliation")) {
+    // Si backend remoto falla totalmente a nivel de red
+    if (typeof window !== "undefined") {
       try {
         res = await fetch(path, init);
       } catch {}
     }
-    if (!res) {
-      throw new ApiError("No se pudo conectar con el servidor de análisis (backend). Verifique que esté iniciado en " + API);
-    }
   }
 
-  // If remote backend returned 404 (e.g. Render pending deploy), fallback to Next.js internal routes
-  if (!res.ok && res.status === 404 && typeof window !== "undefined" && path.startsWith("/api/reconciliation")) {
+  // Si el backend remoto respondió con error (502 Bad Gateway, 504 Gateway Timeout, 404 Not Found, 500),
+  // intentar la ruta interna de Next.js como fallback
+  if ((!res || !res.ok) && typeof window !== "undefined") {
     try {
       const fallbackRes = await fetch(path, init);
       if (fallbackRes.ok) {
@@ -34,13 +52,17 @@ export async function api<T = any>(path: string, opts: { method?: string; body?:
     } catch {}
   }
 
+  if (!res) {
+    throw new ApiError("No se pudo conectar con el servidor de análisis. Verifique su conexión de red.");
+  }
+
   if (!res.ok) {
     let msg = res.statusText;
     try {
       const j = await res.json();
       msg = typeof j.detail === "string" ? j.detail : JSON.stringify(j.detail);
     } catch {}
-    throw new ApiError(msg);
+    throw new ApiError(msg || `Error de servidor HTTP ${res.status}`);
   }
   return res.json();
 }

@@ -61,6 +61,12 @@ export default function ConciliacionPage() {
 
   // Table Data
   const [tableData, setTableData] = useState<any>({ items: [], total: 0, total_pages: 0 });
+  const [customDataset, setCustomDataset] = useState<{
+    summary: any;
+    contracts: any[];
+    fileName: string;
+  } | null>(null);
+  const [dragOver, setDragOver] = useState(false);
 
   // Modals
   const [showUploadModal, setShowUploadModal] = useState(false);
@@ -71,6 +77,16 @@ export default function ConciliacionPage() {
 
   // Load summary and filter options
   const loadMeta = async () => {
+    if (customDataset) {
+      const insts = Array.from(new Set(customDataset.contracts.map((c) => c.institucion).filter(Boolean))).sort();
+      const provs = Array.from(new Set(customDataset.contracts.map((c) => c.proveedor).filter(Boolean))).sort();
+      setFilterOpts({
+        instituciones: insts,
+        proveedores: provs,
+        estados: ["INFERIDO_COMPLETO", "PARCIAL_CON_PENDIENTES", "PENDIENTE_TOTAL"],
+      });
+      return;
+    }
     try {
       const sumParams: any = {};
       if (selectedInst !== "Todos") sumParams.institucion = selectedInst;
@@ -94,6 +110,80 @@ export default function ConciliacionPage() {
   const loadData = async () => {
     setLoading(true);
     try {
+      if (customDataset) {
+        let items = [...customDataset.contracts];
+        if (search) {
+          const s = search.toLowerCase();
+          items = items.filter(
+            (c) =>
+              (c.contrato && c.contrato.toLowerCase().includes(s)) ||
+              (c.proveedor && c.proveedor.toLowerCase().includes(s)) ||
+              (c.institucion && c.institucion.toLowerCase().includes(s)) ||
+              (c.razon && c.razon.toLowerCase().includes(s))
+          );
+        }
+        if (selectedInst !== "Todos") items = items.filter((c) => c.institucion === selectedInst);
+        if (selectedProv !== "Todos") items = items.filter((c) => c.proveedor === selectedProv);
+        if (contratoFilter) items = items.filter((c) => c.contrato && c.contrato.toLowerCase().includes(contratoFilter.toLowerCase()));
+        if (selectedEstado !== "Todos") items = items.filter((c) => c.estado === selectedEstado);
+
+        items.sort((a, b) => {
+          let valA = a[sortBy];
+          let valB = b[sortBy];
+          if (sortBy === "monto_inferido" || sortBy === "monto_revision" || sortBy === "filas" || sortBy === "partidas" || sortBy === "pendientes") {
+            valA = parseFloat(valA) || 0;
+            valB = parseFloat(valB) || 0;
+            return sortDir === "asc" ? valA - valB : valB - valA;
+          }
+          const strA = String(valA || "").toLowerCase();
+          const strB = String(valB || "").toLowerCase();
+          return sortDir === "asc" ? strA.localeCompare(strB) : strB.localeCompare(strA);
+        });
+
+        const total = items.length;
+        const totalPages = Math.ceil(total / pageSize);
+        const offset = (page - 1) * pageSize;
+        setTableData({
+          items: items.slice(offset, offset + pageSize),
+          total,
+          page,
+          page_size: pageSize,
+          total_pages: totalPages,
+        });
+
+        let montoInferido = 0;
+        let montoRevision = 0;
+        let completos = 0;
+        let parciales = 0;
+        let pendientes = 0;
+        let filas = 0;
+        for (const c of items) {
+          if (c.monto_inferido) montoInferido += parseFloat(c.monto_inferido) || 0;
+          if (c.monto_revision) montoRevision += parseFloat(c.monto_revision) || 0;
+          if (c.estado === "INFERIDO_COMPLETO") completos++;
+          else if (c.estado === "PARCIAL_CON_PENDIENTES") parciales++;
+          else pendientes++;
+          filas += parseInt(c.filas, 10) || 0;
+        }
+
+        setSummary({
+          has_data: true,
+          total_filas: filas || customDataset.summary?.total_filas || 0,
+          monto_inferido_total: Math.round(montoInferido * 100) / 100,
+          monto_revision_total: Math.round(montoRevision * 100) / 100,
+          total_contratos: items.length,
+          contratos_completos: completos,
+          contratos_parciales: parciales,
+          contratos_pendientes: pendientes,
+          filas_duplicadas_excluidas: customDataset.summary?.filas_duplicadas_excluidas || 0,
+          filas_inferidas: customDataset.summary?.filas_inferidas || 0,
+          filas_pendientes: customDataset.summary?.filas_pendientes || 0,
+          partidas_candidatas: customDataset.summary?.partidas_candidatas || 0,
+          meta: customDataset.summary?.meta,
+        });
+        return;
+      }
+
       const params: any = {
         page,
         page_size: pageSize,
@@ -125,7 +215,7 @@ export default function ConciliacionPage() {
 
   useEffect(() => {
     loadMeta();
-  }, []);
+  }, [customDataset]);
 
   useEffect(() => {
     setPage(1);
@@ -134,7 +224,7 @@ export default function ConciliacionPage() {
 
   useEffect(() => {
     loadData();
-  }, [activeTab, page, pageSize, sortBy, sortDir, search, selectedInst, selectedProv, contratoFilter, claveFilter, selectedEstado]);
+  }, [activeTab, page, pageSize, sortBy, sortDir, search, selectedInst, selectedProv, contratoFilter, claveFilter, selectedEstado, customDataset]);
 
   const handleResetFilters = () => {
     setSearch("");
@@ -159,32 +249,31 @@ export default function ConciliacionPage() {
     window.open(`/api/reconciliation/export?${q.toString()}`, "_blank");
   };
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
+  const processSelectedFile = async (file: File) => {
     setProcessing(true);
     try {
       const fd = new FormData();
       fd.append("file", file);
 
-      toast("Subiendo y ejecutando motor de conciliación V2...");
+      toast("Subiendo y procesando con Motor V2...");
       const res = await processReconciliation(fd);
-      toast("¡Conciliación V2 finalizada con éxito!");
+      toast(`¡Archivo «${file.name}» cargado y conciliado exitosamente!`);
       setShowUploadModal(false);
 
-      if (res?.summary) {
-        setSummary(res.summary);
-      }
       if (res?.contracts && Array.isArray(res.contracts)) {
-        setTableData({
-          items: res.contracts.slice(0, pageSize),
-          total: res.contracts.length,
-          total_pages: Math.ceil(res.contracts.length / pageSize),
+        setCustomDataset({
+          summary: res.summary,
+          contracts: res.contracts,
+          fileName: file.name,
         });
+        setSelectedInst("Todos");
+        setSelectedProv("Todos");
+        setContratoFilter("");
+        setClaveFilter("");
+        setSelectedEstado("Todos");
+        setSearch("");
+        setPage(1);
       }
-      await loadMeta();
-      await loadData();
     } catch (err: any) {
       toast(err.message || "Error al procesar el archivo con el motor V2", true);
     } finally {
@@ -269,6 +358,45 @@ export default function ConciliacionPage() {
           </button>
         </div>
       </div>
+
+      {/* Banner de archivo personalizado cargado */}
+      {customDataset && (
+        <div
+          className="alert info"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            gap: 12,
+            background: "rgba(16, 185, 129, 0.08)",
+            border: "1px solid rgba(16, 185, 129, 0.3)",
+          }}
+        >
+          <div className="row" style={{ gap: 8, alignItems: "center" }}>
+            <CheckCircle2 size={20} color="var(--ok)" />
+            <div>
+              <span style={{ fontWeight: 600, color: "var(--navy)" }}>
+                Visualizando archivo cargado: «{customDataset.fileName}»
+              </span>
+              <div className="muted small">
+                {customDataset.contracts.length} contratos y {summary?.total_filas?.toLocaleString("es-MX") || 0} filas conciliadas con Motor V2.
+              </div>
+            </div>
+          </div>
+          <button
+            className="btn sm"
+            onClick={() => {
+              setCustomDataset(null);
+              toast("Restaurando base consolidada original...");
+            }}
+            title="Volver a la base general de 6,353 contratos"
+          >
+            <RefreshCw size={14} />
+            Restaurar base consolidada (6,353 contratos)
+          </button>
+        </div>
+      )}
 
       {/* KPI Cards */}
       <div className="grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 14 }}>
@@ -669,17 +797,57 @@ export default function ConciliacionPage() {
               <div
                 className="dropzone"
                 onClick={() => !processing && fileInputRef.current?.click()}
-                style={{ opacity: processing ? 0.6 : 1 }}
+                onDragOver={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }}
+                onDragLeave={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  if (processing) return;
+                  const f = e.dataTransfer.files?.[0];
+                  if (f) processSelectedFile(f);
+                }}
+                style={{
+                  opacity: processing ? 0.6 : 1,
+                  cursor: processing ? "wait" : "pointer",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "32px 20px",
+                }}
               >
-                <Upload size={36} color="var(--gold)" style={{ margin: "0 auto 12px" }} />
-                <h3>{processing ? "Procesando con motor V2..." : "Seleccione o arrastre su archivo .XLSX"}</h3>
-                <span className="muted small">Compatible con layouts de suministro y catálogos de proveedores</span>
+                <Upload size={38} color="var(--gold)" style={{ margin: "0 auto 12px" }} />
+                <h3>{processing ? "Procesando con motor V2..." : "Seleccione o arrastre su archivo Excel (.XLSX / .CSV)"}</h3>
+                <span className="muted small" style={{ marginBottom: 12 }}>
+                  Compatible con layouts de suministro, catálogos de proveedores y reportes de contratación
+                </span>
+                <button
+                  type="button"
+                  className="btn sm primary"
+                  disabled={processing}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    fileInputRef.current?.click();
+                  }}
+                >
+                  <Upload size={14} />
+                  Examinar archivos de mi equipo
+                </button>
                 <input
                   type="file"
                   ref={fileInputRef}
                   style={{ display: "none" }}
-                  accept=".xlsx,.xlsm"
-                  onChange={handleFileUpload}
+                  accept=".xlsx,.xls,.xlsm,.csv"
+                  onChange={(e) => {
+                    const f = e.target.files?.[0];
+                    if (f) processSelectedFile(f);
+                  }}
                   disabled={processing}
                 />
               </div>
