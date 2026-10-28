@@ -30,6 +30,7 @@ import {
   api,
   API,
 } from "@/lib/api";
+import { parseAndReconcileExcel } from "@/lib/reconciliationEngine";
 import { useApp } from "@/lib/state";
 import { money, num } from "@/lib/format";
 
@@ -252,11 +253,21 @@ export default function ConciliacionPage() {
   const processSelectedFile = async (file: File) => {
     setProcessing(true);
     try {
-      const fd = new FormData();
-      fd.append("file", file);
+      toast(`Procesando «${file.name}» con Motor V2...`);
 
-      toast("Subiendo y procesando con Motor V2...");
-      const res = await processReconciliation(fd);
+      let res: any;
+      try {
+        // 1. Procesar en memoria en el cliente (soporta archivos de cualquier tamaño sin límite de 4.5MB)
+        const buffer = await file.arrayBuffer();
+        res = parseAndReconcileExcel(buffer, file.name);
+      } catch (clientErr: any) {
+        console.warn("Fallo procesamiento en cliente, intentando vía API:", clientErr);
+        // 2. Si falla el parseo en cliente, enviar vía multipart/form-data al backend
+        const fd = new FormData();
+        fd.append("file", file);
+        res = await processReconciliation(fd);
+      }
+
       toast(`¡Archivo «${file.name}» cargado y conciliado exitosamente!`);
       setShowUploadModal(false);
 
