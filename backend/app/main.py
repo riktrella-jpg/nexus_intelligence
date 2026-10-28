@@ -563,11 +563,32 @@ def reconciliation_files():
 
 
 @app.post("/api/reconciliation/process")
-def reconciliation_process(body: dict = Body(...)):
-    """Ejecuta el motor V2 sobre un archivo existente o recién cargado."""
-    file_path = body.get("file_path")
-    upload_id = body.get("upload_id")
-    sheet_name = body.get("sheet_name")
+async def reconciliation_process(request: Request):
+    """Ejecuta el motor V2 sobre un archivo subido directamente, existente o recién cargado."""
+    file_path = None
+    upload_id = None
+    sheet_name = None
+
+    ct = request.headers.get("content-type", "")
+    if "multipart/form-data" in ct:
+        form = await request.form()
+        uploaded_file = form.get("file")
+        upload_id = form.get("upload_id")
+        file_path = form.get("file_path")
+        sheet_name = form.get("sheet_name")
+
+        if uploaded_file and hasattr(uploaded_file, "read"):
+            content = await uploaded_file.read()
+            st = store.stage_upload(getattr(uploaded_file, "filename", "archivo.xlsx"), content)
+            upload_id = st["upload_id"]
+    else:
+        try:
+            body = await request.json()
+            file_path = body.get("file_path")
+            upload_id = body.get("upload_id")
+            sheet_name = body.get("sheet_name")
+        except Exception:
+            pass
 
     if upload_id:
         file_path = store.staged_path(upload_id)
@@ -585,7 +606,9 @@ def reconciliation_process(body: dict = Body(...)):
     try:
         from .config import RECONCILIATION_DIR
         report = REC.procesar_archivo(target_path, RECONCILIATION_DIR, sheet_name=sheet_name)
-        return {"status": "ok", "report": report}
+        summary = REC.get_summary()
+        contracts = REC.get_contracts(page=1, page_size=100)
+        return {"status": "ok", "report": report, "summary": summary, "contracts": contracts.get("items", [])}
     except Exception as e:
         raise HTTPException(500, f"Error al procesar el archivo con el motor V2: {e}")
 

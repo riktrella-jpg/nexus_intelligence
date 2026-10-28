@@ -167,12 +167,22 @@ export default function ConciliacionPage() {
     try {
       const fd = new FormData();
       fd.append("file", file);
-      const st = await api("/api/uploads", { form: fd });
 
-      toast("Archivo subido. Ejecutando motor de conciliación V2...");
-      const res = await processReconciliation({ upload_id: st.upload_id });
+      toast("Subiendo y ejecutando motor de conciliación V2...");
+      const res = await processReconciliation(fd);
       toast("¡Conciliación V2 finalizada con éxito!");
       setShowUploadModal(false);
+
+      if (res?.summary) {
+        setSummary(res.summary);
+      }
+      if (res?.contracts && Array.isArray(res.contracts)) {
+        setTableData({
+          items: res.contracts.slice(0, pageSize),
+          total: res.contracts.length,
+          total_pages: Math.ceil(res.contracts.length / pageSize),
+        });
+      }
       await loadMeta();
       await loadData();
     } catch (err: any) {

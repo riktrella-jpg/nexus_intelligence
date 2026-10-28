@@ -165,8 +165,11 @@ export async function getReconciliationFiles() {
   return api("/api/reconciliation/files");
 }
 
-export async function processReconciliation(body: { file_path?: string; upload_id?: string; sheet_name?: string }) {
-  return api("/api/reconciliation/process", { method: "POST", body });
+export async function processReconciliation(bodyOrForm: { file_path?: string; upload_id?: string; sheet_name?: string } | FormData) {
+  if (bodyOrForm instanceof FormData) {
+    return api("/api/reconciliation/process", { method: "POST", form: bodyOrForm });
+  }
+  return api("/api/reconciliation/process", { method: "POST", body: bodyOrForm });
 }
 
 
