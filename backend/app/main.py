@@ -554,6 +554,27 @@ def reconciliation_filter_options():
     return REC.get_filter_options()
 
 
+@app.get("/api/reconciliation/diferencias")
+def reconciliation_diferencias(
+    institucion: str | None = None,
+    proveedor: str | None = None,
+    contrato: str | None = None,
+    estado: str | None = None,
+    search: str | None = None,
+    page: int = 1,
+    page_size: int = 50,
+    sort_by: str = "diferencia_automatico_menos_referencia",
+    sort_dir: str = "desc",
+):
+    filters = {k: v for k, v in {"institucion": institucion, "proveedor": proveedor, "contrato": contrato, "estado": estado, "search": search}.items() if v}
+    return REC.get_diferencias(filters, page, page_size, sort_by, sort_dir)
+
+
+@app.get("/api/reconciliation/v4-summary")
+def reconciliation_v4_summary():
+    return REC.get_v4_summary()
+
+
 @app.get("/api/reconciliation/export")
 def reconciliation_export(
     view_type: str = "contratos",

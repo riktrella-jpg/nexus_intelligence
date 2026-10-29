@@ -133,3 +133,62 @@ def test_reconciliation_api_endpoints(client):
     r_exp_p = client.get("/api/reconciliation/export?view_type=pendientes")
     assert r_exp_p.status_code == 200
     assert "text/csv" in r_exp_p.headers.get("content-type", "")
+
+    # V4 Diferencias
+    r_dif = client.get("/api/reconciliation/diferencias?page=1&page_size=20")
+    assert r_dif.status_code == 200
+    dif_data = r_dif.json()
+    assert "items" in dif_data
+    assert "summary" in dif_data
+
+    # V4 Summary
+    r_v4 = client.get("/api/reconciliation/v4-summary")
+    assert r_v4.status_code == 200
+    v4_data = r_v4.json()
+    assert v4_data["resumen"]["monto_contratado_conciliado"] == "1205182002.31"
+    assert v4_data["resumen"]["total_contratos"] == 668
+    assert v4_data["verificacion_suma_csv"]["coincide"] is True
+
+
+def test_nexus_v4_csv_verification():
+    """Verifica sumas exactas de montos_contratados_consolidados.csv y conciliacion_contratos.csv."""
+    import csv
+    from decimal import Decimal
+    from backend.app.config import BASE_DIR, RECONCILIATION_DIR
+
+    # 1. Verificar montos_contratados_consolidados.csv
+    csv_path = RECONCILIATION_DIR / "montos_contratados_consolidados.csv"
+    if not csv_path.exists():
+        csv_path = BASE_DIR / "NEXUS_V4_resultados" / "montos_contratados_consolidados.csv"
+
+    assert csv_path.exists(), "El archivo montos_contratados_consolidados.csv debe existir"
+    with open(csv_path, encoding="utf-8-sig") as f:
+        rows = list(csv.DictReader(f))
+
+    assert len(rows) == 668, f"HGMEL debe contener 668 contratos, se encontraron {len(rows)}"
+    total_cons = sum((Decimal(r["monto_contratado_consolidado"]) for r in rows), Decimal(0))
+    assert total_cons == Decimal("1205182002.31"), f"La suma de montos consolidados debe ser 1205182002.31, se obtuvo {total_cons}"
+
+    # 2. Verificar conciliacion_contratos.csv
+    conc_path = RECONCILIATION_DIR / "conciliacion_contratos.csv"
+    if not conc_path.exists():
+        conc_path = BASE_DIR / "NEXUS_V4_resultados" / "conciliacion_contratos.csv"
+
+    assert conc_path.exists(), "El archivo conciliacion_contratos.csv debe existir"
+    with open(conc_path, encoding="utf-8-sig") as f:
+        conc_rows = list(csv.DictReader(f))
+
+    assert len(conc_rows) == 668
+    total_ref = sum((Decimal(r["monto_referencia"]) for r in conc_rows if r.get("monto_referencia")), Decimal(0))
+    total_auto = sum((Decimal(r["monto_calculo_automatico"]) for r in conc_rows if r.get("monto_calculo_automatico")), Decimal(0))
+    diff_total = total_auto - total_ref
+
+    assert total_ref == Decimal("1205182002.31")
+    assert total_auto == Decimal("1211889228.86")
+    assert diff_total == Decimal("6707226.55")
+
+    diferencias = [r for r in conc_rows if r["estado"] == "DIFERENCIA"]
+    assert len(diferencias) == 16, f"Se esperaban 16 contratos con diferencia, se encontraron {len(diferencias)}"
+
+    coincidentes = [r for r in conc_rows if r["estado"] == "COINCIDE"]
+    assert len(coincidentes) == 652, f"Se esperaban 652 contratos coincidentes, se encontraron {len(coincidentes)}"

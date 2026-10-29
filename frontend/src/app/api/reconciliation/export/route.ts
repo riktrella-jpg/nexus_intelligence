@@ -109,6 +109,44 @@ export async function GET(request: Request) {
     }
   }
 
+  // Exportar diferencias por contrato V4 vs V3
+  if (viewType === "diferencias" || viewType === "conciliacion_v4") {
+    try {
+      const filePath = path.join(process.cwd(), "public", "data", "conciliacion_contratos.csv");
+      if (fs.existsSync(filePath)) {
+        const fileContent = fs.readFileSync(filePath, "utf-8");
+        return new NextResponse(fileContent, {
+          status: 200,
+          headers: {
+            "Content-Type": "text/csv; charset=utf-8",
+            "Content-Disposition": 'attachment; filename="conciliacion_contratos.csv"',
+          },
+        });
+      }
+    } catch (e) {
+      console.error("Error al exportar conciliacion_contratos.csv:", e);
+    }
+  }
+
+  // Exportar montos contratados consolidados V4
+  if (viewType === "consolidados" || viewType === "consolidados_v4") {
+    try {
+      const filePath = path.join(process.cwd(), "public", "data", "montos_contratados_consolidados.csv");
+      if (fs.existsSync(filePath)) {
+        const fileContent = fs.readFileSync(filePath, "utf-8");
+        return new NextResponse(fileContent, {
+          status: 200,
+          headers: {
+            "Content-Type": "text/csv; charset=utf-8",
+            "Content-Disposition": 'attachment; filename="montos_contratados_consolidados.csv"',
+          },
+        });
+      }
+    } catch (e) {
+      console.error("Error al exportar montos_contratados_consolidados.csv:", e);
+    }
+  }
+
   if (viewType === "pendientes") {
     let items = [...(pendientesData as any[])];
     if (search) {

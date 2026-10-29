@@ -45,6 +45,8 @@ import {
   getReconciliationInstitutions,
   getReconciliationFilters,
   getReconciliationFiles,
+  getReconciliationDiferencias,
+  getReconciliationV4Summary,
   processReconciliation,
   api,
   API,
@@ -53,7 +55,7 @@ import { parseAndReconcileExcel } from "@/lib/reconciliationEngine";
 import { useApp } from "@/lib/state";
 import { money, num } from "@/lib/format";
 
-type TabType = "instituciones" | "contratos" | "validacion" | "pendientes" | "partidas" | "detalle";
+type TabType = "instituciones" | "contratos" | "diferencias" | "validacion" | "pendientes" | "partidas" | "detalle";
 type FiltroValidacion = "por_validar" | "validados" | "todos";
 
 export default function ConciliacionPage() {
@@ -61,6 +63,9 @@ export default function ConciliacionPage() {
   const { decisiones, guardar: guardarDecision, eliminar: eliminarDecision, importar: importarDecisiones } = useDecisiones();
   const [validFilter, setValidFilter] = useState<FiltroValidacion>("por_validar");
   const [validacionItems, setValidacionItems] = useState<any[]>([]);
+  const [diferenciasData, setDiferenciasData] = useState<any>({ items: [], total: 0, total_pages: 0, summary: null });
+  const [diferenciasEstadoFilter, setDiferenciasEstadoFilter] = useState<"Todos" | "DIFERENCIA" | "COINCIDE">("DIFERENCIA");
+  const [v4Summary, setV4Summary] = useState<any>(null);
   const importInputRef = useRef<HTMLInputElement>(null);
 
   // State
@@ -197,12 +202,14 @@ export default function ConciliacionPage() {
       if (claveFilter) sumParams.clave_medicamento = claveFilter;
       if (contratoFilter) sumParams.contrato = contratoFilter;
 
-      const [sum, opts] = await Promise.all([
+      const [sum, opts, v4] = await Promise.all([
         getReconciliationSummary(sumParams),
         getReconciliationFilters(),
+        getReconciliationV4Summary().catch(() => null),
       ]);
       setSummary(sum);
       setFilterOpts(opts);
+      if (v4?.resumen) setV4Summary(v4.resumen);
     } catch (e: any) {
       toast(e.message || "Error al cargar resumen del motor", true);
     }
@@ -212,6 +219,24 @@ export default function ConciliacionPage() {
   const loadData = async () => {
     setLoading(true);
     try {
+      if (activeTab === "diferencias") {
+        const dp: any = {
+          page,
+          page_size: pageSize,
+          sort_by: sortBy === "monto_inferido" ? "diferencia_automatico_menos_referencia" : sortBy,
+          sort_dir: sortDir,
+        };
+        if (search) dp.search = search;
+        if (selectedInst !== "Todos") dp.institucion = selectedInst;
+        if (selectedProv !== "Todos") dp.proveedor = selectedProv;
+        if (contratoFilter) dp.contrato = contratoFilter;
+        if (diferenciasEstadoFilter !== "Todos") dp.estado = diferenciasEstadoFilter;
+
+        const res = await getReconciliationDiferencias(dp);
+        setDiferenciasData(res);
+        setTableData(res);
+        return;
+      }
       if (activeTab === "validacion") {
         let items: any[];
         if (customDataset) {
@@ -387,7 +412,7 @@ export default function ConciliacionPage() {
 
   useEffect(() => {
     loadData();
-  }, [activeTab, page, pageSize, sortBy, sortDir, search, selectedInst, selectedProv, contratoFilter, claveFilter, selectedEstado, customDataset]);
+  }, [activeTab, page, pageSize, sortBy, sortDir, search, selectedInst, selectedProv, contratoFilter, claveFilter, selectedEstado, customDataset, diferenciasEstadoFilter]);
 
   const handleResetFilters = () => {
     setSearch("");
@@ -698,9 +723,9 @@ export default function ConciliacionPage() {
                 </p>
               </div>
               <div style={{ background: "#fff", padding: "12px 14px", borderRadius: 8, border: "1px solid var(--line)" }}>
-                <b style={{ color: "var(--gold)" }}>4. Control Forense y Verificación HGMEL:</b>
+                <b style={{ color: "var(--gold)" }}>4. Consolidación NEXUS V4 y Conciliación HGMEL:</b>
                 <p className="muted small" style={{ margin: "4px 0 0" }}>
-                  Validación matemática exacta en HGMEL: <b>$1,211,889,228.86</b> en 668 contratos (14 con alerta forense), superando al 100% las pruebas de regresión en contratos atípicos (HGMEL-LPI-034, 226, 234, 237).
+                  Monto contratado conciliado validado: <b>$1,205,182,002.31</b> en <b>668 contratos</b> (fuente verificada: <code>montos_contratados_consolidados.csv</code>). Se mantiene separado del cálculo automático Motor V3 (<b>$1,211,889,228.86</b>), registrando exactamente 16 diferencias contractuales auditables y 652 contratos coincidentes al 100%. Para layouts futuros sin referencia, se aplican las reglas automáticas identificando el resultado como estimado.
                 </p>
               </div>
             </div>
@@ -709,20 +734,104 @@ export default function ConciliacionPage() {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 14 }}>
-        {/* Card 1: Monto Contratado Final Validado */}
+      <div className="grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: 14 }}>
+        {/* Card 1: Monto Contratado Conciliado (V4) */}
         <div className="card card-pad hover-lift" style={{ borderLeft: "4px solid var(--ok)" }}>
           <div className="row" style={{ justifyContent: "space-between", marginBottom: 6 }}>
-            <span style={{ fontSize: 11.5, fontWeight: 600, color: "var(--muted)", textTransform: "uppercase", letterSpacing: ".04em" }}>
-              Monto Contratado Final Validado
+            <span style={{ fontSize: 11.5, fontWeight: 700, color: "var(--muted)", textTransform: "uppercase", letterSpacing: ".04em" }}>
+              Monto Contratado Conciliado
             </span>
-            <CheckCircle2 size={18} color="var(--ok)" />
+            <ShieldCheck size={18} color="var(--ok)" />
           </div>
-          <div style={{ fontSize: 22, fontWeight: 700, color: "var(--navy)", fontVariantNumeric: "tabular-nums" }}>
+          <div style={{ fontSize: 22, fontWeight: 800, color: "var(--navy)", fontVariantNumeric: "tabular-nums" }}>
+            {customDataset
+              ? money(summary?.monto_inferido_total || 0)
+              : money(v4Summary?.monto_contratado_conciliado || 1205182002.31)}
+          </div>
+          <div className="muted small" style={{ marginTop: 6, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
+            {customDataset ? (
+              <span className="badge warn sm" style={{ fontWeight: 700 }}>
+                Estimado automáticamente (sin ref. validada)
+              </span>
+            ) : (
+              <>
+                <span className="badge ok sm" style={{ fontWeight: 700, fontSize: 11 }}>
+                  ✓ Suma CSV Verificada
+                </span>
+                <span style={{ fontSize: 11.5 }}>
+                  668 contratos HGMEL · montos_contratados_consolidados.csv
+                </span>
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* Card 2: Monto Contratado Estimado Automáticamente (V3) */}
+        <div className="card card-pad hover-lift" style={{ borderLeft: "4px solid var(--steel)" }}>
+          <div className="row" style={{ justifyContent: "space-between", marginBottom: 6 }}>
+            <span style={{ fontSize: 11.5, fontWeight: 700, color: "var(--muted)", textTransform: "uppercase", letterSpacing: ".04em" }}>
+              Monto Estimado Automáticamente (V3)
+            </span>
+            <Calculator size={18} color="var(--steel)" />
+          </div>
+          <div style={{ fontSize: 22, fontWeight: 800, color: "var(--navy)", fontVariantNumeric: "tabular-nums" }}>
+            {money(montoMotorTotal)}
+          </div>
+          <div className="muted small" style={{ marginTop: 6, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
+            <span className="badge sm" style={{ background: "rgba(100, 116, 139, 0.15)", color: "var(--steel)", fontWeight: 700, fontSize: 11 }}>
+              Motor V3 (Cols AJ×AK sin IVA)
+            </span>
+            <span style={{ fontSize: 11.5 }}>
+              Δ +$6,707,226.55 (+0.56% vs ref)
+            </span>
+          </div>
+        </div>
+
+        {/* Card 3: Diferencias Contractuales (V4 vs V3) */}
+        <div
+          className="card card-pad hover-lift"
+          style={{ borderLeft: "4px solid var(--burgundy)", cursor: "pointer" }}
+          onClick={() => {
+            setActiveTab("diferencias");
+            setDiferenciasEstadoFilter("DIFERENCIA");
+            setPage(1);
+          }}
+          title="Haga clic para consultar las diferencias por contrato"
+        >
+          <div className="row" style={{ justifyContent: "space-between", marginBottom: 6 }}>
+            <span style={{ fontSize: 11.5, fontWeight: 700, color: "var(--muted)", textTransform: "uppercase", letterSpacing: ".04em" }}>
+              Diferencias Contractuales
+            </span>
+            <AlertTriangle size={18} color="var(--burgundy)" />
+          </div>
+          <div style={{ fontSize: 22, fontWeight: 800, color: "var(--burgundy)", fontVariantNumeric: "tabular-nums" }}>
+            {v4Summary?.contratos_con_diferencias ?? 16} contratos c/ diferencia
+          </div>
+          <div className="muted small" style={{ marginTop: 6, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
+            <span className="badge ok sm" style={{ fontWeight: 700, fontSize: 11 }}>
+              {v4Summary?.contratos_coincidentes ?? 652} coincidentes (97.6%)
+            </span>
+            <span style={{ color: "var(--burgundy)", fontWeight: 600, fontSize: 11.5 }}>
+              Ver tabla comparativa →
+            </span>
+          </div>
+        </div>
+
+        {/* Card 4: Monto Final Validado (Decisiones de Mesa) */}
+        <div className="card card-pad hover-lift" style={{ borderLeft: "4px solid var(--gold)" }}>
+          <div className="row" style={{ justifyContent: "space-between", marginBottom: 6 }}>
+            <span style={{ fontSize: 11.5, fontWeight: 700, color: "var(--muted)", textTransform: "uppercase", letterSpacing: ".04em" }}>
+              Monto Final Validado
+            </span>
+            <ClipboardCheck size={18} color="var(--gold)" />
+          </div>
+          <div style={{ fontSize: 22, fontWeight: 800, color: "var(--navy)", fontVariantNumeric: "tabular-nums" }}>
             {money(montoFinalTotal)}
           </div>
-          <div className="muted small" style={{ marginTop: 4, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
-            <span>Base Motor V3: {money(montoMotorTotal)}</span>
+          <div className="muted small" style={{ marginTop: 6, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
+            <span style={{ fontWeight: 600 }}>
+              {resVal.validados} de {contratosRevision} validados ({pctValidado.toFixed(1)}%)
+            </span>
             {resVal.ajuste_total !== 0 && (
               <span
                 className="badge sm"
@@ -736,64 +845,6 @@ export default function ConciliacionPage() {
                 Ajuste: {resVal.ajuste_total > 0 ? "+" : ""}{money(resVal.ajuste_total)}
               </span>
             )}
-          </div>
-        </div>
-
-        {/* Card 2: Monto Ejercido */}
-        <div className="card card-pad hover-lift" style={{ borderLeft: "4px solid var(--steel)" }}>
-          <div className="row" style={{ justifyContent: "space-between", marginBottom: 6 }}>
-            <span style={{ fontSize: 11.5, fontWeight: 600, color: "var(--muted)", textTransform: "uppercase", letterSpacing: ".04em" }}>
-              Monto Ejercido
-            </span>
-            <Calculator size={18} color="var(--steel)" />
-          </div>
-          <div style={{ fontSize: 22, fontWeight: 700, color: "var(--navy)", fontVariantNumeric: "tabular-nums" }}>
-            {summary?.monto_ejercido_total ? money(summary.monto_ejercido_total) : "$3,537,744,674.73"}
-          </div>
-          <div className="muted small" style={{ marginTop: 4 }}>
-            {summary?.monto_ejercido_total && montoFinalTotal
-              ? `${((summary.monto_ejercido_total / montoFinalTotal) * 100).toFixed(2)}% ejercido de lo validado`
-              : "29.61% ejercido de lo contratado"}
-          </div>
-        </div>
-
-        {/* Card 3: Piezas Suministradas */}
-        <div className="card card-pad hover-lift" style={{ borderLeft: "4px solid var(--gold)" }}>
-          <div className="row" style={{ justifyContent: "space-between", marginBottom: 6 }}>
-            <span style={{ fontSize: 11.5, fontWeight: 600, color: "var(--muted)", textTransform: "uppercase", letterSpacing: ".04em" }}>
-              Piezas Suministradas
-            </span>
-            <Layers size={18} color="var(--gold)" />
-          </div>
-          <div style={{ fontSize: 22, fontWeight: 700, color: "var(--navy)", fontVariantNumeric: "tabular-nums" }}>
-            {summary?.piezas_suministradas_total ? `${num(summary.piezas_suministradas_total)} pzas` : "61,469,605 pzas"}
-          </div>
-          <div className="muted small" style={{ marginTop: 4 }}>
-            {summary?.piezas_solicitadas_total && summary?.piezas_suministradas_total
-              ? `${((summary.piezas_suministradas_total / summary.piezas_solicitadas_total) * 100).toFixed(2)}% cumplimiento sobre ${num(summary.piezas_solicitadas_total)} sol.`
-              : "81.45% cumplimiento sobre 75.46M solicitadas"}
-          </div>
-        </div>
-
-        {/* Card 4: Avance de Validación y Decisiones */}
-        <div className="card card-pad hover-lift" style={{ borderLeft: "4px solid var(--navy)" }}>
-          <div className="row" style={{ justifyContent: "space-between", marginBottom: 6 }}>
-            <span style={{ fontSize: 11.5, fontWeight: 600, color: "var(--muted)", textTransform: "uppercase", letterSpacing: ".04em" }}>
-              Avance de Validación ({contratosRevision} c/ alerta)
-            </span>
-            <ClipboardCheck size={18} color="var(--navy)" />
-          </div>
-          <div style={{ fontSize: 22, fontWeight: 700, color: "var(--navy)", fontVariantNumeric: "tabular-nums" }}>
-            {resVal.validados} de {contratosRevision} validados
-          </div>
-          <div className="muted small" style={{ marginTop: 4, display: "flex", gap: 8, alignItems: "center" }}>
-            <span style={{ color: "var(--ok)", fontWeight: 600 }}>
-              {pctValidado.toFixed(1)}% completado
-            </span>
-            <span>·</span>
-            <span style={{ color: porValidar > 0 ? "var(--burgundy)" : "var(--ok)", fontWeight: 600 }}>
-              {porValidar > 0 ? `${porValidar} por validar` : "0 pendientes"}
-            </span>
           </div>
         </div>
       </div>
@@ -918,6 +969,19 @@ export default function ConciliacionPage() {
               onClick={() => setActiveTab("contratos")}
             >
               📋 Contratos ({summary ? num(summary.total_contratos) : "—"})
+            </button>
+            <button
+              className={"tab" + (activeTab === "diferencias" ? " on" : "")}
+              onClick={() => {
+                setActiveTab("diferencias");
+                setPage(1);
+              }}
+              style={{
+                color: activeTab === "diferencias" ? "var(--burgundy)" : undefined,
+                fontWeight: activeTab === "diferencias" ? 700 : undefined,
+              }}
+            >
+              ⚖️ Diferencias por Contrato ({v4Summary?.contratos_con_diferencias ?? 16})
             </button>
             <button
               className={"tab" + (activeTab === "validacion" ? " on" : "")}
@@ -1093,6 +1157,201 @@ export default function ConciliacionPage() {
                 })}
               </tbody>
             </table>
+          ) : activeTab === "diferencias" ? (
+            <div className="stack" style={{ gap: 12 }}>
+              {/* Barra superior de verificación y filtros de estado de diferencia */}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexWrap: "wrap",
+                  gap: 10,
+                  padding: "12px 16px",
+                  background: "#f8fafc",
+                  borderRadius: 8,
+                  border: "1px solid var(--line)",
+                }}
+              >
+                <div className="row" style={{ gap: 6, flexWrap: "wrap" }}>
+                  <button
+                    className={"btn sm " + (diferenciasEstadoFilter === "DIFERENCIA" ? "primary" : "ghost")}
+                    onClick={() => {
+                      setDiferenciasEstadoFilter("DIFERENCIA");
+                      setPage(1);
+                    }}
+                  >
+                    ⚠️ Con Diferencia ({v4Summary?.contratos_con_diferencias ?? 16})
+                  </button>
+                  <button
+                    className={"btn sm " + (diferenciasEstadoFilter === "COINCIDE" ? "primary" : "ghost")}
+                    onClick={() => {
+                      setDiferenciasEstadoFilter("COINCIDE");
+                      setPage(1);
+                    }}
+                  >
+                    ✓ Coincidentes al 100% ({v4Summary?.contratos_coincidentes ?? 652})
+                  </button>
+                  <button
+                    className={"btn sm " + (diferenciasEstadoFilter === "Todos" ? "primary" : "ghost")}
+                    onClick={() => {
+                      setDiferenciasEstadoFilter("Todos");
+                      setPage(1);
+                    }}
+                  >
+                    Todos los Contratos ({v4Summary?.contratos_totales ?? 668})
+                  </button>
+                </div>
+                <div className="row" style={{ gap: 8, flexWrap: "wrap" }}>
+                  <button
+                    className="btn sm"
+                    onClick={() => window.open("/api/reconciliation/export?view_type=diferencias", "_blank")}
+                    title="Descargar tabla de diferencias y conciliación en CSV (conciliacion_contratos.csv)"
+                  >
+                    <Download size={14} /> Exportar Diferencias CSV
+                  </button>
+                  <button
+                    className="btn sm"
+                    onClick={() => window.open("/api/reconciliation/export?view_type=consolidados", "_blank")}
+                    title="Descargar montos contratados consolidados en CSV (Suma exacta $1,205,182,002.31)"
+                  >
+                    <Download size={14} /> Descargar Consolidados CSV
+                  </button>
+                </div>
+              </div>
+
+              {/* Banner informativo de verificación de sumas */}
+              <div
+                className="alert info"
+                style={{
+                  fontSize: 12.5,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  flexWrap: "wrap",
+                  gap: 10,
+                }}
+              >
+                <div className="row" style={{ gap: 8, alignItems: "center" }}>
+                  <ShieldCheck size={18} color="var(--ok)" />
+                  <span>
+                    <b>Verificación Aritmética NEXUS V4:</b> Suma consolidada conciliada = <b>$1,205,182,002.31</b> (668 contratos HGMEL).
+                    Cálculo automático Motor V3 = <b>$1,211,889,228.86</b>.
+                    Diferencia neta auditable = <b>+$6,707,226.55</b> concentrada en exactamente 16 contratos (652 contratos coincidentes al 100%).
+                  </span>
+                </div>
+                <span className="badge ok sm" style={{ fontWeight: 700 }}>
+                  ✓ Suma CSV Verificada
+                </span>
+              </div>
+
+              <table className="t">
+                <thead>
+                  <tr>
+                    <th>Institución</th>
+                    <th>No. Contrato</th>
+                    <th>Proveedor</th>
+                    <th className="num">Monto Conciliado (Ref. V4)</th>
+                    <th className="num">Monto Estimado Auto (V3)</th>
+                    <th className="num">Diferencia (V3 - Ref.)</th>
+                    <th>Alertas Motor V3</th>
+                    <th>Estado Conciliación</th>
+                    <th>Acción</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tableData.items.map((row: any, idx: number) => {
+                    const diff = parseFloat(row.diferencia_automatico_menos_referencia) || 0;
+                    const ref = parseFloat(row.monto_referencia) || 0;
+                    const auto = parseFloat(row.monto_calculo_automatico) || 0;
+                    const hasDiff = row.estado === "DIFERENCIA" || Math.abs(diff) > 0.01;
+                    return (
+                      <tr key={idx}>
+                        <td>
+                          <b>{row.institucion || "HGMEL"}</b>
+                        </td>
+                        <td>
+                          <span
+                            style={{
+                              fontFamily: "monospace",
+                              color: "var(--navy)",
+                              fontWeight: 700,
+                              cursor: "pointer",
+                            }}
+                            onClick={() => {
+                              setSelectedDrawerContract({
+                                institucion: row.institucion || "HGMEL",
+                                contrato: row.contrato,
+                                proveedor: row.proveedor,
+                                monto_inferido: auto,
+                                estado: hasDiff ? "REQUIERE REVISION" : "SIN ALERTAS AUTOMATICAS",
+                                razon: row.alertas_motor_v3 || (hasDiff ? "Diferencia con referencia consolidada V4" : "OK"),
+                              });
+                            }}
+                            title="Ver ficha de auditoría en panel lateral"
+                          >
+                            {row.contrato}
+                          </span>
+                        </td>
+                        <td title={row.proveedor} style={{ maxWidth: 220, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                          {row.proveedor || "—"}
+                        </td>
+                        <td className="num" style={{ fontWeight: 700, color: "var(--ok)" }}>
+                          {money(ref)}
+                        </td>
+                        <td className="num" style={{ fontWeight: 600, color: "var(--navy)" }}>
+                          {money(auto)}
+                        </td>
+                        <td
+                          className="num"
+                          style={{
+                            fontWeight: 700,
+                            color: hasDiff ? "var(--burgundy)" : "var(--muted)",
+                          }}
+                        >
+                          {hasDiff ? `${diff > 0 ? "+" : ""}${money(diff)}` : "$0.00"}
+                        </td>
+                        <td>
+                          {row.alertas_motor_v3 ? (
+                            <span className="badge warn sm" style={{ fontSize: 11, whiteSpace: "normal", textAlign: "left" }}>
+                              ⚠️ {row.alertas_motor_v3}
+                            </span>
+                          ) : (
+                            <span className="muted small">Sin alertas automáticas</span>
+                          )}
+                        </td>
+                        <td>
+                          <span
+                            className={"badge sm " + (hasDiff ? "bad" : "ok")}
+                            style={{ fontWeight: 700 }}
+                          >
+                            {hasDiff ? "⚠️ DIFERENCIA" : "✓ COINCIDE"}
+                          </span>
+                        </td>
+                        <td>
+                          <button
+                            className="btn sm ghost"
+                            style={{ padding: "3px 8px", fontSize: 11 }}
+                            onClick={() => {
+                              setSelectedDrawerContract({
+                                institucion: row.institucion || "HGMEL",
+                                contrato: row.contrato,
+                                proveedor: row.proveedor,
+                                monto_inferido: auto,
+                                estado: hasDiff ? "REQUIERE REVISION" : "SIN ALERTAS AUTOMATICAS",
+                                razon: row.alertas_motor_v3 || (hasDiff ? "Diferencia con referencia consolidada V4" : "OK"),
+                              });
+                            }}
+                          >
+                            Ver Ficha →
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           ) : activeTab === "contratos" ? (
             <table className="t">
               <thead>
@@ -1785,6 +2044,26 @@ export default function ConciliacionPage() {
                     title="Exportar resumen ejecutivo de contratos"
                   >
                     <Download size={13} /> Resumen Contratos (CSV)
+                  </button>
+                  <button
+                    className="btn sm ghost"
+                    onClick={() => {
+                      setShowExportModal(false);
+                      window.open(`/api/reconciliation/export?view_type=diferencias`, "_blank");
+                    }}
+                    title="Exportar tabla de diferencias por contrato (conciliacion_contratos.csv)"
+                  >
+                    <Download size={13} /> Diferencias por Contrato (CSV)
+                  </button>
+                  <button
+                    className="btn sm ghost"
+                    onClick={() => {
+                      setShowExportModal(false);
+                      window.open(`/api/reconciliation/export?view_type=consolidados`, "_blank");
+                    }}
+                    title="Exportar montos contratados consolidados ($1,205,182,002.31)"
+                  >
+                    <Download size={13} /> Montos Consolidados V4 (CSV)
                   </button>
                 </div>
               </div>

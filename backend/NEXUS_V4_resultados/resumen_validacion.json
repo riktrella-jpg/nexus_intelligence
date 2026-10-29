@@ -1,0 +1,14 @@
+{
+  "institucion": "HGMEL",
+  "filas_referencia": 4272,
+  "contratos_referencia": 668,
+  "monto_consolidado_referencia": "1205182002.31",
+  "monto_exportado_csv": "1205182002.31",
+  "monto_calculo_automatico_v3": "1211889228.86",
+  "diferencia_automatico_menos_referencia": "6707226.55",
+  "contratos_con_diferencias": 16,
+  "objetivo": "1205182002.31",
+  "objetivo_coincide": true,
+  "metodologia": "CSV consolidado = sumatoria de valores existentes en HGMEL!P por numero de contrato; no es recálculo independiente.",
+  "advertencia": "La conciliación exacta con la referencia NO valida que el motor automático ya reproduzca su lógica."
+}

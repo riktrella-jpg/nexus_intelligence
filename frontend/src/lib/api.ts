@@ -202,4 +202,12 @@ export async function processReconciliation(bodyOrForm: { file_path?: string; up
   return api("/api/reconciliation/process", { method: "POST", body: bodyOrForm });
 }
 
+export async function getReconciliationDiferencias(params: Record<string, any> = {}) {
+  return api(`/api/reconciliation/diferencias${buildQueryString(params)}`);
+}
+
+export async function getReconciliationV4Summary() {
+  return api("/api/reconciliation/v4-summary");
+}
+
 

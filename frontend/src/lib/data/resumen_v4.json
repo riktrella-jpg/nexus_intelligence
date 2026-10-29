@@ -1,0 +1,11 @@
+{
+  "institucion": "HGMEL",
+  "total_contratos": 668,
+  "monto_contratado_conciliado": "1205182002.31",
+  "monto_contratado_estimado_v3": "1211889228.86",
+  "diferencia_total": "6707226.55",
+  "contratos_coincidentes": 652,
+  "contratos_con_diferencias": 16,
+  "fuente_conciliado": "montos_contratados_consolidados.csv",
+  "fuente_diferencias": "conciliacion_contratos.csv"
+}

@@ -1,0 +1,5346 @@
+[
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-0123-2026",
+    "monto_contratado_consolidado": "186666.68",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-0125-2026",
+    "monto_contratado_consolidado": "1144540.00",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-054-2026",
+    "monto_contratado_consolidado": "73024852.20",
+    "filas_referencia": "117",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-246-2025",
+    "monto_contratado_consolidado": "2531201.14",
+    "filas_referencia": "7",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-247-2025",
+    "monto_contratado_consolidado": "327402.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-004-2026",
+    "monto_contratado_consolidado": "15428.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-005-2026",
+    "monto_contratado_consolidado": "2048.20",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-006-2026",
+    "monto_contratado_consolidado": "3647.00",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-007-2026",
+    "monto_contratado_consolidado": "85186.50",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-008-2026",
+    "monto_contratado_consolidado": "300300.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-009-2026",
+    "monto_contratado_consolidado": "288571.08",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-010-2026",
+    "monto_contratado_consolidado": "6721.00",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-011-2026",
+    "monto_contratado_consolidado": "26195.50",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-012-2026",
+    "monto_contratado_consolidado": "1596.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-013-2026",
+    "monto_contratado_consolidado": "2378.10",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-014-2026",
+    "monto_contratado_consolidado": "60342.48",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-015-2026",
+    "monto_contratado_consolidado": "217350.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-016-2026",
+    "monto_contratado_consolidado": "78.45",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-017-2026",
+    "monto_contratado_consolidado": "15284.50",
+    "filas_referencia": "9",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-018-2026",
+    "monto_contratado_consolidado": "23529.40",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-019-2026",
+    "monto_contratado_consolidado": "22714.50",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-020-2026",
+    "monto_contratado_consolidado": "300720.00",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-021-2026",
+    "monto_contratado_consolidado": "122029.67",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-022-2026",
+    "monto_contratado_consolidado": "215580.10",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-023-2026",
+    "monto_contratado_consolidado": "7504.83",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-024-2026",
+    "monto_contratado_consolidado": "5001.32",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-025-2026",
+    "monto_contratado_consolidado": "22420.00",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-026-2026",
+    "monto_contratado_consolidado": "1079400.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-027-2026",
+    "monto_contratado_consolidado": "4430.40",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-029-2026",
+    "monto_contratado_consolidado": "91342.29",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-030-2026",
+    "monto_contratado_consolidado": "1665693.98",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-033-2026",
+    "monto_contratado_consolidado": "23503.10",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-052-2026",
+    "monto_contratado_consolidado": "1615878.00",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-056-2026",
+    "monto_contratado_consolidado": "4323.88",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-057-2026",
+    "monto_contratado_consolidado": "480.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-058-2026",
+    "monto_contratado_consolidado": "46903.53",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-059-2026",
+    "monto_contratado_consolidado": "26000.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-060-2026",
+    "monto_contratado_consolidado": "555616.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-061-2026",
+    "monto_contratado_consolidado": "7244.27",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-062-2026",
+    "monto_contratado_consolidado": "1764.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-063-2026",
+    "monto_contratado_consolidado": "51700.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-064-2026",
+    "monto_contratado_consolidado": "12971.28",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-065-2026",
+    "monto_contratado_consolidado": "73811.28",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-066-2026",
+    "monto_contratado_consolidado": "11934.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-067-2026",
+    "monto_contratado_consolidado": "8255.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-068-2026",
+    "monto_contratado_consolidado": "3087.04",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-069-2026",
+    "monto_contratado_consolidado": "50654.10",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-070-2026",
+    "monto_contratado_consolidado": "104241.06",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-071-2026",
+    "monto_contratado_consolidado": "120608.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-072-2026",
+    "monto_contratado_consolidado": "99120.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-073-2026",
+    "monto_contratado_consolidado": "7712.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-079-2026",
+    "monto_contratado_consolidado": "14393.40",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-080-2026",
+    "monto_contratado_consolidado": "441065.55",
+    "filas_referencia": "7",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-081-2026",
+    "monto_contratado_consolidado": "9670.70",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-082-2026",
+    "monto_contratado_consolidado": "7773696.00",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-083-2026",
+    "monto_contratado_consolidado": "44504.10",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-084-2026",
+    "monto_contratado_consolidado": "71691.20",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-085-2026",
+    "monto_contratado_consolidado": "42269.36",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-086-2026",
+    "monto_contratado_consolidado": "9090.55",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-087-2026",
+    "monto_contratado_consolidado": "266499.20",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-088-2026",
+    "monto_contratado_consolidado": "188750.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-089-2026",
+    "monto_contratado_consolidado": "126575.22",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-090-2026",
+    "monto_contratado_consolidado": "12075.84",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-091-2026",
+    "monto_contratado_consolidado": "8252.14",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-092-2026",
+    "monto_contratado_consolidado": "6159.78",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-093-2026",
+    "monto_contratado_consolidado": "599760.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-094-2026",
+    "monto_contratado_consolidado": "401137.92",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-095-2026",
+    "monto_contratado_consolidado": "213462.00",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-096-2026",
+    "monto_contratado_consolidado": "114240.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-097-2026",
+    "monto_contratado_consolidado": "1066.80",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-098-2026",
+    "monto_contratado_consolidado": "7625040.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-099-2026",
+    "monto_contratado_consolidado": "16589.59",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-100-2026",
+    "monto_contratado_consolidado": "114338.00",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-101-2026",
+    "monto_contratado_consolidado": "286367.23",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-102-2026",
+    "monto_contratado_consolidado": "380215.62",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-103-2026",
+    "monto_contratado_consolidado": "1105.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-109-2026",
+    "monto_contratado_consolidado": "135201.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-110-2026",
+    "monto_contratado_consolidado": "99099.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-111-2026",
+    "monto_contratado_consolidado": "40320.48",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-112-2026",
+    "monto_contratado_consolidado": "27005.16",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-113-2026",
+    "monto_contratado_consolidado": "820683.15",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-114-2026",
+    "monto_contratado_consolidado": "116174.24",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-115-2026",
+    "monto_contratado_consolidado": "1196.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-116-2026",
+    "monto_contratado_consolidado": "478496.20",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-117-2026",
+    "monto_contratado_consolidado": "621.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-AD-CC-118-2026",
+    "monto_contratado_consolidado": "1377.50",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0142-2025",
+    "monto_contratado_consolidado": "724795.20",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0143-2025",
+    "monto_contratado_consolidado": "4336307.34",
+    "filas_referencia": "14",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0144-2025",
+    "monto_contratado_consolidado": "792000.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0145-2025",
+    "monto_contratado_consolidado": "2600000.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0146-2025",
+    "monto_contratado_consolidado": "16170066.00",
+    "filas_referencia": "8",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0146-2025-CM-02-2026",
+    "monto_contratado_consolidado": "84538.72",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0147-2025",
+    "monto_contratado_consolidado": "299633.58",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0148-2025",
+    "monto_contratado_consolidado": "4449943.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0152-2025",
+    "monto_contratado_consolidado": "1032833.00",
+    "filas_referencia": "9",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0153-2025",
+    "monto_contratado_consolidado": "8437862.47",
+    "filas_referencia": "15",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0154-2025",
+    "monto_contratado_consolidado": "7546764.30",
+    "filas_referencia": "16",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0155-2025",
+    "monto_contratado_consolidado": "64390.08",
+    "filas_referencia": "11",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0156-2025",
+    "monto_contratado_consolidado": "2004688.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0157-2025",
+    "monto_contratado_consolidado": "6853552.00",
+    "filas_referencia": "9",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0158-2025",
+    "monto_contratado_consolidado": "1262800.00",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0159-2025",
+    "monto_contratado_consolidado": "1346895.87",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0161-2025",
+    "monto_contratado_consolidado": "5321174.74",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0162-2025",
+    "monto_contratado_consolidado": "31203794.00",
+    "filas_referencia": "23",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0163-2025",
+    "monto_contratado_consolidado": "2932512.50",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0165-2025",
+    "monto_contratado_consolidado": "5681734.24",
+    "filas_referencia": "22",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0166-2025",
+    "monto_contratado_consolidado": "8729572.80",
+    "filas_referencia": "12",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0167-2025",
+    "monto_contratado_consolidado": "59850.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0168-2025",
+    "monto_contratado_consolidado": "757528.92",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0169-2025-CM-01-2025",
+    "monto_contratado_consolidado": "31874976.18",
+    "filas_referencia": "8",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0170-2025",
+    "monto_contratado_consolidado": "8652102.16",
+    "filas_referencia": "19",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0171-2025",
+    "monto_contratado_consolidado": "2406939.22",
+    "filas_referencia": "12",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0172-2025",
+    "monto_contratado_consolidado": "3598763.84",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0173-2025-CM-01-2025",
+    "monto_contratado_consolidado": "3958650.00",
+    "filas_referencia": "14",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0174-2025",
+    "monto_contratado_consolidado": "394197.88",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0175-2025",
+    "monto_contratado_consolidado": "8402700.00",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0176-2025",
+    "monto_contratado_consolidado": "2110485.78",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0177-2025",
+    "monto_contratado_consolidado": "1810508.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0178-2025-CM-01-2025",
+    "monto_contratado_consolidado": "4443596.38",
+    "filas_referencia": "10",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0179-2025",
+    "monto_contratado_consolidado": "4569188.72",
+    "filas_referencia": "15",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0180-2025",
+    "monto_contratado_consolidado": "1685824.72",
+    "filas_referencia": "8",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0181-2025",
+    "monto_contratado_consolidado": "3715566.66",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0182-2025",
+    "monto_contratado_consolidado": "3009896.88",
+    "filas_referencia": "8",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0183-2025",
+    "monto_contratado_consolidado": "14079445.87",
+    "filas_referencia": "47",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0184-2025",
+    "monto_contratado_consolidado": "4158600.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0185-2025",
+    "monto_contratado_consolidado": "774091.20",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0187-2025",
+    "monto_contratado_consolidado": "4733932.00",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0188-2025",
+    "monto_contratado_consolidado": "2583450.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0189-2025",
+    "monto_contratado_consolidado": "75600.00",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0191-2025",
+    "monto_contratado_consolidado": "9980846.20",
+    "filas_referencia": "13",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0192-2025",
+    "monto_contratado_consolidado": "52355.16",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0194-2025",
+    "monto_contratado_consolidado": "14906404.00",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0195-2025",
+    "monto_contratado_consolidado": "4273789.50",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0196-2025",
+    "monto_contratado_consolidado": "52123771.20",
+    "filas_referencia": "51",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0197-2025",
+    "monto_contratado_consolidado": "459795.87",
+    "filas_referencia": "8",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0198-2025-CM-01-2025",
+    "monto_contratado_consolidado": "32462138.00",
+    "filas_referencia": "26",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0199-2025",
+    "monto_contratado_consolidado": "5206154.10",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0200-2025",
+    "monto_contratado_consolidado": "4035000.00",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0202-2025",
+    "monto_contratado_consolidado": "121520.00",
+    "filas_referencia": "7",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0203-2025",
+    "monto_contratado_consolidado": "15592.50",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0204-2025",
+    "monto_contratado_consolidado": "287630.00",
+    "filas_referencia": "8",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0205-2025",
+    "monto_contratado_consolidado": "4644.72",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0206-2025",
+    "monto_contratado_consolidado": "7360.00",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0207-2025",
+    "monto_contratado_consolidado": "5791.68",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0208-2025",
+    "monto_contratado_consolidado": "164594.10",
+    "filas_referencia": "8",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0209-2025",
+    "monto_contratado_consolidado": "2041200.00",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0210-2025",
+    "monto_contratado_consolidado": "18774.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0211-2025",
+    "monto_contratado_consolidado": "255960.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0212-2025",
+    "monto_contratado_consolidado": "130245.98",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0213-2025",
+    "monto_contratado_consolidado": "18720.00",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0214-2025",
+    "monto_contratado_consolidado": "34200.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0215-2025",
+    "monto_contratado_consolidado": "850758.00",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0216-2025",
+    "monto_contratado_consolidado": "212399.14",
+    "filas_referencia": "7",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0217-2025",
+    "monto_contratado_consolidado": "117.90",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0218-2025",
+    "monto_contratado_consolidado": "52300.00",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0219-2025",
+    "monto_contratado_consolidado": "310800.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0220-2025",
+    "monto_contratado_consolidado": "760000.00",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0221-2025",
+    "monto_contratado_consolidado": "27793.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0222-2025",
+    "monto_contratado_consolidado": "440805.52",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0223-2025",
+    "monto_contratado_consolidado": "29450.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0224-2025",
+    "monto_contratado_consolidado": "223746.20",
+    "filas_referencia": "12",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0225-2025",
+    "monto_contratado_consolidado": "17820.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0226-2025",
+    "monto_contratado_consolidado": "2005960.00",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0298-2025",
+    "monto_contratado_consolidado": "845461.00",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0299-2025",
+    "monto_contratado_consolidado": "727259.00",
+    "filas_referencia": "7",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0300-2025",
+    "monto_contratado_consolidado": "2832000.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0301-2025",
+    "monto_contratado_consolidado": "19884.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0302-2025",
+    "monto_contratado_consolidado": "16800.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0303-2025",
+    "monto_contratado_consolidado": "277651.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0305-2025",
+    "monto_contratado_consolidado": "3969419.11",
+    "filas_referencia": "38",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0306-2025",
+    "monto_contratado_consolidado": "405450.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0307-2025",
+    "monto_contratado_consolidado": "348933.61",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0331-2025",
+    "monto_contratado_consolidado": "41904.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0332-2025",
+    "monto_contratado_consolidado": "70279.20",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0333-2025",
+    "monto_contratado_consolidado": "10530.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0334-2025",
+    "monto_contratado_consolidado": "114505.26",
+    "filas_referencia": "11",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0335-2025",
+    "monto_contratado_consolidado": "356411.02",
+    "filas_referencia": "20",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0336-2025",
+    "monto_contratado_consolidado": "67450.00",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0337-2025",
+    "monto_contratado_consolidado": "45396.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0338-2025",
+    "monto_contratado_consolidado": "850.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0339-2025",
+    "monto_contratado_consolidado": "28540.00",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0340-2025",
+    "monto_contratado_consolidado": "612514.00",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0341-2025",
+    "monto_contratado_consolidado": "2294.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0342-2025",
+    "monto_contratado_consolidado": "1534773.35",
+    "filas_referencia": "7",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0343-2025",
+    "monto_contratado_consolidado": "75000.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0344-2025",
+    "monto_contratado_consolidado": "91918.00",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0345-2025",
+    "monto_contratado_consolidado": "4680.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0346-2025",
+    "monto_contratado_consolidado": "70189.65",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0347-2025",
+    "monto_contratado_consolidado": "29156.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0348-2025",
+    "monto_contratado_consolidado": "2190.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0349-2025",
+    "monto_contratado_consolidado": "2956.50",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0350-2025",
+    "monto_contratado_consolidado": "607722.50",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0351-2025",
+    "monto_contratado_consolidado": "75537.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0352-2025",
+    "monto_contratado_consolidado": "93400.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0353-2025",
+    "monto_contratado_consolidado": "214879.93",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0354-2025",
+    "monto_contratado_consolidado": "96476.40",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0355-2025",
+    "monto_contratado_consolidado": "763945.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0356-2025",
+    "monto_contratado_consolidado": "86686.00",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0357-2025",
+    "monto_contratado_consolidado": "3422.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0358-2025",
+    "monto_contratado_consolidado": "2934.60",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0359-2025",
+    "monto_contratado_consolidado": "19152.00",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0360-2025",
+    "monto_contratado_consolidado": "417169.30",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0361-2025",
+    "monto_contratado_consolidado": "760424.31",
+    "filas_referencia": "10",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0362-2025",
+    "monto_contratado_consolidado": "293434.50",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0363-2025",
+    "monto_contratado_consolidado": "628.20",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0365-2025",
+    "monto_contratado_consolidado": "10555.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0366-2025",
+    "monto_contratado_consolidado": "1384000.00",
+    "filas_referencia": "8",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0367-2025",
+    "monto_contratado_consolidado": "17550.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0368-2025",
+    "monto_contratado_consolidado": "188316.80",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0369-2025",
+    "monto_contratado_consolidado": "1312555.88",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0370-2025",
+    "monto_contratado_consolidado": "21546.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0371-2025",
+    "monto_contratado_consolidado": "8075.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0372-2025",
+    "monto_contratado_consolidado": "280512.00",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0373-2025",
+    "monto_contratado_consolidado": "7680000.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0374-2025",
+    "monto_contratado_consolidado": "157476.00",
+    "filas_referencia": "9",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0375-2025",
+    "monto_contratado_consolidado": "187855.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0376-2025",
+    "monto_contratado_consolidado": "114442.70",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0377-2025",
+    "monto_contratado_consolidado": "2432.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0378-2025",
+    "monto_contratado_consolidado": "405000.00",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0379-2025",
+    "monto_contratado_consolidado": "59400.00",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0380-2025",
+    "monto_contratado_consolidado": "740.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0381-2025",
+    "monto_contratado_consolidado": "296240.00",
+    "filas_referencia": "7",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0382-2025",
+    "monto_contratado_consolidado": "1776966.84",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0383-2025",
+    "monto_contratado_consolidado": "2431192.00",
+    "filas_referencia": "13",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0384-2025",
+    "monto_contratado_consolidado": "89039.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0385-2025",
+    "monto_contratado_consolidado": "90240.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0386-2025",
+    "monto_contratado_consolidado": "321150.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0387-2025",
+    "monto_contratado_consolidado": "218316.73",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0388-2025",
+    "monto_contratado_consolidado": "506798.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0389-2025",
+    "monto_contratado_consolidado": "3287202.24",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0396-2025",
+    "monto_contratado_consolidado": "104969.44",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0397-2025",
+    "monto_contratado_consolidado": "262790.00",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0398-2025",
+    "monto_contratado_consolidado": "837900.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0399-2025",
+    "monto_contratado_consolidado": "147700.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0400-2025",
+    "monto_contratado_consolidado": "29816.64",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0401-2025",
+    "monto_contratado_consolidado": "146651.95",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0402-2025",
+    "monto_contratado_consolidado": "48873.00",
+    "filas_referencia": "14",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0403-2025",
+    "monto_contratado_consolidado": "203960.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0404-2025",
+    "monto_contratado_consolidado": "305940.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0406-2025",
+    "monto_contratado_consolidado": "7320.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0407-2025",
+    "monto_contratado_consolidado": "1300.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0407-2025-CM-01-2025",
+    "monto_contratado_consolidado": "185054.96",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0408-2025",
+    "monto_contratado_consolidado": "38961.00",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0419-2025-CM-02-2026",
+    "monto_contratado_consolidado": "329844.36",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0496-2025",
+    "monto_contratado_consolidado": "86796.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0497-2025",
+    "monto_contratado_consolidado": "555220.08",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0498-2025",
+    "monto_contratado_consolidado": "1986166.60",
+    "filas_referencia": "10",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0499-2025",
+    "monto_contratado_consolidado": "5478584.60",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0500-2025",
+    "monto_contratado_consolidado": "249720.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0501-2025",
+    "monto_contratado_consolidado": "781704.24",
+    "filas_referencia": "9",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0502-2025",
+    "monto_contratado_consolidado": "29037.96",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0503-2025",
+    "monto_contratado_consolidado": "152592.36",
+    "filas_referencia": "12",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0504-2025",
+    "monto_contratado_consolidado": "2117832.70",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0505-2025",
+    "monto_contratado_consolidado": "1238812.80",
+    "filas_referencia": "12",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0506-2025",
+    "monto_contratado_consolidado": "261690.48",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0507-2025",
+    "monto_contratado_consolidado": "27405.00",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0508-2025",
+    "monto_contratado_consolidado": "35100.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0509-2025",
+    "monto_contratado_consolidado": "10309936.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0510-2025",
+    "monto_contratado_consolidado": "1805513.37",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0511-2025",
+    "monto_contratado_consolidado": "1153009.00",
+    "filas_referencia": "15",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0512-2025",
+    "monto_contratado_consolidado": "35283.75",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0513-2025",
+    "monto_contratado_consolidado": "150000.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0514-2025",
+    "monto_contratado_consolidado": "1779116.18",
+    "filas_referencia": "10",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0515-2025",
+    "monto_contratado_consolidado": "139091.00",
+    "filas_referencia": "8",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0516-2025",
+    "monto_contratado_consolidado": "644240.00",
+    "filas_referencia": "19",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0517-2025",
+    "monto_contratado_consolidado": "1140927.88",
+    "filas_referencia": "89",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0518-2025",
+    "monto_contratado_consolidado": "395370.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0519-2025",
+    "monto_contratado_consolidado": "131375.67",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0520-2025",
+    "monto_contratado_consolidado": "3995901.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0521-2025",
+    "monto_contratado_consolidado": "15825.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0522-2025",
+    "monto_contratado_consolidado": "1771500.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0523-2025",
+    "monto_contratado_consolidado": "708077.37",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0524-2025",
+    "monto_contratado_consolidado": "1600000.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0525-2025",
+    "monto_contratado_consolidado": "321817.50",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0526-2025",
+    "monto_contratado_consolidado": "9480162.66",
+    "filas_referencia": "13",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0527-2025",
+    "monto_contratado_consolidado": "589836.00",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0528-2025-CM-01-2026",
+    "monto_contratado_consolidado": "1252125.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0529-2025",
+    "monto_contratado_consolidado": "159161.25",
+    "filas_referencia": "8",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0530-2025",
+    "monto_contratado_consolidado": "64800.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0531-2025",
+    "monto_contratado_consolidado": "2008997.14",
+    "filas_referencia": "50",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0532-2025",
+    "monto_contratado_consolidado": "740715.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0533-2025",
+    "monto_contratado_consolidado": "281901.41",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0534-2025",
+    "monto_contratado_consolidado": "210391.72",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0535-2025",
+    "monto_contratado_consolidado": "4767671.70",
+    "filas_referencia": "28",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0536-2025",
+    "monto_contratado_consolidado": "409050.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0537-2025",
+    "monto_contratado_consolidado": "802676.32",
+    "filas_referencia": "7",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0538-2025",
+    "monto_contratado_consolidado": "11535363.00",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0539-2025",
+    "monto_contratado_consolidado": "2309460.00",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0540-2025",
+    "monto_contratado_consolidado": "775.20",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0541-2025",
+    "monto_contratado_consolidado": "9406806.40",
+    "filas_referencia": "16",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0542-2025",
+    "monto_contratado_consolidado": "558506.10",
+    "filas_referencia": "40",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0543-2025",
+    "monto_contratado_consolidado": "495679.18",
+    "filas_referencia": "9",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0544-2025",
+    "monto_contratado_consolidado": "14364.60",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0545-2025",
+    "monto_contratado_consolidado": "230133.00",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0547-2025",
+    "monto_contratado_consolidado": "4575.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0548-2025",
+    "monto_contratado_consolidado": "1016810.00",
+    "filas_referencia": "22",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0549-2025",
+    "monto_contratado_consolidado": "2167074.75",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0550-2025",
+    "monto_contratado_consolidado": "2287.50",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0551-2025",
+    "monto_contratado_consolidado": "1564680.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0552-2025",
+    "monto_contratado_consolidado": "144763.00",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0553-2025",
+    "monto_contratado_consolidado": "1519403.03",
+    "filas_referencia": "54",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0554-2025",
+    "monto_contratado_consolidado": "4968652.00",
+    "filas_referencia": "8",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0555-2025",
+    "monto_contratado_consolidado": "514527.62",
+    "filas_referencia": "24",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0556-2025",
+    "monto_contratado_consolidado": "83533.60",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0557-2025",
+    "monto_contratado_consolidado": "276496.00",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0558-2025",
+    "monto_contratado_consolidado": "71724.66",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0559-2025",
+    "monto_contratado_consolidado": "2578898.19",
+    "filas_referencia": "15",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0560-2025",
+    "monto_contratado_consolidado": "1080563.29",
+    "filas_referencia": "11",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0561-2025-CM-01-2026",
+    "monto_contratado_consolidado": "23828140.08",
+    "filas_referencia": "257",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0562-2025",
+    "monto_contratado_consolidado": "62459.46",
+    "filas_referencia": "7",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0563-2025",
+    "monto_contratado_consolidado": "2952156.60",
+    "filas_referencia": "12",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0564-2025",
+    "monto_contratado_consolidado": "384948.28",
+    "filas_referencia": "17",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0565-2025",
+    "monto_contratado_consolidado": "261158.16",
+    "filas_referencia": "15",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0566-2025",
+    "monto_contratado_consolidado": "145651.20",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0567-2025",
+    "monto_contratado_consolidado": "857307.88",
+    "filas_referencia": "17",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0568-2025",
+    "monto_contratado_consolidado": "775209.65",
+    "filas_referencia": "9",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0569-2025",
+    "monto_contratado_consolidado": "527340.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0570-2025",
+    "monto_contratado_consolidado": "429040.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0571-2025",
+    "monto_contratado_consolidado": "922512.00",
+    "filas_referencia": "8",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0572-2025",
+    "monto_contratado_consolidado": "12049.50",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0573-2025",
+    "monto_contratado_consolidado": "17700.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0574-2025",
+    "monto_contratado_consolidado": "90000.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0575-2025",
+    "monto_contratado_consolidado": "1311700.22",
+    "filas_referencia": "14",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0576-2025",
+    "monto_contratado_consolidado": "221695.62",
+    "filas_referencia": "8",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0577-2025",
+    "monto_contratado_consolidado": "289962.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0578-2025",
+    "monto_contratado_consolidado": "271213.59",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0579-2025",
+    "monto_contratado_consolidado": "1626267.44",
+    "filas_referencia": "32",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0580-2025",
+    "monto_contratado_consolidado": "10655076.98",
+    "filas_referencia": "14",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0581-2025",
+    "monto_contratado_consolidado": "4067455.00",
+    "filas_referencia": "9",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0582-2025",
+    "monto_contratado_consolidado": "1197719.40",
+    "filas_referencia": "14",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0583-2025",
+    "monto_contratado_consolidado": "9424.00",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0584-2025",
+    "monto_contratado_consolidado": "2496.75",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0585-2025",
+    "monto_contratado_consolidado": "2373018.06",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0586-2025",
+    "monto_contratado_consolidado": "768000.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0587-2025",
+    "monto_contratado_consolidado": "70053.12",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0588-2025",
+    "monto_contratado_consolidado": "3258668.00",
+    "filas_referencia": "11",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0589-2025",
+    "monto_contratado_consolidado": "9829.50",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0590-2025",
+    "monto_contratado_consolidado": "199747.15",
+    "filas_referencia": "12",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0591-2025",
+    "monto_contratado_consolidado": "179745.44",
+    "filas_referencia": "9",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0592-2025",
+    "monto_contratado_consolidado": "138930.75",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0593-2025",
+    "monto_contratado_consolidado": "304970.94",
+    "filas_referencia": "9",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0594-2025",
+    "monto_contratado_consolidado": "778431.59",
+    "filas_referencia": "26",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0595-2025",
+    "monto_contratado_consolidado": "1179680.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0596-2025",
+    "monto_contratado_consolidado": "2610.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0597-2025",
+    "monto_contratado_consolidado": "421533.00",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0598-2025",
+    "monto_contratado_consolidado": "8608156.69",
+    "filas_referencia": "21",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0599-2025",
+    "monto_contratado_consolidado": "105889.50",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0600-2025",
+    "monto_contratado_consolidado": "3964635.00",
+    "filas_referencia": "14",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0601-2025",
+    "monto_contratado_consolidado": "296430.00",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0602-2025",
+    "monto_contratado_consolidado": "4663845.84",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0603-2025",
+    "monto_contratado_consolidado": "630724.30",
+    "filas_referencia": "15",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0727-2025",
+    "monto_contratado_consolidado": "463430.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0728-2025",
+    "monto_contratado_consolidado": "248717.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0729-2025",
+    "monto_contratado_consolidado": "1302565.05",
+    "filas_referencia": "7",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0730-2025",
+    "monto_contratado_consolidado": "1168665.05",
+    "filas_referencia": "14",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0777-2025",
+    "monto_contratado_consolidado": "68090.40",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0778-2025",
+    "monto_contratado_consolidado": "86060.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0779-2025",
+    "monto_contratado_consolidado": "14475.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0780-2025",
+    "monto_contratado_consolidado": "875100.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0781-2025",
+    "monto_contratado_consolidado": "75912.00",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0782-2025",
+    "monto_contratado_consolidado": "268729.00",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0783-2025",
+    "monto_contratado_consolidado": "64420.75",
+    "filas_referencia": "7",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0784-2025",
+    "monto_contratado_consolidado": "12135.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0785-2025",
+    "monto_contratado_consolidado": "519715.35",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0786-2025",
+    "monto_contratado_consolidado": "2480450.00",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0787-2025",
+    "monto_contratado_consolidado": "5749.02",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0788-2025",
+    "monto_contratado_consolidado": "245868.91",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0789-2025",
+    "monto_contratado_consolidado": "191312.00",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0790-2025",
+    "monto_contratado_consolidado": "57970.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0791-2025",
+    "monto_contratado_consolidado": "975.60",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0792-2025",
+    "monto_contratado_consolidado": "138096.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0793-2025",
+    "monto_contratado_consolidado": "3755.25",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0794-2025",
+    "monto_contratado_consolidado": "93692.00",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0795-2025",
+    "monto_contratado_consolidado": "195888.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0796-2025",
+    "monto_contratado_consolidado": "758101.11",
+    "filas_referencia": "7",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0797-2025",
+    "monto_contratado_consolidado": "68384.94",
+    "filas_referencia": "13",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0798-2025",
+    "monto_contratado_consolidado": "1120203.28",
+    "filas_referencia": "7",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0799-2025",
+    "monto_contratado_consolidado": "529.50",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0800-2025",
+    "monto_contratado_consolidado": "217328.15",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0801-2025",
+    "monto_contratado_consolidado": "400502.76",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0802-2025",
+    "monto_contratado_consolidado": "391675.54",
+    "filas_referencia": "23",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0803-2025",
+    "monto_contratado_consolidado": "11559.44",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0804-2025",
+    "monto_contratado_consolidado": "422783.80",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0805-2025",
+    "monto_contratado_consolidado": "15046394.80",
+    "filas_referencia": "8",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0806-2025",
+    "monto_contratado_consolidado": "1567307.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0807-2025",
+    "monto_contratado_consolidado": "486763.20",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0874-2025",
+    "monto_contratado_consolidado": "17875990.07",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0883-2025",
+    "monto_contratado_consolidado": "18.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0884-2025",
+    "monto_contratado_consolidado": "1519036.36",
+    "filas_referencia": "8",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0885-2025",
+    "monto_contratado_consolidado": "299.70",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0886-2025",
+    "monto_contratado_consolidado": "7013.25",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0887-2025",
+    "monto_contratado_consolidado": "770.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0888-2025",
+    "monto_contratado_consolidado": "108080.76",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0889-2025",
+    "monto_contratado_consolidado": "43494.30",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0890-2025",
+    "monto_contratado_consolidado": "22143.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0891-2025",
+    "monto_contratado_consolidado": "24255.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0892-2025",
+    "monto_contratado_consolidado": "783541.00",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0893-2025",
+    "monto_contratado_consolidado": "2789.53",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0894-2025",
+    "monto_contratado_consolidado": "31610.81",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0895-2025",
+    "monto_contratado_consolidado": "3456.70",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0896-2025",
+    "monto_contratado_consolidado": "31362.60",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0897-2025",
+    "monto_contratado_consolidado": "10.49",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0898-2025",
+    "monto_contratado_consolidado": "28501.44",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0899-2025",
+    "monto_contratado_consolidado": "9337.47",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0900-2025",
+    "monto_contratado_consolidado": "25090.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0901-2025",
+    "monto_contratado_consolidado": "23800.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0902-2025",
+    "monto_contratado_consolidado": "327192.84",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0903-2025",
+    "monto_contratado_consolidado": "3645112.69",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0904-2025",
+    "monto_contratado_consolidado": "579150.00",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0905-2025",
+    "monto_contratado_consolidado": "44800.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0906-2025",
+    "monto_contratado_consolidado": "3092121.00",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0907-2025",
+    "monto_contratado_consolidado": "241390.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0908-2025",
+    "monto_contratado_consolidado": "5797054.76",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0909-2025",
+    "monto_contratado_consolidado": "39061052.77",
+    "filas_referencia": "14",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0910-2025",
+    "monto_contratado_consolidado": "76739.44",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0911-2025",
+    "monto_contratado_consolidado": "9866673.87",
+    "filas_referencia": "13",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0912-2025",
+    "monto_contratado_consolidado": "757417.60",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0913-2025",
+    "monto_contratado_consolidado": "1177503.00",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0914-2025",
+    "monto_contratado_consolidado": "24678.90",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0915-2025",
+    "monto_contratado_consolidado": "843769.76",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0916-2025",
+    "monto_contratado_consolidado": "537846.26",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0917-2025",
+    "monto_contratado_consolidado": "2389166.00",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0918-2025",
+    "monto_contratado_consolidado": "14245965.00",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0919-2025",
+    "monto_contratado_consolidado": "666400.00",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0920-2025",
+    "monto_contratado_consolidado": "28331.18",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0921-2025",
+    "monto_contratado_consolidado": "112787.50",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0922-2025",
+    "monto_contratado_consolidado": "4526275.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0923-2025",
+    "monto_contratado_consolidado": "4275355.38",
+    "filas_referencia": "13",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0924-2025",
+    "monto_contratado_consolidado": "3000821.26",
+    "filas_referencia": "7",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0925-2025",
+    "monto_contratado_consolidado": "99540.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0926-2025",
+    "monto_contratado_consolidado": "3239636.90",
+    "filas_referencia": "10",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0927-2025",
+    "monto_contratado_consolidado": "3371774.00",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0928-2025",
+    "monto_contratado_consolidado": "10448.64",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0929-2025",
+    "monto_contratado_consolidado": "309225.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0930-2025",
+    "monto_contratado_consolidado": "849020.78",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0931-2025",
+    "monto_contratado_consolidado": "2184400.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0932-2025",
+    "monto_contratado_consolidado": "1372569.45",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0933-2025",
+    "monto_contratado_consolidado": "362141.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0934-2025",
+    "monto_contratado_consolidado": "235282.32",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0935-2025",
+    "monto_contratado_consolidado": "3418829.00",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0936-2025",
+    "monto_contratado_consolidado": "7986456.65",
+    "filas_referencia": "13",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-AD-0937-2025",
+    "monto_contratado_consolidado": "481070.00",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0616-2025",
+    "monto_contratado_consolidado": "103322.25",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0617-2025",
+    "monto_contratado_consolidado": "225.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0618-2025",
+    "monto_contratado_consolidado": "271222.00",
+    "filas_referencia": "8",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0619-2025",
+    "monto_contratado_consolidado": "127763.35",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0620-2025",
+    "monto_contratado_consolidado": "234964.80",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0621-2025",
+    "monto_contratado_consolidado": "149620.67",
+    "filas_referencia": "12",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0622-2025",
+    "monto_contratado_consolidado": "404319.40",
+    "filas_referencia": "8",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0623-2025",
+    "monto_contratado_consolidado": "75504.39",
+    "filas_referencia": "7",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0624-2025",
+    "monto_contratado_consolidado": "1934386.72",
+    "filas_referencia": "21",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0625-2025",
+    "monto_contratado_consolidado": "2274533.31",
+    "filas_referencia": "33",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0626-2025",
+    "monto_contratado_consolidado": "451764.39",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0627-2025",
+    "monto_contratado_consolidado": "21664.05",
+    "filas_referencia": "9",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0628-2025",
+    "monto_contratado_consolidado": "482312.66",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0629-2025",
+    "monto_contratado_consolidado": "462224.33",
+    "filas_referencia": "7",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0630-2025",
+    "monto_contratado_consolidado": "943839.14",
+    "filas_referencia": "12",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0631-2025",
+    "monto_contratado_consolidado": "1728407.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0632-2025",
+    "monto_contratado_consolidado": "85363.01",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0633-2025",
+    "monto_contratado_consolidado": "12175.77",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0634-2025",
+    "monto_contratado_consolidado": "7028.13",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0635-2025",
+    "monto_contratado_consolidado": "695019.59",
+    "filas_referencia": "7",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0636-2025",
+    "monto_contratado_consolidado": "450112.68",
+    "filas_referencia": "27",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0637-2025",
+    "monto_contratado_consolidado": "383979.51",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0638-2025",
+    "monto_contratado_consolidado": "272126.50",
+    "filas_referencia": "20",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0639-2025",
+    "monto_contratado_consolidado": "4806.36",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0640-2025",
+    "monto_contratado_consolidado": "42939.99",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0641-2025",
+    "monto_contratado_consolidado": "283430.80",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0642-2025",
+    "monto_contratado_consolidado": "76611.26",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0643-2025",
+    "monto_contratado_consolidado": "3308.10",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0644-2025",
+    "monto_contratado_consolidado": "48732.36",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0645-2025",
+    "monto_contratado_consolidado": "1680.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0646-2025",
+    "monto_contratado_consolidado": "397909.22",
+    "filas_referencia": "8",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0647-2025",
+    "monto_contratado_consolidado": "39799.94",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0648-2025",
+    "monto_contratado_consolidado": "226.35",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0649-2025",
+    "monto_contratado_consolidado": "3752242.10",
+    "filas_referencia": "30",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0650-2025",
+    "monto_contratado_consolidado": "59195.80",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0651-2025",
+    "monto_contratado_consolidado": "78002.25",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0652-2025",
+    "monto_contratado_consolidado": "63180.00",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0653-2025",
+    "monto_contratado_consolidado": "172045.38",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0654-2025",
+    "monto_contratado_consolidado": "265983.06",
+    "filas_referencia": "9",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0655-2025",
+    "monto_contratado_consolidado": "31839.75",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0656-2025",
+    "monto_contratado_consolidado": "2504.70",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0657-2025",
+    "monto_contratado_consolidado": "2341745.57",
+    "filas_referencia": "13",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0658-2025",
+    "monto_contratado_consolidado": "151314.24",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0659-2025",
+    "monto_contratado_consolidado": "77088.80",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0660-2025",
+    "monto_contratado_consolidado": "383919.42",
+    "filas_referencia": "11",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0661-2025",
+    "monto_contratado_consolidado": "261289.12",
+    "filas_referencia": "14",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0662-2025",
+    "monto_contratado_consolidado": "530019.20",
+    "filas_referencia": "8",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0663-2025",
+    "monto_contratado_consolidado": "523467.78",
+    "filas_referencia": "9",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0664-2025",
+    "monto_contratado_consolidado": "14247226.26",
+    "filas_referencia": "13",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0665-2025",
+    "monto_contratado_consolidado": "266392.00",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0666-2025",
+    "monto_contratado_consolidado": "699395.65",
+    "filas_referencia": "14",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0667-2025",
+    "monto_contratado_consolidado": "15720.80",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0668-2025",
+    "monto_contratado_consolidado": "388579.36",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0669-2025",
+    "monto_contratado_consolidado": "253927.49",
+    "filas_referencia": "8",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0670-2025",
+    "monto_contratado_consolidado": "2211894.90",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0671-2025",
+    "monto_contratado_consolidado": "52832.07",
+    "filas_referencia": "8",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0672-2025",
+    "monto_contratado_consolidado": "193798.21",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0673-2025",
+    "monto_contratado_consolidado": "4506307.60",
+    "filas_referencia": "43",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0674-2025",
+    "monto_contratado_consolidado": "167.40",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0675-2025",
+    "monto_contratado_consolidado": "93289.11",
+    "filas_referencia": "9",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0676-2025",
+    "monto_contratado_consolidado": "23570.72",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0677-2025",
+    "monto_contratado_consolidado": "989708.32",
+    "filas_referencia": "15",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0678-2025",
+    "monto_contratado_consolidado": "1280518.50",
+    "filas_referencia": "11",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0679-2025",
+    "monto_contratado_consolidado": "657.30",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0680-2025",
+    "monto_contratado_consolidado": "462690.14",
+    "filas_referencia": "13",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0681-2025",
+    "monto_contratado_consolidado": "577593.00",
+    "filas_referencia": "12",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0682-2025",
+    "monto_contratado_consolidado": "96225.21",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0683-2025",
+    "monto_contratado_consolidado": "1024.74",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0684-2025",
+    "monto_contratado_consolidado": "142.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0685-2025",
+    "monto_contratado_consolidado": "1821994.49",
+    "filas_referencia": "19",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0686-2025",
+    "monto_contratado_consolidado": "2892563.80",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0687-2025",
+    "monto_contratado_consolidado": "621618.19",
+    "filas_referencia": "8",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0688-2025",
+    "monto_contratado_consolidado": "494818.36",
+    "filas_referencia": "9",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0689-2025",
+    "monto_contratado_consolidado": "12229.49",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0690-2025",
+    "monto_contratado_consolidado": "9180.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0691-2025",
+    "monto_contratado_consolidado": "3292290.00",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0692-2025",
+    "monto_contratado_consolidado": "23987.70",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0693-2025",
+    "monto_contratado_consolidado": "150000.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0694-2025",
+    "monto_contratado_consolidado": "9600.45",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0695-2025",
+    "monto_contratado_consolidado": "136422.96",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0696-2025",
+    "monto_contratado_consolidado": "2643.52",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0697-2025",
+    "monto_contratado_consolidado": "1999594.24",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0698-2025",
+    "monto_contratado_consolidado": "8786.20",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0699-2025",
+    "monto_contratado_consolidado": "725889.60",
+    "filas_referencia": "15",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0700-2025",
+    "monto_contratado_consolidado": "489900.00",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0701-2025",
+    "monto_contratado_consolidado": "302771.10",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0702-2025",
+    "monto_contratado_consolidado": "497067.64",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0703-2025",
+    "monto_contratado_consolidado": "11744557.59",
+    "filas_referencia": "17",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0704-2025",
+    "monto_contratado_consolidado": "102271.50",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0705-2025",
+    "monto_contratado_consolidado": "363186.90",
+    "filas_referencia": "11",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0706-2025",
+    "monto_contratado_consolidado": "3378026.50",
+    "filas_referencia": "7",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0707-2025",
+    "monto_contratado_consolidado": "807485.22",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0708-2025",
+    "monto_contratado_consolidado": "3085562.18",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0709-2025",
+    "monto_contratado_consolidado": "4832071.47",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0710-2025",
+    "monto_contratado_consolidado": "123419.16",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0711-2025",
+    "monto_contratado_consolidado": "27609.53",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0712-2025",
+    "monto_contratado_consolidado": "3124.10",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0713-2025",
+    "monto_contratado_consolidado": "4920.93",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0714-2025",
+    "monto_contratado_consolidado": "182658.89",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0715-2025",
+    "monto_contratado_consolidado": "168243.20",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0716-2025",
+    "monto_contratado_consolidado": "6400.81",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0717-2025",
+    "monto_contratado_consolidado": "891.80",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0718-2025",
+    "monto_contratado_consolidado": "3562.50",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0719-2025",
+    "monto_contratado_consolidado": "1253076.55",
+    "filas_referencia": "19",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0720-2025",
+    "monto_contratado_consolidado": "1290.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0721-2025",
+    "monto_contratado_consolidado": "61913.94",
+    "filas_referencia": "8",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0722-2025",
+    "monto_contratado_consolidado": "1223604.49",
+    "filas_referencia": "8",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0723-2025",
+    "monto_contratado_consolidado": "1142446.60",
+    "filas_referencia": "7",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0724-2025",
+    "monto_contratado_consolidado": "2994.87",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0725-2025",
+    "monto_contratado_consolidado": "2722795.27",
+    "filas_referencia": "19",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-INVI-0726-2025",
+    "monto_contratado_consolidado": "95812.78",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0252-2026",
+    "monto_contratado_consolidado": "14492.25",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0253-2026",
+    "monto_contratado_consolidado": "12312.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0943-2025",
+    "monto_contratado_consolidado": "98412.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0944-2025",
+    "monto_contratado_consolidado": "325.92",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0945-2025",
+    "monto_contratado_consolidado": "832933.26",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0946-2025",
+    "monto_contratado_consolidado": "1280.00",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0947-2025",
+    "monto_contratado_consolidado": "258672.84",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0948-2025",
+    "monto_contratado_consolidado": "270582.55",
+    "filas_referencia": "8",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0949-2025",
+    "monto_contratado_consolidado": "24975.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0950-2025",
+    "monto_contratado_consolidado": "39967.55",
+    "filas_referencia": "12",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0951-2025",
+    "monto_contratado_consolidado": "6157600.00",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0952-2025",
+    "monto_contratado_consolidado": "89973.08",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0953-2025",
+    "monto_contratado_consolidado": "265453.60",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0954-2025",
+    "monto_contratado_consolidado": "29061.20",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0955-2025",
+    "monto_contratado_consolidado": "262737.08",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0956-2025",
+    "monto_contratado_consolidado": "41632.95",
+    "filas_referencia": "10",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0957-2025",
+    "monto_contratado_consolidado": "320851.80",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0958-2025",
+    "monto_contratado_consolidado": "14000.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0959-2025",
+    "monto_contratado_consolidado": "589875.09",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0960-2025",
+    "monto_contratado_consolidado": "2588.32",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0961-2025",
+    "monto_contratado_consolidado": "38109.24",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0962-2025",
+    "monto_contratado_consolidado": "1486.10",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0963-2025",
+    "monto_contratado_consolidado": "23826.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0964-2025",
+    "monto_contratado_consolidado": "360803.56",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0965-2025",
+    "monto_contratado_consolidado": "35154.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0966-2025",
+    "monto_contratado_consolidado": "225793.81",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0967-2025",
+    "monto_contratado_consolidado": "428486.80",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0968-2025",
+    "monto_contratado_consolidado": "156116.90",
+    "filas_referencia": "7",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0969-2025",
+    "monto_contratado_consolidado": "218324.50",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0970-2025",
+    "monto_contratado_consolidado": "41699.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0971-2025",
+    "monto_contratado_consolidado": "2049.12",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0972-2025",
+    "monto_contratado_consolidado": "24136.12",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0973-2025",
+    "monto_contratado_consolidado": "33858.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0974-2025",
+    "monto_contratado_consolidado": "25563.77",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0975-2025",
+    "monto_contratado_consolidado": "204396.40",
+    "filas_referencia": "10",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0976-2025",
+    "monto_contratado_consolidado": "490854.00",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0977-2025",
+    "monto_contratado_consolidado": "16045.56",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0978-2025",
+    "monto_contratado_consolidado": "313.50",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0979-2025",
+    "monto_contratado_consolidado": "18648.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0980-2025",
+    "monto_contratado_consolidado": "163235.20",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0981-2025",
+    "monto_contratado_consolidado": "15834.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0982-2025",
+    "monto_contratado_consolidado": "220726.38",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0983-2025",
+    "monto_contratado_consolidado": "19629064.25",
+    "filas_referencia": "10",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0984-2025",
+    "monto_contratado_consolidado": "874.50",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0985-2025",
+    "monto_contratado_consolidado": "771320.00",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0986-2025",
+    "monto_contratado_consolidado": "19305.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0987-2025",
+    "monto_contratado_consolidado": "26876.22",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0988-2025",
+    "monto_contratado_consolidado": "560.70",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0989-2025",
+    "monto_contratado_consolidado": "68546.25",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0990-2025",
+    "monto_contratado_consolidado": "1575.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0991-2025",
+    "monto_contratado_consolidado": "25172.55",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0992-2025",
+    "monto_contratado_consolidado": "379640.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0993-2025",
+    "monto_contratado_consolidado": "62558.20",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0994-2025",
+    "monto_contratado_consolidado": "126460.60",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0995-2025",
+    "monto_contratado_consolidado": "524162.88",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0996-2025",
+    "monto_contratado_consolidado": "409394.25",
+    "filas_referencia": "10",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0997-2025",
+    "monto_contratado_consolidado": "194312.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0998-2025",
+    "monto_contratado_consolidado": "1503897.53",
+    "filas_referencia": "13",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-0999-2025",
+    "monto_contratado_consolidado": "140025.00",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-1000-2025",
+    "monto_contratado_consolidado": "5040.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-1001-2025",
+    "monto_contratado_consolidado": "16556.40",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-1002-2025",
+    "monto_contratado_consolidado": "2472.12",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-1003-2025",
+    "monto_contratado_consolidado": "29233.50",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-1004-2025",
+    "monto_contratado_consolidado": "130493.40",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-1005-2025",
+    "monto_contratado_consolidado": "25641.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-1006-2025",
+    "monto_contratado_consolidado": "2972.60",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-1007-2025",
+    "monto_contratado_consolidado": "16104.63",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-1008-2025",
+    "monto_contratado_consolidado": "5466.44",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-1009-2025",
+    "monto_contratado_consolidado": "3612510.79",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-1010-2025",
+    "monto_contratado_consolidado": "95095.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-1011-2025",
+    "monto_contratado_consolidado": "24895.14",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-1012-2025",
+    "monto_contratado_consolidado": "3500.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-1013-2025",
+    "monto_contratado_consolidado": "272500.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-1014-2025",
+    "monto_contratado_consolidado": "261222.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-1015-2025",
+    "monto_contratado_consolidado": "14188207.00",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-1016-2025",
+    "monto_contratado_consolidado": "6363.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-CC-LPI-1017-2025",
+    "monto_contratado_consolidado": "217.50",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-INVI-031-2026",
+    "monto_contratado_consolidado": "1348400.00",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-INVI-032-2026",
+    "monto_contratado_consolidado": "1593200.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-INVI-131-2026",
+    "monto_contratado_consolidado": "940500.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-INVI-132-2026",
+    "monto_contratado_consolidado": "1347500.00",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-INVI-133-2026",
+    "monto_contratado_consolidado": "4520000.00",
+    "filas_referencia": "8",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-INVI-205-2026",
+    "monto_contratado_consolidado": "1677600.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-028-2026",
+    "monto_contratado_consolidado": "43448276.40",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-034-2026",
+    "monto_contratado_consolidado": "38205280.00",
+    "filas_referencia": "148",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-050-2026-CM-02-2026",
+    "monto_contratado_consolidado": "49754516.76",
+    "filas_referencia": "109",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-104-2026-CM-01-2026",
+    "monto_contratado_consolidado": "54889967.20",
+    "filas_referencia": "172",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-214-2026",
+    "monto_contratado_consolidado": "1200000.00",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-215-2026",
+    "monto_contratado_consolidado": "187930.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-217-2026",
+    "monto_contratado_consolidado": "9127500.00",
+    "filas_referencia": "8",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-223-2026",
+    "monto_contratado_consolidado": "3552.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-224-2026",
+    "monto_contratado_consolidado": "297276.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-225-2026",
+    "monto_contratado_consolidado": "115395.60",
+    "filas_referencia": "7",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-226-2026",
+    "monto_contratado_consolidado": "15696.00",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-227-2026",
+    "monto_contratado_consolidado": "168375.00",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-229-2026",
+    "monto_contratado_consolidado": "16030.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-230-2026",
+    "monto_contratado_consolidado": "415419.80",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-231-2026",
+    "monto_contratado_consolidado": "47000.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-232-2026",
+    "monto_contratado_consolidado": "90384.20",
+    "filas_referencia": "6",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-233-2026",
+    "monto_contratado_consolidado": "145699.00",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-234-2026",
+    "monto_contratado_consolidado": "42000.00",
+    "filas_referencia": "4",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-235-2026",
+    "monto_contratado_consolidado": "1098500.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-236-2026",
+    "monto_contratado_consolidado": "348114.02",
+    "filas_referencia": "10",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-237-2026",
+    "monto_contratado_consolidado": "84907.36",
+    "filas_referencia": "7",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-238-2026",
+    "monto_contratado_consolidado": "5084.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-239-2026",
+    "monto_contratado_consolidado": "140400.00",
+    "filas_referencia": "2",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-240-2026",
+    "monto_contratado_consolidado": "385000.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-241-2026",
+    "monto_contratado_consolidado": "51695.40",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-242-2026",
+    "monto_contratado_consolidado": "710000.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-243-2026",
+    "monto_contratado_consolidado": "108000.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-244-2026",
+    "monto_contratado_consolidado": "48000.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-245-2026",
+    "monto_contratado_consolidado": "14820.00",
+    "filas_referencia": "3",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-246-2026",
+    "monto_contratado_consolidado": "409800.00",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-247-2026",
+    "monto_contratado_consolidado": "955930.00",
+    "filas_referencia": "5",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  },
+  {
+    "institucion": "HGMEL",
+    "contrato": "HGMEL-LPI-248-2026",
+    "monto_contratado_consolidado": "153800.50",
+    "filas_referencia": "1",
+    "metodo": "REFERENCIA_HGMEL_COLUMNA_P",
+    "estado": "CONCILIADO_CON_LAYOUT_DE_REFERENCIA"
+  }
+]

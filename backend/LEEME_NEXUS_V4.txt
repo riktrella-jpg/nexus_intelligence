@@ -1,0 +1,21 @@
+NEXUS V4 — consolidado contractual auditable
+
+Archivos:
+- nexus_montos_consolidados_v4.py: exporta referencia por contrato y cálculo autónomo V3.
+- motor_monto_nexus.py: motor de estimación independiente.
+- NEXUS_V4_resultados/montos_contratados_consolidados.csv: 668 contratos, $1,205,182,002.31. SOLO importes ya depurados de hoja HGMEL, columna P.
+- NEXUS_V4_resultados/conciliacion_contratos.csv: diferencias por contrato entre referencia y motor automático.
+- NEXUS_V4_resultados/trazabilidad_referencia.csv: registros de hoja HGMEL, con número de fila.
+- NEXUS_V4_resultados/montos_estimados_por_contrato.csv: estimación por motor V3.
+- NEXUS_V4_resultados/detalle_calculo_automatico.csv: trazabilidad de cálculo automático.
+- NEXUS_V4_resultados/resumen_validacion.json: métricas y limitaciones.
+
+En Antigravity: copia ambos scripts al módulo backend Python, conserva los Excel donde el backend pueda leerlos, y ejecuta:
+
+python nexus_montos_consolidados_v4.py --origen "Layout_Suministro_Septiembre  (monto contratados).xlsx" --referencia "Layout_Suministro_Septiembre_Nota_12-10-26.xlsx" --institucion HGMEL --salida "resultados_nexus_v4" --objetivo 1205182002.31
+
+Integra montos_contratados_consolidados.csv en el panel como 'Monto de referencia conciliado'.
+Para meses o instituciones sin hoja validada, ejecuta sin --referencia; solo podrás reportar el monto ESTIMADO del motor V3.
+
+PRECAUCIÓN: la salida exacta NO prueba que la lógica V3 calcule por sí sola el importe de HGMEL.
+No se aplica ningún ajuste artificial por contrato para alcanzar el objetivo.
