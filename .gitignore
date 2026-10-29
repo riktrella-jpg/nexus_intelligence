@@ -19,6 +19,7 @@ motor/resultados_v2/
 *.sqlite
 *.sqlite3
 *.xlsx
+!frontend/public/data/*.xlsx
 nexus/
 scratch/
 

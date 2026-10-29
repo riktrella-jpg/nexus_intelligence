@@ -25,6 +25,7 @@ import {
   ClipboardCheck,
 } from "lucide-react";
 import ValidacionContrato from "@/components/ValidacionContrato";
+import { exportarLayoutValidado } from "@/lib/exportLayout";
 import {
   useDecisiones,
   decisionDef,
@@ -92,12 +93,19 @@ export default function ConciliacionPage() {
     pendientes?: any[];
     details?: any[];
     fileName: string;
+    rawMatrix?: any[][];
+    rawSheetName?: string;
+    headerRowIdx?: number;
+    colContrato?: number;
+    colInst?: number;
   } | null>(null);
   const [dragOver, setDragOver] = useState(false);
 
   // Modals
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showServerFilesModal, setShowServerFilesModal] = useState(false);
+  const [showExportModal, setShowExportModal] = useState(false);
+  const [exportingLayout, setExportingLayout] = useState(false);
   const [serverFiles, setServerFiles] = useState<any[]>([]);
   const [selectedDrawerContract, setSelectedDrawerContract] = useState<any>(null);
   const [drawerPendingRows, setDrawerPendingRows] = useState<any[]>([]);
@@ -391,17 +399,41 @@ export default function ConciliacionPage() {
     setPage(1);
   };
 
-  const handleExport = () => {
-    const q = new URLSearchParams();
-    q.append("view_type", activeTab);
-    if (search) q.append("search", search);
-    if (selectedInst !== "Todos") q.append("institucion", selectedInst);
-    if (selectedProv !== "Todos") q.append("proveedor", selectedProv);
-    if (contratoFilter) q.append("contrato", contratoFilter);
-    if (claveFilter) q.append("clave_medicamento", claveFilter);
-    if (selectedEstado !== "Todos") q.append("estado", selectedEstado);
+  const handleExportLayoutDirect = async (fmt: "xlsx" | "csv" = "xlsx") => {
+    setExportingLayout(true);
+    toast(`Preparando layout original con columna «Validado» en formato ${fmt.toUpperCase()}...`);
+    try {
+      let allContracts = customDataset?.contracts;
+      if (!allContracts || allContracts.length === 0) {
+        try {
+          const res = await getReconciliationContracts({ page: 1, page_size: 10000 });
+          allContracts = res?.items || [];
+        } catch {
+          allContracts = tableData.items || [];
+        }
+      }
 
-    window.open(`/api/reconciliation/export?${q.toString()}`, "_blank");
+      await exportarLayoutValidado({
+        rawMatrix: customDataset?.rawMatrix,
+        rawSheetName: customDataset?.rawSheetName,
+        fileName: customDataset?.fileName || "Layout_Suministro_Septiembre",
+        decisiones,
+        contracts: allContracts,
+        format: fmt,
+      });
+
+      toast(`¡Layout exportado exitosamente en ${fmt.toUpperCase()} con la columna «Validado»!`);
+      setShowExportModal(false);
+    } catch (err: any) {
+      console.error("Error al exportar layout:", err);
+      toast(err.message || "Error al exportar layout validado", true);
+    } finally {
+      setExportingLayout(false);
+    }
+  };
+
+  const handleExport = () => {
+    setShowExportModal(true);
   };
 
   const processSelectedFile = async (file: File) => {
@@ -432,6 +464,11 @@ export default function ConciliacionPage() {
           pendientes: res.pendientes || [],
           details: res.details || [],
           fileName: file.name,
+          rawMatrix: res.rawMatrix,
+          rawSheetName: res.rawSheetName,
+          headerRowIdx: res.headerRowIdx,
+          colContrato: res.colContrato,
+          colInst: res.colInst,
         });
         setSelectedInst("Todos");
         setSelectedProv("Todos");
@@ -568,9 +605,9 @@ export default function ConciliacionPage() {
             <Upload size={14} />
             Subir y Conciliar Excel
           </button>
-          <button className="btn sm accent" onClick={handleExport} title="Descargar vista actual en Excel CSV con UTF-8 BOM">
+          <button className="btn sm accent" onClick={() => setShowExportModal(true)} title="Descargar layout en el formato original con columna 'Validado'">
             <Download size={14} />
-            Exportar Excel
+            Exportar Layout Validado
           </button>
         </div>
       </div>
@@ -1140,6 +1177,14 @@ export default function ConciliacionPage() {
                 </div>
                 <div className="row" style={{ gap: 6, flexWrap: "wrap" }}>
                   <button
+                    className="btn sm accent"
+                    onClick={() => handleExportLayoutDirect("xlsx")}
+                    disabled={exportingLayout}
+                    title="Descargar layout en el formato original exacto con la columna 'Validado' y detalle de decisiones"
+                  >
+                    <Download size={14} /> {exportingLayout ? "Generando Excel..." : "Exportar Layout Validado (Excel)"}
+                  </button>
+                  <button
                     className="btn sm"
                     onClick={() => exportarDecisionesCSV(decisiones)}
                     title="Descargar bitácora de validaciones en formato CSV con UTF-8 BOM"
@@ -1620,6 +1665,132 @@ export default function ConciliacionPage() {
                 onClick={() => setShowServerFilesModal(false)}
                 disabled={processing}
               >
+                Cerrar
+              </button>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* Modal: Exportar Layout con Columna Validado */}
+      {showExportModal && (
+        <>
+          <div className="backdrop" onClick={() => !exportingLayout && setShowExportModal(false)} />
+          <div className="modal" style={{ width: "min(680px, 95vw)" }}>
+            <div className="mh">
+              <div className="row" style={{ gap: 8, alignItems: "center" }}>
+                <FileSpreadsheet size={20} color="var(--gold)" />
+                <h3 style={{ margin: 0 }}>Exportar Layout con Columna de Validación</h3>
+              </div>
+              <button
+                className="btn icon ghost"
+                onClick={() => !exportingLayout && setShowExportModal(false)}
+                disabled={exportingLayout}
+              >
+                <X size={18} />
+              </button>
+            </div>
+            <div className="mb stack" style={{ gap: 16 }}>
+              <div className="alert ok" style={{ fontSize: 13 }}>
+                <span>
+                  <b>Formato Original Garantizado:</b> El archivo exportado mantiene el 100% de las columnas y el orden en que fue subido (Base, Ramo, Siglas, No. de contrato, Claves, Cantidades, Precios, etc.), incorporando al final la columna <b>Validado (SÍ / NO)</b> junto con los datos de auditoría de la decisión.
+                </span>
+              </div>
+
+              <div className="card card-pad stack" style={{ gap: 12, border: "2px solid rgba(16, 185, 129, 0.4)", background: "rgba(16, 185, 129, 0.03)" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 10 }}>
+                  <div style={{ flex: "1 1 320px" }}>
+                    <div style={{ fontWeight: 700, fontSize: 15, color: "var(--navy)" }}>
+                      🌟 Layout Original Validado en Excel (.xlsx)
+                    </div>
+                    <div className="muted small" style={{ marginTop: 4 }}>
+                      Formato Excel (.xlsx) idéntico al archivo cargado con columnas añadidas: <code>Validado</code> (SÍ/NO), <code>Estado_Validacion</code>, <code>Decision_Tomada</code>, <code>Monto_Validado_Contrato</code>, <code>Ajuste_Validacion</code>, <code>Estatus_Fila</code>, <code>Responsable_Validacion</code>, <code>Fecha_Validacion</code> y <code>Observaciones_Validacion</code>.
+                    </div>
+                  </div>
+                  <button
+                    className="btn primary"
+                    onClick={() => handleExportLayoutDirect("xlsx")}
+                    disabled={exportingLayout}
+                    style={{ minWidth: 160 }}
+                  >
+                    <Download size={14} />
+                    {exportingLayout ? "Generando Excel..." : "Descargar Excel (.xlsx)"}
+                  </button>
+                </div>
+              </div>
+
+              <div className="card card-pad stack" style={{ gap: 12, border: "1px solid var(--line)" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 10 }}>
+                  <div style={{ flex: "1 1 320px" }}>
+                    <div style={{ fontWeight: 700, fontSize: 14, color: "var(--navy)" }}>
+                      📄 Layout Original Validado en CSV (.csv)
+                    </div>
+                    <div className="muted small" style={{ marginTop: 4 }}>
+                      Mismo layout original con la columna <code>Validado</code>, delimitado por comas y codificado en UTF-8 con BOM para apertura inmediata en cualquier versión de Excel.
+                    </div>
+                  </div>
+                  <button
+                    className="btn"
+                    onClick={() => handleExportLayoutDirect("csv")}
+                    disabled={exportingLayout}
+                    style={{ minWidth: 160 }}
+                  >
+                    <Download size={14} />
+                    {exportingLayout ? "Generando CSV..." : "Descargar CSV (.csv)"}
+                  </button>
+                </div>
+              </div>
+
+              <div style={{ borderTop: "1px solid var(--line)", paddingTop: 12 }}>
+                <span className="muted small" style={{ fontWeight: 600, display: "block", marginBottom: 8 }}>
+                  Otros reportes disponibles:
+                </span>
+                <div className="row" style={{ gap: 8, flexWrap: "wrap" }}>
+                  <button
+                    className="btn sm ghost"
+                    onClick={() => {
+                      setShowExportModal(false);
+                      exportarDecisionesCSV(decisiones);
+                    }}
+                    title="Exportar bitácora de auditoría de decisiones en CSV"
+                  >
+                    <Download size={13} /> Bitácora Decisiones (CSV)
+                  </button>
+                  <button
+                    className="btn sm ghost"
+                    onClick={() => {
+                      setShowExportModal(false);
+                      exportarDecisionesJSON(decisiones);
+                    }}
+                    title="Exportar respaldo JSON de decisiones"
+                  >
+                    <Download size={13} /> Respaldo JSON
+                  </button>
+                  <button
+                    className="btn sm ghost"
+                    onClick={() => {
+                      setShowExportModal(false);
+                      window.open(`/api/reconciliation/export?view_type=pendientes`, "_blank");
+                    }}
+                    title="Exportar lista de renglones con alerta"
+                  >
+                    <Download size={13} /> Renglones c/ Alerta (CSV)
+                  </button>
+                  <button
+                    className="btn sm ghost"
+                    onClick={() => {
+                      setShowExportModal(false);
+                      window.open(`/api/reconciliation/export?view_type=contratos`, "_blank");
+                    }}
+                    title="Exportar resumen ejecutivo de contratos"
+                  >
+                    <Download size={13} /> Resumen Contratos (CSV)
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="mf">
+              <button className="btn sm" onClick={() => setShowExportModal(false)} disabled={exportingLayout}>
                 Cerrar
               </button>
             </div>

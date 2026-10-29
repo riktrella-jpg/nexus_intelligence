@@ -1,3 +1,6 @@
+import fs from "fs";
+import path from "path";
+import * as XLSX from "xlsx";
 import { NextResponse } from "next/server";
 import contractsData from "@/lib/data/contracts.json";
 import institutionSummaryData from "@/lib/data/institution_summary.json";
@@ -11,6 +14,100 @@ export async function GET(request: Request) {
   const proveedor = searchParams.get("proveedor");
   const contrato = searchParams.get("contrato")?.toLowerCase();
   const estado = searchParams.get("estado");
+
+  // Exportar el layout completo en su formato original con la columna 'Validado'
+  if (viewType === "layout") {
+    try {
+      const filePath = path.join(process.cwd(), "public", "data", "layout_base.xlsx");
+      if (fs.existsSync(filePath)) {
+        const fileBuffer = fs.readFileSync(filePath);
+        const wb = XLSX.read(fileBuffer, { type: "buffer" });
+        const sheetName = wb.SheetNames[0];
+        const ws = wb.Sheets[sheetName];
+        const rawData: any[][] = XLSX.utils.sheet_to_json(ws, { header: 1, defval: "" });
+
+        if (rawData.length > 0) {
+          // Detectar encabezados
+          let headerIdx = -1;
+          for (let r = 0; r < Math.min(10, rawData.length); r++) {
+            const rowStr = (rawData[r] || []).map((c) => String(c || "").toLowerCase()).join(" ");
+            if (rowStr.includes("contrato") && (rowStr.includes("proveedor") || rowStr.includes("monto"))) {
+              headerIdx = r;
+              break;
+            }
+          }
+          if (headerIdx === -1) headerIdx = rawData.length > 1 ? 1 : 0;
+
+          // Mapa de contratos para saber si tenían alertas
+          const contractMap = new Map<string, any>();
+          for (const c of (contractsData as any[])) {
+            const key = `${c.institucion || ""}|${c.contrato || ""}`.toUpperCase();
+            contractMap.set(key, c);
+          }
+
+          const auditHeaders = [
+            "Validado",
+            "Estado_Validacion",
+            "Decision_Tomada",
+            "Monto_Validado_Contrato",
+            "Ajuste_Validacion",
+            "Estatus_Fila",
+            "Responsable_Validacion",
+            "Fecha_Validacion",
+            "Observaciones_Validacion",
+          ];
+
+          rawData[headerIdx] = [...(rawData[headerIdx] || []), ...auditHeaders];
+
+          for (let r = headerIdx + 1; r < rawData.length; r++) {
+            const row = rawData[r];
+            if (!row || row.length === 0) continue;
+            const instVal = String(row[3] || "").trim().toUpperCase();
+            const contVal = String(row[7] || "").trim().toUpperCase();
+            const k = `${instVal}|${contVal}`;
+            const cInfo = contractMap.get(k);
+
+            const hasAlerts = cInfo && cInfo.estado === "REQUIERE REVISION";
+            const validado = hasAlerts ? "NO" : "SÍ";
+            const estValidacion = hasAlerts ? "PENDIENTE DE REVISIÓN" : "VALIDADO (MOTOR SIN ALERTAS)";
+            const decTomada = hasAlerts ? "REQUIERE VALIDACIÓN" : "CONFIRMADO MOTOR";
+            const montoVal = cInfo ? parseFloat(cInfo.monto_inferido) || 0 : 0;
+
+            const auditVals = [
+              validado,
+              estValidacion,
+              decTomada,
+              montoVal.toFixed(2),
+              "0.00",
+              "CONTABILIZADA",
+              hasAlerts ? "" : "MOTOR V3",
+              hasAlerts ? "" : "AUTOMÁTICO",
+              cInfo?.razon || "",
+            ];
+            rawData[r] = [...row, ...auditVals];
+          }
+
+          let csvOut = "\uFEFF";
+          for (const row of rawData) {
+            const line = (row || [])
+              .map((val) => `"${String(val ?? "").replace(/"/g, '""')}"`)
+              .join(",");
+            csvOut += line + "\n";
+          }
+
+          return new NextResponse(csvOut, {
+            status: 200,
+            headers: {
+              "Content-Type": "text/csv; charset=utf-8",
+              "Content-Disposition": 'attachment; filename="Layout_Suministro_Validado.csv"',
+            },
+          });
+        }
+      }
+    } catch (layoutErr) {
+      console.error("Error en exportación de layout:", layoutErr);
+    }
+  }
 
   if (viewType === "pendientes") {
     let items = [...(pendientesData as any[])];

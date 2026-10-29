@@ -320,5 +320,10 @@ export function parseAndReconcileExcel(arrayBuffer: ArrayBuffer, fileName: strin
     contracts: contratosSalida,
     details: detalles,
     pendientes: pendientesSalida,
+    rawMatrix: data2D,
+    rawSheetName: targetSheet,
+    headerRowIdx,
+    colContrato,
+    colInst,
   };
 }
