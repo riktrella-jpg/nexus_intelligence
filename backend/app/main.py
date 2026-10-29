@@ -532,6 +532,23 @@ def reconciliation_details(
     return REC.get_details(filters, page, page_size, sort_by, sort_dir)
 
 
+@app.get("/api/reconciliation/pendientes")
+def reconciliation_pendientes(
+    institucion: str | None = None,
+    proveedor: str | None = None,
+    contrato: str | None = None,
+    clave_medicamento: str | None = None,
+    estado: str | None = None,
+    search: str | None = None,
+    page: int = 1,
+    page_size: int = 50,
+    sort_by: str = "fila_excel",
+    sort_dir: str = "asc",
+):
+    filters = {k: v for k, v in {"institucion": institucion, "proveedor": proveedor, "contrato": contrato, "clave": clave_medicamento, "estado": estado, "search": search}.items() if v}
+    return REC.get_pendientes(filters, page, page_size, sort_by, sort_dir)
+
+
 @app.get("/api/reconciliation/filters")
 def reconciliation_filter_options():
     return REC.get_filter_options()

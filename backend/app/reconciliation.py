@@ -1,7 +1,7 @@
-"""Motor de Conciliación Contractual V2 para NEXUS INTELLIGENCE.
-Aplica reglas reproducibles a columnas de Excel (institución, unidad responsable, contrato, proveedor,
-clave de medicamento, importe P, cantidad AJ y precio unitario AK) para evitar doble contabilidad y
-determinar montos computables inferidos según reglas de columnas.
+"""Motor de Conciliación Contractual V3 para NEXUS INTELLIGENCE.
+Integra motor_monto_nexus.py para cálculo determinístico de monto contratado sin IVA,
+deduplicación por partida/suministro, preservación de presentaciones con clave genérica
+y alertas por riesgo de importe global compartido.
 """
 from __future__ import annotations
 
@@ -20,6 +20,14 @@ from pathlib import Path
 from typing import Any
 
 from .config import BASE_DIR, DATA_DIR, RECONCILIATION_DIR, STAGING_DIR, UPLOAD_DIR
+from .motor_monto_nexus import (
+    calcular_registros,
+    leer_hoja as leer_hoja_nexus,
+    normalizar,
+    decimal,
+    cent,
+    firma_descripcion,
+)
 
 D = Decimal
 CENT = D("0.01")
@@ -68,7 +76,10 @@ CREATE TABLE IF NOT EXISTS detalle (
     firma_partida TEXT,
     monto_computable TEXT,
     estado TEXT,
-    motivo TEXT
+    motivo TEXT,
+    duplicado_de_fila TEXT,
+    tipo_clave TEXT,
+    alertas TEXT
 );
 
 CREATE TABLE IF NOT EXISTS partidas (
@@ -98,16 +109,37 @@ CREATE TABLE IF NOT EXISTS contratos (
     razon TEXT
 );
 
+CREATE TABLE IF NOT EXISTS pendientes (
+    fila_excel INTEGER PRIMARY KEY,
+    institucion TEXT,
+    contrato TEXT,
+    proveedor TEXT,
+    clave TEXT,
+    descripcion_original TEXT,
+    cantidad_contratada TEXT,
+    precio_unitario TEXT,
+    monto_reportado TEXT,
+    monto_base_sin_iva TEXT,
+    tipo_clave TEXT,
+    iva TEXT,
+    estado TEXT,
+    duplicado_de_fila TEXT,
+    monto_depurado TEXT,
+    alertas TEXT
+);
+
 CREATE INDEX IF NOT EXISTS idx_d_contrato ON detalle(grupo_contrato);
 CREATE INDEX IF NOT EXISTS idx_d_clave ON detalle(clave_medicamento);
 CREATE INDEX IF NOT EXISTS idx_d_estado ON detalle(estado);
 CREATE INDEX IF NOT EXISTS idx_p_contrato ON partidas(grupo_contrato);
 CREATE INDEX IF NOT EXISTS idx_c_estado ON contratos(estado);
+CREATE INDEX IF NOT EXISTS idx_pend_contrato ON pendientes(contrato);
+CREATE INDEX IF NOT EXISTS idx_pend_inst ON pendientes(institucion);
 """
 
 
 # ----------------------------------------------------------------------------
-# Normalización y Aritmética
+# Normalización y Aritmética (Compatibilidad hacia atrás)
 # ----------------------------------------------------------------------------
 def norm(x: Any) -> str:
     s = unicodedata.normalize("NFKC", str(x or "")).replace("\xa0", " ")
@@ -118,7 +150,7 @@ def num(x: Any) -> Decimal | None:
     try:
         if x in ("", None):
             return None
-        return D(str(x).replace(",", "")).quantize(CENT, rounding=ROUND_HALF_UP)
+        return D(str(x).replace(",", "").replace("$", "")).quantize(CENT, rounding=ROUND_HALF_UP)
     except (InvalidOperation, ValueError):
         return None
 
@@ -143,14 +175,11 @@ def classify(monto: Decimal | None, subtotal: Decimal | None) -> str:
 
 
 def calculo_firma(r: dict) -> str:
-    # Misma clave + mismo monto + misma cantidad y precio significa fila repetida.
-    return "|".join((r["partida"], amount(r["monto"]), amount(r["cantidad"]), amount(r["precio"])))
+    return "|".join((r.get("partida", ""), amount(r.get("monto")), amount(r.get("cantidad")), amount(r.get("precio"))))
 
 
 def decidir_partida(recs: list[dict]) -> list[tuple[list[dict], Decimal | None, str, str]]:
-    """Devuelve [(filas de un candidato, monto reconocido, estado, motivo)].
-    Nunca usa solo el monto como llave global.
-    """
+    """Mantiene compatibilidad hacia atrás para pruebas unitarias de función legacy."""
     firmas = defaultdict(list)
     for r in recs:
         firmas[calculo_firma(r)].append(r)
@@ -183,7 +212,8 @@ def decidir_partida(recs: list[dict]) -> list[tuple[list[dict], Decimal | None, 
 # ----------------------------------------------------------------------------
 # Lector OpenXML (XLSX) con Descubrimiento Dinámico de Hojas
 # ----------------------------------------------------------------------------
-def find_sheet_target(z: zipfile.ZipFile, sheet_name: str | None = None) -> str:
+def find_sheet_target(z: zipfile.ZipFile, sheet_name: str | None = None) -> tuple[str, str]:
+    """Retorna (nombre_hoja, ruta_interna_xml) buscando la hoja BASE de forma flexible."""
     rels = {}
     if "xl/_rels/workbook.xml.rels" in z.namelist():
         try:
@@ -197,7 +227,7 @@ def find_sheet_target(z: zipfile.ZipFile, sheet_name: str | None = None) -> str:
         except Exception:
             pass
 
-    sheets = []
+    sheets: list[tuple[str, str]] = []
     if "xl/workbook.xml" in z.namelist():
         try:
             wb = ET.fromstring(z.read("xl/workbook.xml"))
@@ -212,21 +242,17 @@ def find_sheet_target(z: zipfile.ZipFile, sheet_name: str | None = None) -> str:
 
     if sheet_name:
         for n, t in sheets:
-            if n.strip().lower() == sheet_name.strip().lower() and t in z.namelist():
-                return t
+            if n.strip().upper() == sheet_name.strip().upper() and t in z.namelist():
+                return n, t
     for n, t in sheets:
-        if n.strip().lower() == "base" and t in z.namelist():
-            return t
+        if n.strip().upper() == "BASE" and t in z.namelist():
+            return n, t
     for n, t in sheets:
-        if t in z.namelist():
-            return t
-    for cand in ("xl/worksheets/sheet3.xml", "xl/worksheets/sheet1.xml", "xl/worksheets/sheet2.xml"):
-        if cand in z.namelist():
-            return cand
-    for n in z.namelist():
-        if n.startswith("xl/worksheets/") and n.endswith(".xml"):
-            return n
-    return "xl/worksheets/sheet1.xml"
+        if "BASE" in n.strip().upper() and t in z.namelist():
+            return n, t
+    if sheets and sheets[0][1] in z.namelist():
+        return sheets[0][0], sheets[0][1]
+    return "BASE", "xl/worksheets/sheet1.xml"
 
 
 def xlsx_rows(path: Path | str, sheet_name: str | None = None):
@@ -239,7 +265,7 @@ def xlsx_rows(path: Path | str, sheet_name: str | None = None):
                         shared.append("".join((t.text or "") for t in el.iter(NS + "t")))
                         el.clear()
 
-        sheet_xml = find_sheet_target(z, sheet_name)
+        _, sheet_xml = find_sheet_target(z, sheet_name)
         with z.open(sheet_xml) as f:
             for event, el in ET.iterparse(f, events=("end",)):
                 if el.tag != NS + "row":
@@ -277,37 +303,53 @@ def xlsx_rows(path: Path | str, sheet_name: str | None = None):
 # ----------------------------------------------------------------------------
 # Base de Datos de Conciliación
 # ----------------------------------------------------------------------------
-def get_reconciliation_db() -> Path:
-    RECONCILIATION_DIR.mkdir(parents=True, exist_ok=True)
-    target = RECONCILIATION_DIR / "nexus_v2.sqlite"
-    if not target.exists() or target.stat().st_size == 0:
-        # Intentar cargar la base precalculada del motor si existe
-        seed = BASE_DIR.parent / "motor" / "resultados_v2" / "nexus_v2.sqlite"
-        if seed.exists() and seed.stat().st_size > 0:
-            try:
-                shutil.copy2(seed, target)
-                return target
-            except Exception:
-                pass
-    return target
-
-
 def ensure_reconciliation_schema(db_path: Path) -> sqlite3.Connection:
     conn = sqlite3.connect(str(db_path))
     conn.row_factory = sqlite3.Row
     conn.executescript(SCHEMA)
+    cols = [r[1] for r in conn.execute("PRAGMA table_info(detalle)").fetchall()]
+    if "alertas" not in cols:
+        try:
+            conn.execute("ALTER TABLE detalle ADD COLUMN alertas TEXT")
+        except Exception:
+            pass
+    if "duplicado_de_fila" not in cols:
+        try:
+            conn.execute("ALTER TABLE detalle ADD COLUMN duplicado_de_fila TEXT")
+        except Exception:
+            pass
+    if "tipo_clave" not in cols:
+        try:
+            conn.execute("ALTER TABLE detalle ADD COLUMN tipo_clave TEXT")
+        except Exception:
+            pass
+    conn.commit()
     return conn
 
 
+def get_reconciliation_db() -> Path:
+    RECONCILIATION_DIR.mkdir(parents=True, exist_ok=True)
+    target = RECONCILIATION_DIR / "nexus_v2.sqlite"
+    if not target.exists() or target.stat().st_size == 0:
+        seed = BASE_DIR.parent / "motor" / "resultados_v2" / "nexus_v2.sqlite"
+        if seed.exists() and seed.stat().st_size > 0:
+            try:
+                shutil.copy2(seed, target)
+            except Exception:
+                pass
+    if target.exists() and target.stat().st_size > 0:
+        ensure_reconciliation_schema(target)
+    return target
+
+
 # ----------------------------------------------------------------------------
-# Ejecución del Motor V2
+# Ejecución del Motor V3 Integrado
 # ----------------------------------------------------------------------------
 def procesar_archivo(archivo: Path | str, salida_dir: Path | str, sheet_name: str | None = None) -> dict:
     salida = Path(salida_dir)
     salida.mkdir(parents=True, exist_ok=True)
     db_path = salida / "nexus_v2.sqlite"
-    
-    # Crear conexión fresca
+
     if db_path.exists():
         try:
             db_path.unlink()
@@ -317,150 +359,155 @@ def procesar_archivo(archivo: Path | str, salida_dir: Path | str, sheet_name: st
     cx = sqlite3.connect(str(db_path))
     cx.executescript(SCHEMA)
 
-    contratos = defaultdict(list)
-    for row in xlsx_rows(archivo, sheet_name):
-        identidad = tuple(norm(row[x]) for x in ("institucion", "ur", "contrato", "proveedor"))
-        gid = "|".join(identidad)
-        unidad = norm(row.get("unidad_admin") or row.get("unidad_destino") or "")
-        clave = norm(row["clave"])
-        desc = norm(row["descripcion"])
-        if ("CONASAMA" in identidad[0] or unidad) and unidad:
-            partida = f"{gid}|{unidad}|{clave}" if clave else f"{gid}|{unidad}|SIN_CLAVE|{desc}"
-        else:
-            partida = gid + "|" + clave if clave else gid + "|SIN_CLAVE|" + desc
-        monto = num(row["monto"])
-        cantidad = num(row["cantidad"])
-        precio = num(row["precio"])
-        subtotal = (cantidad * precio).quantize(CENT) if cantidad is not None and precio is not None else None
-        rec = {
-            "row": row,
-            "gid": gid,
-            "partida": partida,
-            "monto": monto,
-            "cantidad": cantidad,
-            "precio": precio,
-            "subtotal": subtotal,
-            "iva": classify(monto, subtotal),
-        }
-        contratos[gid].append(rec)
+    with zipfile.ZipFile(archivo) as z:
+        target_sheet_name, _ = find_sheet_target(z, sheet_name)
 
-    estadisticas = Counter()
-    filas_salida = []
-    partidas_salida = []
-    contratos_salida = []
+    # Leer filas conservando columnas originales completas
+    raw_rows = []
+    ur_map = {}
+    for n, d in leer_hoja_nexus(archivo, target_sheet_name):
+        if n > 2:
+            raw_rows.append((n, d))
+            ur_map[n] = normalizar(d.get("E", ""))
 
-    for gid, rs in contratos.items():
-        by_part = defaultdict(list)
-        for r in rs:
-            by_part[r["partida"]].append(r)
-        monto_contrato = D(0)
-        pendientes = 0
-        revision = []
-        razones = []
-        partes_total = 0
+    # Cálculo determinístico con motor_monto_nexus.py
+    detalles, contratos, indicadores = calcular_registros(raw_rows)
 
-        for p, rr in by_part.items():
-            candidatos = decidir_partida(rr)
-            val = sum((m for _, m, _, _ in candidatos if m is not None), D(0))
-            pendientes_p = sum(m is None for _, m, _, _ in candidatos)
-            monto_contrato += val
-            pendientes += pendientes_p
-            partes_total += len(candidatos)
-            if pendientes_p:
-                razones.append("Hay partidas no conciliadas")
-            for j, (fls, m, st, motivo) in enumerate(candidatos, 1):
-                pid = p + "|" + str(j)
-                for n, r in enumerate(fls):
-                    row = r["row"]
-                    reconocido = m if n == 0 else D(0) if m is not None else None
-                    est = st if n == 0 else ("DUPLICADO_NO_SUMAR" if m is not None else "PENDIENTE_DUPLICADO")
-                    why = motivo if n == 0 else "Misma clave, monto, cantidad y precio: no sumar de nuevo"
-                    filas_salida.append((
-                        row["fila_excel"],
-                        row["institucion"],
-                        row["ur"],
-                        row["contrato"],
-                        row["proveedor"],
-                        row["clave"],
-                        row["descripcion"],
-                        amount(r["monto"]),
-                        amount(r["cantidad"]),
-                        amount(r["precio"]),
-                        amount(r["subtotal"]),
-                        r["iva"],
-                        gid,
-                        p,
-                        pid,
-                        amount(reconocido),
-                        est,
-                        why,
-                    ))
-                    estadisticas[est] += 1
-                partidas_salida.append((
-                    pid,
-                    gid,
-                    fls[0]["row"]["clave"],
-                    fls[0]["row"]["descripcion"],
-                    len(fls),
-                    1,
-                    amount(m),
-                    st,
-                    motivo,
-                    ",".join(str(x["row"]["fila_excel"]) for x in fls),
-                ))
-                if m is None and fls[0]["monto"] is not None:
-                    revision.append(fls[0]["monto"])
+    # Proveedor por contrato desde detalle
+    contrato_proveedor = {}
+    for r in detalles:
+        k = (r["institucion"], r["contrato"])
+        if k not in contrato_proveedor and r.get("proveedor"):
+            contrato_proveedor[k] = r["proveedor"]
 
-        estado = (
-            "INFERIDO_COMPLETO"
-            if pendientes == 0
-            else ("PARCIAL_CON_PENDIENTES" if monto_contrato else "PENDIENTE_TOTAL")
-        )
-        primero = rs[0]["row"]
-        contratos_salida.append((
+    filas_detalle_db = []
+    filas_pendientes_db = []
+    for r in detalles:
+        fila = r["fila_excel"]
+        inst = r["institucion"]
+        cont = r["contrato"]
+        prov = r["proveedor"]
+        clave = r["clave"]
+        gid = f"{inst}|{cont}"
+        pid = f"{gid}|{clave}"
+        fid = f"{gid}|{prov}|{clave}|{r['monto_base_sin_iva']}|{r['cantidad_contratada']}|{r['precio_unitario']}"
+
+        filas_detalle_db.append((
+            fila,
+            inst,
+            ur_map.get(fila, ""),
+            cont,
+            prov,
+            clave,
+            r["descripcion_original"],
+            r["monto_reportado"],
+            r["cantidad_contratada"],
+            r["precio_unitario"],
+            r["monto_base_sin_iva"],
+            r["iva"],
             gid,
-            primero["institucion"],
-            primero["contrato"],
-            primero["proveedor"],
-            len(rs),
-            partes_total,
-            amount(monto_contrato),
-            amount(sum(revision, D(0))) if revision else "",
-            pendientes,
-            estado,
-            "; ".join(sorted(set(razones))) if razones else "Claves y firmas de partidas conciliadas aritméticamente",
+            pid,
+            fid,
+            r["monto_depurado"],
+            r["estado"],
+            r["alertas"],
+            str(r.get("duplicado_de_fila", "")),
+            r.get("tipo_clave", ""),
+            r["alertas"],
         ))
 
-    cx.executemany("INSERT INTO detalle VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", filas_salida)
-    cx.executemany("INSERT INTO partidas VALUES (?,?,?,?,?,?,?,?,?,?)", partidas_salida)
-    cx.executemany("INSERT INTO contratos VALUES (?,?,?,?,?,?,?,?,?,?,?)", contratos_salida)
+        if r["alertas"] or r["estado"] == "NO CUANTIFICABLE / REVISAR":
+            filas_pendientes_db.append((
+                fila,
+                inst,
+                cont,
+                prov,
+                clave,
+                r["descripcion_original"],
+                r["cantidad_contratada"],
+                r["precio_unitario"],
+                r["monto_reportado"],
+                r["monto_base_sin_iva"],
+                r.get("tipo_clave", ""),
+                r["iva"],
+                r["estado"],
+                str(r.get("duplicado_de_fila", "")),
+                r["monto_depurado"],
+                r["alertas"],
+            ))
+
+    contratos_db = []
+    partidas_db = []
+    for c in contratos:
+        inst = c["institucion"]
+        cont = c["contrato"]
+        gid = f"{inst}|{cont}"
+        prov = contrato_proveedor.get((inst, cont), "")
+        contratos_db.append((
+            gid,
+            inst,
+            cont,
+            prov,
+            c["filas"],
+            c["partidas_contadas"],
+            c["monto_estimado_sin_iva"],
+            c["monto_estimado_sin_iva"] if c["estado_validacion"] == "REQUIERE REVISION" else "",
+            c["filas_alerta"],
+            c["estado_validacion"],
+            c["alertas"],
+        ))
+
+    # Partidas contabilizadas
+    partidas_vistas = set()
+    for r in detalles:
+        if r["estado"] == "PARTIDA CONTABILIZADA":
+            inst = r["institucion"]
+            cont = r["contrato"]
+            clave = r["clave"]
+            desc = r["descripcion_original"]
+            gid = f"{inst}|{cont}"
+            pid = f"{gid}|{clave}|{desc[:30]}|{r['monto_base_sin_iva']}"
+            if pid not in partidas_vistas:
+                partidas_vistas.add(pid)
+                partidas_db.append((
+                    pid,
+                    gid,
+                    clave,
+                    desc,
+                    1,
+                    1,
+                    r["monto_depurado"],
+                    r["estado"],
+                    r["alertas"] or "Partida contabilizada",
+                    str(r["fila_excel"]),
+                ))
+
+    cx.executemany("INSERT INTO detalle VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", filas_detalle_db)
+    cx.executemany("INSERT INTO contratos VALUES (?,?,?,?,?,?,?,?,?,?,?)", contratos_db)
+    cx.executemany("INSERT INTO pendientes VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", filas_pendientes_db)
+    cx.executemany("INSERT INTO partidas VALUES (?,?,?,?,?,?,?,?,?,?)", partidas_db)
     cx.commit()
 
+    # Exportación CSVs oficiales
     def export(tabla, nombre):
-        cursor = cx.execute("SELECT * FROM " + tabla)
+        cur = cx.execute(f"SELECT * FROM {tabla}")
         with (salida / nombre).open("w", newline="", encoding="utf-8-sig") as f:
             wr = csv.writer(f)
-            wr.writerow([x[0] for x in cursor.description])
-            wr.writerows(cursor)
+            wr.writerow([x[0] for x in cur.description])
+            wr.writerows(cur)
 
+    export("detalle", "detalle_depuracion.csv")
     export("detalle", "detalle_montos_v2.csv")
-    export("partidas", "partidas_unicas_v2.csv")
+    export("contratos", "resumen_contratos.csv")
     export("contratos", "resumen_contratos_v2.csv")
+    export("pendientes", "pendientes_revision.csv")
+    export("partidas", "partidas_unicas_v2.csv")
 
-    total = sum((D(r[6]) for r in contratos_salida if r[6]), D(0))
-    report = {
-        "archivo": Path(archivo).name,
-        "filas": len(filas_salida),
-        "grupos_contractuales": len(contratos_salida),
-        "partidas_candidatas": len(partidas_salida),
-        "estados_filas": dict(estadisticas),
-        "estados_contratos": dict(Counter(r[9] for r in contratos_salida)),
-        "monto_inferido_con_partidas_conciliadas": str(total),
-        "advertencia": "Estimación de columnas, NO monto contractual comprobado; los grupos parciales no son totales contractuales completos.",
-    }
-    (salida / "resumen_v2.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+    (salida / "indicadores.json").write_text(json.dumps(indicadores, ensure_ascii=False, indent=2), encoding="utf-8")
+    (salida / "resumen_v2.json").write_text(json.dumps(indicadores, ensure_ascii=False, indent=2), encoding="utf-8")
+
     cx.close()
-    return report
+    return indicadores
 
 
 # ----------------------------------------------------------------------------
@@ -479,13 +526,12 @@ def _build_where(filters: dict | None, allowed_cols: dict[str, str]) -> tuple[st
         if not col_name:
             continue
         if key in ("search", "q"):
-            # Búsqueda general
             search_cols = [c for c in allowed_cols.values() if not c.startswith("CAST")]
             if search_cols:
                 sub = " OR ".join(f"{c} LIKE ?" for c in search_cols)
                 where.append(f"({sub})")
                 args.extend([f"%{val}%"] * len(search_cols))
-        elif key in ("contrato", "proveedor", "clave_medicamento", "descripcion"):
+        elif key in ("contrato", "proveedor", "clave_medicamento", "descripcion", "clave"):
             where.append(f"{col_name} LIKE ?")
             args.append(f"%{val}%")
         else:
@@ -516,7 +562,6 @@ def get_summary(filters: dict | None = None) -> dict:
     conn = sqlite3.connect(str(db_path))
     conn.row_factory = sqlite3.Row
 
-    # Contratos
     c_cols = {
         "institucion": "institucion",
         "proveedor": "proveedor",
@@ -530,17 +575,17 @@ def get_summary(filters: dict | None = None) -> dict:
         f"""
         SELECT 
             COUNT(*) as total_contratos,
-            SUM(CASE WHEN estado='INFERIDO_COMPLETO' THEN 1 ELSE 0 END) as completos,
-            SUM(CASE WHEN estado='PARCIAL_CON_PENDIENTES' THEN 1 ELSE 0 END) as parciales,
+            SUM(CASE WHEN estado='SIN ALERTAS AUTOMATICAS' OR estado='INFERIDO_COMPLETO' THEN 1 ELSE 0 END) as completos,
+            SUM(CASE WHEN estado='REQUIERE REVISION' OR estado='PARCIAL_CON_PENDIENTES' THEN 1 ELSE 0 END) as parciales,
             SUM(CASE WHEN estado='PENDIENTE_TOTAL' THEN 1 ELSE 0 END) as pendientes,
             SUM(CASE WHEN monto_inferido != '' THEN CAST(monto_inferido AS REAL) ELSE 0 END) as monto_inferido,
-            SUM(CASE WHEN monto_revision != '' THEN CAST(monto_revision AS REAL) ELSE 0 END) as monto_revision
+            SUM(CASE WHEN monto_revision != '' THEN CAST(monto_revision AS REAL) ELSE 0 END) as monto_revision,
+            SUM(partidas) as partidas_total
         FROM contratos {w_c}
         """,
         args_c,
     ).fetchone()
 
-    # Filas de Detalle
     d_cols = {
         "institucion": "institucion",
         "proveedor": "proveedor",
@@ -551,33 +596,29 @@ def get_summary(filters: dict | None = None) -> dict:
     }
     w_d, args_d = _build_where(filters, d_cols)
 
+    cols_d = [r[1] for r in conn.execute("PRAGMA table_info(detalle)").fetchall()]
+    alert_check = "(alertas IS NOT NULL AND alertas != '') OR " if "alertas" in cols_d else ""
+
     row_d = conn.execute(
         f"""
         SELECT 
             COUNT(*) as total_filas,
-            SUM(CASE WHEN estado='DUPLICADO_NO_SUMAR' THEN 1 ELSE 0 END) as duplicadas_excluidas,
-            SUM(CASE WHEN estado='INFERIDO_PARTIDA' THEN 1 ELSE 0 END) as inferidas,
-            SUM(CASE WHEN estado LIKE 'PENDIENTE%' THEN 1 ELSE 0 END) as pendientes,
+            SUM(CASE WHEN estado='REPETIDO MISMA PARTIDA' OR estado='DUPLICADO_NO_SUMAR' THEN 1 ELSE 0 END) as duplicadas_excluidas,
+            SUM(CASE WHEN estado='PARTIDA CONTABILIZADA' OR estado='INFERIDO_PARTIDA' THEN 1 ELSE 0 END) as inferidas,
+            SUM(CASE WHEN {alert_check} (motivo IS NOT NULL AND motivo != '') OR estado='NO CUANTIFICABLE / REVISAR' OR estado LIKE 'PENDIENTE%' THEN 1 ELSE 0 END) as pendientes,
             SUM(CASE WHEN monto_computable != '' THEN CAST(monto_computable AS REAL) ELSE 0 END) as computable_filas
         FROM detalle {w_d}
         """,
         args_d,
     ).fetchone()
 
-    # Partidas
-    row_p = conn.execute(
-        """
-        SELECT 
-            COUNT(*) as total_partidas,
-            SUM(CASE WHEN estado='INFERIDO_PARTIDA' THEN 1 ELSE 0 END) as part_inferidas,
-            SUM(CASE WHEN estado='PENDIENTE' THEN 1 ELSE 0 END) as part_pendientes
-        FROM partidas
-        """
-    ).fetchone()
-
     conn.close()
 
-    resumen_json = RECONCILIATION_DIR / "resumen_v2.json"
+    resumen_json = RECONCILIATION_DIR / "indicadores.json"
+    if not resumen_json.exists():
+        resumen_json = RECONCILIATION_DIR / "resumen_v2.json"
+    if not resumen_json.exists():
+        resumen_json = BASE_DIR.parent / "motor" / "resultados_v2" / "indicadores.json"
     if not resumen_json.exists():
         resumen_json = BASE_DIR.parent / "motor" / "resultados_v2" / "resumen_v2.json"
 
@@ -600,9 +641,7 @@ def get_summary(filters: dict | None = None) -> dict:
         "filas_duplicadas_excluidas": row_d["duplicadas_excluidas"] if row_d else 0,
         "filas_inferidas": row_d["inferidas"] if row_d else 0,
         "filas_pendientes": row_d["pendientes"] if row_d else 0,
-        "partidas_candidatas": row_p["total_partidas"] if row_p else 0,
-        "partidas_inferidas": row_p["part_inferidas"] if row_p else 0,
-        "partidas_pendientes": row_p["part_pendientes"] if row_p else 0,
+        "partidas_candidatas": int(row_c["partidas_total"] or 0) if row_c else 0,
         "meta": meta_info,
     }
 
@@ -760,12 +799,110 @@ def get_details(
     s_col = valid_sort.get(sort_by, "fila_excel")
     s_dir = "ASC" if sort_dir.lower() == "asc" else "DESC"
 
+    cols_d = [r[1] for r in conn.execute("PRAGMA table_info(detalle)").fetchall()]
+    dup_col = "duplicado_de_fila" if "duplicado_de_fila" in cols_d else "'' as duplicado_de_fila"
+    tipo_col = "tipo_clave" if "tipo_clave" in cols_d else "'' as tipo_clave"
+    alertas_col = "alertas" if "alertas" in cols_d else "motivo as alertas"
+
     offset = max(0, (page - 1) * page_size)
     query = f"""
         SELECT fila_excel, institucion, ur, contrato, proveedor, clave_medicamento, descripcion,
                monto_declarado, cantidad, precio_unitario, subtotal_calculado, evaluacion_iva,
-               grupo_contrato, monto_computable, estado, motivo
+               grupo_contrato, monto_computable, estado, motivo, {dup_col}, {tipo_col}, {alertas_col}
         FROM detalle {w}
+        ORDER BY {s_col} {s_dir}
+        LIMIT {page_size} OFFSET {offset}
+    """
+    rows = [dict(r) for r in conn.execute(query, args).fetchall()]
+    conn.close()
+
+    total_pages = (total + page_size - 1) // page_size if page_size > 0 else 0
+    return {
+        "items": rows,
+        "total": total,
+        "page": page,
+        "page_size": page_size,
+        "total_pages": total_pages,
+    }
+
+
+def get_pendientes(
+    filters: dict | None = None,
+    page: int = 1,
+    page_size: int = 50,
+    sort_by: str = "fila_excel",
+    sort_dir: str = "asc",
+) -> dict:
+    db_path = get_reconciliation_db()
+    if not db_path.exists():
+        return {"items": [], "total": 0, "page": page, "page_size": page_size, "total_pages": 0}
+
+    conn = sqlite3.connect(str(db_path))
+    conn.row_factory = sqlite3.Row
+
+    tables = [r[0] for r in conn.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()]
+    if "pendientes" not in tables:
+        ensure_reconciliation_schema(db_path)
+        tables = [r[0] for r in conn.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()]
+
+    allowed_cols = {
+        "institucion": "institucion",
+        "proveedor": "proveedor",
+        "contrato": "contrato",
+        "clave": "clave",
+        "estado": "estado",
+        "search": "contrato",
+    }
+    w, args = _build_where(filters, allowed_cols)
+
+    valid_sort = {
+        "fila_excel": "fila_excel",
+        "contrato": "contrato",
+        "proveedor": "proveedor",
+        "clave": "clave",
+        "monto_reportado": "CAST(monto_reportado AS REAL)",
+        "monto_base_sin_iva": "CAST(monto_base_sin_iva AS REAL)",
+        "estado": "estado",
+    }
+    s_col = valid_sort.get(sort_by, "fila_excel")
+    s_dir = "ASC" if sort_dir.lower() == "asc" else "DESC"
+
+    if "pendientes" in tables:
+        total = conn.execute(f"SELECT COUNT(*) FROM pendientes {w}", args).fetchone()[0]
+        offset = max(0, (page - 1) * page_size)
+        query = f"""
+            SELECT fila_excel, institucion, contrato, proveedor, clave, descripcion_original,
+                   cantidad_contratada, precio_unitario, monto_reportado, monto_base_sin_iva,
+                   tipo_clave, iva, estado, duplicado_de_fila, monto_depurado, alertas
+            FROM pendientes {w}
+            ORDER BY {s_col} {s_dir}
+            LIMIT {page_size} OFFSET {offset}
+        """
+        rows = [dict(r) for r in conn.execute(query, args).fetchall()]
+    else:
+        d_allowed = {"institucion": "institucion", "proveedor": "proveedor", "contrato": "contrato", "search": "contrato"}
+        w_d, args_d = _build_where(filters, d_allowed)
+        base_cond = "WHERE ((motivo IS NOT NULL AND motivo != '') OR estado='NO CUANTIFICABLE / REVISAR' OR estado LIKE 'PENDIENTE%')"
+        if w_d:
+            base_cond += " AND " + w_d.replace(" WHERE ", "")
+        total = conn.execute(f"SELECT COUNT(*) FROM detalle {base_cond}", args_d).fetchone()[0]
+        offset = max(0, (page - 1) * page_size)
+        query = f"""
+            SELECT fila_excel, institucion, contrato, proveedor, clave_medicamento as clave, descripcion as descripcion_original,
+                   cantidad as cantidad_contratada, precio_unitario, monto_declarado as monto_reportado, subtotal_calculado as monto_base_sin_iva,
+                   '' as tipo_clave, evaluacion_iva as iva, estado, '' as duplicado_de_fila, monto_computable as monto_depurado, motivo as alertas
+            FROM detalle {base_cond}
+            ORDER BY fila_excel ASC
+            LIMIT {page_size} OFFSET {offset}
+        """
+        rows = [dict(r) for r in conn.execute(query, args_d).fetchall()]
+
+    offset = max(0, (page - 1) * page_size)
+    query = f"""
+        SELECT fila_excel, institucion, contrato, proveedor, clave, descripcion_original,
+               cantidad_contratada, precio_unitario, monto_reportado, monto_base_sin_iva,
+               tipo_clave, iva, estado, duplicado_de_fila, monto_depurado, alertas
+        FROM pendientes {w}
         ORDER BY {s_col} {s_dir}
         LIMIT {page_size} OFFSET {offset}
     """
@@ -785,13 +922,13 @@ def get_details(
 def get_filter_options() -> dict:
     db_path = get_reconciliation_db()
     if not db_path.exists():
-        return {"instituciones": [], "proveedores": [], "estados": []}
+        return {"instituciones": [], "proveedores": [], "estados": [], "estados_detalle": []}
 
     conn = sqlite3.connect(str(db_path))
     insts = [r[0] for r in conn.execute("SELECT DISTINCT institucion FROM contratos WHERE institucion IS NOT NULL AND institucion != '' ORDER BY institucion").fetchall()]
-    provs = [r[0] for r in conn.execute("SELECT DISTINCT proveedor FROM contratos WHERE proveedor IS NOT NULL AND proveedor != '' ORDER BY proveedor LIMIT 200").fetchall()]
-    estados = ["INFERIDO_COMPLETO", "PARCIAL_CON_PENDIENTES", "PENDIENTE_TOTAL"]
-    estados_detalle = ["INFERIDO_PARTIDA", "DUPLICADO_NO_SUMAR", "PENDIENTE", "PENDIENTE_DUPLICADO"]
+    provs = [r[0] for r in conn.execute("SELECT DISTINCT proveedor FROM contratos WHERE proveedor IS NOT NULL AND proveedor != '' ORDER BY proveedor LIMIT 300").fetchall()]
+    estados = ["SIN ALERTAS AUTOMATICAS", "REQUIERE REVISION", "INFERIDO_COMPLETO", "PARCIAL_CON_PENDIENTES", "PENDIENTE_TOTAL"]
+    estados_detalle = ["PARTIDA CONTABILIZADA", "REPETIDO MISMA PARTIDA", "NO CUANTIFICABLE / REVISAR", "INFERIDO_PARTIDA", "DUPLICADO_NO_SUMAR"]
     conn.close()
 
     return {
@@ -803,7 +940,7 @@ def get_filter_options() -> dict:
 
 
 def export_csv(view_type: str = "contratos", filters: dict | None = None) -> io.BytesIO:
-    """Genera un archivo CSV con BOM UTF-8 para apertura directa y perfecta en Microsoft Excel."""
+    """Genera archivo CSV con BOM UTF-8 para apertura directa en Microsoft Excel."""
     db_path = get_reconciliation_db()
     if not db_path.exists():
         buf = io.BytesIO()
@@ -820,7 +957,17 @@ def export_csv(view_type: str = "contratos", filters: dict | None = None) -> io.
         "estado": "estado",
         "search": "contrato",
     }
-    if view_type == "partidas":
+    if view_type == "pendientes":
+        table = "pendientes"
+        allowed_cols = {
+            "institucion": "institucion",
+            "proveedor": "proveedor",
+            "contrato": "contrato",
+            "clave": "clave",
+            "estado": "estado",
+            "search": "contrato",
+        }
+    elif view_type == "partidas":
         table = "partidas"
         allowed_cols = {
             "clave_medicamento": "clave_medicamento",
@@ -839,7 +986,12 @@ def export_csv(view_type: str = "contratos", filters: dict | None = None) -> io.
         }
 
     w, args = _build_where(filters, allowed_cols)
-    cur = conn.execute(f"SELECT * FROM {table} {w}", args)
+
+    # Si es contratos, exportar columnas alineadas a resumen_contratos.csv
+    if view_type == "contratos":
+        cur = conn.execute(f"SELECT institucion, contrato, filas, partidas as partidas_contadas, monto_inferido as monto_estimado_sin_iva, pendientes as filas_alerta, razon as alertas, estado as estado_validacion FROM contratos {w}", args)
+    else:
+        cur = conn.execute(f"SELECT * FROM {table} {w}", args)
 
     buf = io.StringIO()
     writer = csv.writer(buf)
@@ -856,9 +1008,7 @@ def export_csv(view_type: str = "contratos", filters: dict | None = None) -> io.
 
 
 def list_available_files() -> list[dict]:
-    """Lista los archivos de Excel disponibles en el servidor para conciliar."""
     files = []
-    # Buscar en uploads
     if UPLOAD_DIR.exists():
         for p in UPLOAD_DIR.glob("**/*"):
             if p.is_file() and p.suffix.lower() in (".xlsx", ".xlsm"):
@@ -869,7 +1019,6 @@ def list_available_files() -> list[dict]:
                     "size": p.stat().st_size,
                     "location": "uploads",
                 })
-    # Buscar en staging
     if STAGING_DIR.exists():
         for p in STAGING_DIR.glob("**/*"):
             if p.is_file() and p.suffix.lower() in (".xlsx", ".xlsm"):

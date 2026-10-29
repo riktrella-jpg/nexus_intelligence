@@ -12,8 +12,8 @@ export async function GET() {
 
   const instituciones = Array.from(instsSet).sort();
   const proveedores = Array.from(provsSet).sort().slice(0, 300);
-  const estados = ["INFERIDO_COMPLETO", "PARCIAL_CON_PENDIENTES", "PENDIENTE_TOTAL"];
-  const estados_detalle = ["INFERIDO_PARTIDA", "DUPLICADO_NO_SUMAR", "PENDIENTE", "PENDIENTE_DUPLICADO"];
+  const estados = ["SIN ALERTAS AUTOMATICAS", "REQUIERE REVISION", "INFERIDO_COMPLETO", "PARCIAL_CON_PENDIENTES"];
+  const estados_detalle = ["PARTIDA CONTABILIZADA", "REPETIDO MISMA PARTIDA", "NO CUANTIFICABLE / REVISAR", "INFERIDO_PARTIDA", "DUPLICADO_NO_SUMAR"];
 
   return NextResponse.json({
     instituciones,

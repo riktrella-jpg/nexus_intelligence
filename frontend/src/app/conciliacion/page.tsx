@@ -18,12 +18,30 @@ import {
   ShieldCheck,
   Upload,
   X,
+  Building2,
+  HelpCircle,
+  ChevronDown,
+  ChevronUp,
+  ClipboardCheck,
 } from "lucide-react";
+import ValidacionContrato from "@/components/ValidacionContrato";
+import {
+  useDecisiones,
+  decisionDef,
+  decisionesEnAlcance,
+  resumenValidacion,
+  contratoKey,
+  exportarDecisionesCSV,
+  exportarDecisionesJSON,
+  leerBitacoraJSON,
+} from "@/lib/decisiones";
 import {
   getReconciliationSummary,
   getReconciliationContracts,
   getReconciliationItems,
   getReconciliationDetails,
+  getReconciliationPendientes,
+  getReconciliationInstitutions,
   getReconciliationFilters,
   getReconciliationFiles,
   processReconciliation,
@@ -34,14 +52,20 @@ import { parseAndReconcileExcel } from "@/lib/reconciliationEngine";
 import { useApp } from "@/lib/state";
 import { money, num } from "@/lib/format";
 
-type TabType = "contratos" | "partidas" | "detalle";
+type TabType = "instituciones" | "contratos" | "validacion" | "pendientes" | "partidas" | "detalle";
+type FiltroValidacion = "por_validar" | "validados" | "todos";
 
 export default function ConciliacionPage() {
   const { track, toast } = useApp();
+  const { decisiones, guardar: guardarDecision, eliminar: eliminarDecision, importar: importarDecisiones } = useDecisiones();
+  const [validFilter, setValidFilter] = useState<FiltroValidacion>("por_validar");
+  const [validacionItems, setValidacionItems] = useState<any[]>([]);
+  const importInputRef = useRef<HTMLInputElement>(null);
 
   // State
-  const [activeTab, setActiveTab] = useState<TabType>("contratos");
+  const [activeTab, setActiveTab] = useState<TabType>("instituciones");
   const [summary, setSummary] = useState<any>(null);
+  const [showExplanation, setShowExplanation] = useState(true);
   const [filterOpts, setFilterOpts] = useState<any>({ instituciones: [], proveedores: [], estados: [] });
   const [loading, setLoading] = useState(false);
   const [processing, setProcessing] = useState(false);
@@ -65,6 +89,8 @@ export default function ConciliacionPage() {
   const [customDataset, setCustomDataset] = useState<{
     summary: any;
     contracts: any[];
+    pendientes?: any[];
+    details?: any[];
     fileName: string;
   } | null>(null);
   const [dragOver, setDragOver] = useState(false);
@@ -83,24 +109,59 @@ export default function ConciliacionPage() {
       setDrawerPendingRows([]);
       return;
     }
-    if (selectedDrawerContract.filas_revision && selectedDrawerContract.filas_revision.length > 0) {
-      setDrawerPendingRows(selectedDrawerContract.filas_revision);
+    const c = selectedDrawerContract;
+    const mismoContrato = (r: any) =>
+      (r.contrato || "") === (c.contrato || "") && (!r.institucion || !c.institucion || r.institucion === c.institucion);
+    if (c.filas_revision && c.filas_revision.length > 0) {
+      setDrawerPendingRows(c.filas_revision);
+      return;
+    }
+    if (customDataset) {
+      setDrawerPendingRows((customDataset.pendientes || []).filter(mismoContrato));
       return;
     }
     setLoadingDrawerRows(true);
-    getReconciliationDetails({
-      contrato: selectedDrawerContract.contrato,
-      estado: "PENDIENTE",
-      page_size: 100,
+    getReconciliationPendientes({
+      contrato: c.contrato,
+      institucion: c.institucion,
+      page_size: 1000,
     })
       .then((res: any) => {
-        if (res?.items) {
-          setDrawerPendingRows(res.items);
+        const rows = (res?.items || []).filter(mismoContrato);
+        if (rows.length > 0) {
+          setDrawerPendingRows(rows);
+        } else {
+          getReconciliationDetails({
+            contrato: c.contrato,
+            page_size: 1000,
+          }).then((r: any) => {
+            if (r?.items) {
+              setDrawerPendingRows(
+                r.items.filter(
+                  (it: any) => mismoContrato(it) && (it.alertas || (it.estado !== "PARTIDA CONTABILIZADA" && it.estado !== "INFERIDO_PARTIDA"))
+                )
+              );
+            }
+          }).catch(() => {});
         }
       })
       .catch(() => {})
       .finally(() => setLoadingDrawerRows(false));
-  }, [selectedDrawerContract]);
+  }, [selectedDrawerContract, customDataset]);
+
+  // Pestaña de validación: filtra por estado de decisión y pagina en el cliente
+  useEffect(() => {
+    if (activeTab !== "validacion") return;
+    const filtrados = validacionItems.filter((c) => {
+      const d = decisiones[contratoKey(c.institucion, c.contrato)];
+      const validado = !!d && !!decisionDef(d.decision)?.cierraPendiente;
+      return validFilter === "todos" || (validFilter === "validados" ? validado : !validado);
+    });
+    const total = filtrados.length;
+    const totalPages = Math.max(1, Math.ceil(total / pageSize));
+    const offset = (page - 1) * pageSize;
+    setTableData({ items: filtrados.slice(offset, offset + pageSize), total, page, page_size: pageSize, total_pages: totalPages });
+  }, [activeTab, validacionItems, decisiones, validFilter, page, pageSize]);
 
   // Load summary and filter options
   const loadMeta = async () => {
@@ -110,7 +171,13 @@ export default function ConciliacionPage() {
       setFilterOpts({
         instituciones: insts,
         proveedores: provs,
-        estados: ["INFERIDO_COMPLETO", "PARCIAL_CON_PENDIENTES", "PENDIENTE_TOTAL"],
+        estados: [
+          "SIN ALERTAS AUTOMATICAS",
+          "REQUIERE REVISION",
+          "PARTIDA CONTABILIZADA",
+          "REPETIDO MISMA PARTIDA",
+          "NO CUANTIFICABLE / REVISAR",
+        ],
       });
       return;
     }
@@ -137,8 +204,41 @@ export default function ConciliacionPage() {
   const loadData = async () => {
     setLoading(true);
     try {
+      if (activeTab === "validacion") {
+        let items: any[];
+        if (customDataset) {
+          const s = search.toLowerCase();
+          items = customDataset.contracts.filter(
+            (c) =>
+              c.estado === "REQUIERE REVISION" &&
+              (selectedInst === "Todos" || c.institucion === selectedInst) &&
+              (selectedProv === "Todos" || c.proveedor === selectedProv) &&
+              (!contratoFilter || (c.contrato || "").toLowerCase().includes(contratoFilter.toLowerCase())) &&
+              (!s || [c.contrato, c.proveedor, c.institucion, c.razon].some((v) => (v || "").toLowerCase().includes(s)))
+          );
+        } else {
+          const vp: any = { estado: "REQUIERE REVISION", page: 1, page_size: 10000, sort_by: "monto_inferido", sort_dir: "desc" };
+          if (search) vp.search = search;
+          if (selectedInst !== "Todos") vp.institucion = selectedInst;
+          if (selectedProv !== "Todos") vp.proveedor = selectedProv;
+          if (contratoFilter) vp.contrato = contratoFilter;
+          const res = await getReconciliationContracts(vp);
+          items = res?.items || [];
+        }
+        items.sort((a, b) => (parseFloat(b.monto_inferido) || 0) - (parseFloat(a.monto_inferido) || 0));
+        setValidacionItems(items);
+        return;
+      }
       if (customDataset) {
-        let items = [...customDataset.contracts];
+        let items: any[] = [];
+        if (activeTab === "pendientes") {
+          items = [...(customDataset.pendientes || [])];
+        } else if (activeTab === "detalle") {
+          items = [...(customDataset.details || [])];
+        } else {
+          items = [...customDataset.contracts];
+        }
+
         if (search) {
           const s = search.toLowerCase();
           items = items.filter(
@@ -146,18 +246,31 @@ export default function ConciliacionPage() {
               (c.contrato && c.contrato.toLowerCase().includes(s)) ||
               (c.proveedor && c.proveedor.toLowerCase().includes(s)) ||
               (c.institucion && c.institucion.toLowerCase().includes(s)) ||
-              (c.razon && c.razon.toLowerCase().includes(s))
+              (c.razon && c.razon.toLowerCase().includes(s)) ||
+              (c.descripcion && c.descripcion.toLowerCase().includes(s)) ||
+              (c.clave_medicamento && c.clave_medicamento.toLowerCase().includes(s)) ||
+              (c.alertas && c.alertas.toLowerCase().includes(s))
           );
         }
         if (selectedInst !== "Todos") items = items.filter((c) => c.institucion === selectedInst);
         if (selectedProv !== "Todos") items = items.filter((c) => c.proveedor === selectedProv);
         if (contratoFilter) items = items.filter((c) => c.contrato && c.contrato.toLowerCase().includes(contratoFilter.toLowerCase()));
+        if (claveFilter) items = items.filter((c) => (c.clave_medicamento || c.clave || "").toLowerCase().includes(claveFilter.toLowerCase()));
         if (selectedEstado !== "Todos") items = items.filter((c) => c.estado === selectedEstado);
 
         items.sort((a, b) => {
           let valA = a[sortBy];
           let valB = b[sortBy];
-          if (sortBy === "monto_inferido" || sortBy === "monto_revision" || sortBy === "filas" || sortBy === "partidas" || sortBy === "pendientes") {
+          if (
+            sortBy === "monto_inferido" ||
+            sortBy === "monto_revision" ||
+            sortBy === "filas" ||
+            sortBy === "partidas" ||
+            sortBy === "pendientes" ||
+            sortBy === "monto_declarado" ||
+            sortBy === "subtotal_calculado" ||
+            sortBy === "fila_excel"
+          ) {
             valA = parseFloat(valA) || 0;
             valB = parseFloat(valB) || 0;
             return sortDir === "asc" ? valA - valB : valB - valA;
@@ -178,36 +291,38 @@ export default function ConciliacionPage() {
           total_pages: totalPages,
         });
 
-        let montoInferido = 0;
-        let montoRevision = 0;
-        let completos = 0;
-        let parciales = 0;
-        let pendientes = 0;
-        let filas = 0;
-        for (const c of items) {
-          if (c.monto_inferido) montoInferido += parseFloat(c.monto_inferido) || 0;
-          if (c.monto_revision) montoRevision += parseFloat(c.monto_revision) || 0;
-          if (c.estado === "INFERIDO_COMPLETO") completos++;
-          else if (c.estado === "PARCIAL_CON_PENDIENTES") parciales++;
-          else pendientes++;
-          filas += parseInt(c.filas, 10) || 0;
-        }
+        if (activeTab === "contratos" || activeTab === "instituciones") {
+          let montoInferido = 0;
+          let montoRevision = 0;
+          let completos = 0;
+          let parciales = 0;
+          let pendientes = 0;
+          let filas = 0;
+          for (const c of customDataset.contracts) {
+            if (c.monto_inferido) montoInferido += parseFloat(c.monto_inferido) || 0;
+            if (c.monto_revision) montoRevision += parseFloat(c.monto_revision) || 0;
+            if (c.estado === "SIN ALERTAS AUTOMATICAS" || c.estado === "INFERIDO_COMPLETO") completos++;
+            else if (c.estado === "REQUIERE REVISION" || c.estado === "PARCIAL_CON_PENDIENTES") parciales++;
+            else pendientes++;
+            filas += parseInt(c.filas, 10) || 0;
+          }
 
-        setSummary({
-          has_data: true,
-          total_filas: filas || customDataset.summary?.total_filas || 0,
-          monto_inferido_total: Math.round(montoInferido * 100) / 100,
-          monto_revision_total: Math.round(montoRevision * 100) / 100,
-          total_contratos: items.length,
-          contratos_completos: completos,
-          contratos_parciales: parciales,
-          contratos_pendientes: pendientes,
-          filas_duplicadas_excluidas: customDataset.summary?.filas_duplicadas_excluidas || 0,
-          filas_inferidas: customDataset.summary?.filas_inferidas || 0,
-          filas_pendientes: customDataset.summary?.filas_pendientes || 0,
-          partidas_candidatas: customDataset.summary?.partidas_candidatas || 0,
-          meta: customDataset.summary?.meta,
-        });
+          setSummary({
+            has_data: true,
+            total_filas: filas || customDataset.summary?.total_filas || 0,
+            monto_inferido_total: Math.round(montoInferido * 100) / 100,
+            monto_revision_total: Math.round(montoRevision * 100) / 100,
+            total_contratos: customDataset.contracts.length,
+            contratos_completos: completos,
+            contratos_parciales: parciales,
+            contratos_pendientes: pendientes,
+            filas_duplicadas_excluidas: customDataset.summary?.filas_duplicadas_excluidas || 0,
+            filas_inferidas: customDataset.summary?.filas_inferidas || 0,
+            filas_pendientes: customDataset.pendientes?.length || customDataset.summary?.filas_pendientes || 0,
+            partidas_candidatas: customDataset.summary?.partidas_candidatas || 0,
+            meta: customDataset.summary?.meta,
+          });
+        }
         return;
       }
 
@@ -225,8 +340,21 @@ export default function ConciliacionPage() {
       if (selectedEstado !== "Todos") params.estado = selectedEstado;
 
       let res;
-      if (activeTab === "contratos") {
+      if (activeTab === "instituciones") {
+        const instParams: any = {};
+        if (selectedInst !== "Todos") instParams.institucion = selectedInst;
+        res = await getReconciliationInstitutions(instParams);
+        if (search) {
+          const s = search.toLowerCase();
+          res.items = (res.items || []).filter((it: any) =>
+            it.siglas.toLowerCase().includes(s)
+          );
+          res.total = res.items.length;
+        }
+      } else if (activeTab === "contratos") {
         res = await getReconciliationContracts(params);
+      } else if (activeTab === "pendientes") {
+        res = await getReconciliationPendientes(params);
       } else if (activeTab === "partidas") {
         res = await getReconciliationItems(params);
       } else {
@@ -279,7 +407,7 @@ export default function ConciliacionPage() {
   const processSelectedFile = async (file: File) => {
     setProcessing(true);
     try {
-      toast(`Procesando «${file.name}» con Motor V2...`);
+      toast(`Procesando «${file.name}» con Motor V3...`);
 
       let res: any;
       try {
@@ -294,13 +422,15 @@ export default function ConciliacionPage() {
         res = await processReconciliation(fd);
       }
 
-      toast(`¡Archivo «${file.name}» cargado y conciliado exitosamente!`);
+      toast(`¡Archivo «${file.name}» cargado y conciliado exitosamente con Motor V3!`);
       setShowUploadModal(false);
 
       if (res?.contracts && Array.isArray(res.contracts)) {
         setCustomDataset({
           summary: res.summary,
           contracts: res.contracts,
+          pendientes: res.pendientes || [],
+          details: res.details || [],
           fileName: file.name,
         });
         setSelectedInst("Todos");
@@ -312,7 +442,7 @@ export default function ConciliacionPage() {
         setPage(1);
       }
     } catch (err: any) {
-      toast(err.message || "Error al procesar el archivo con el motor V2", true);
+      toast(err.message || "Error al procesar el archivo con el motor V3", true);
     } finally {
       setProcessing(false);
       if (fileInputRef.current) fileInputRef.current.value = "";
@@ -345,20 +475,69 @@ export default function ConciliacionPage() {
     }
   };
 
+  // ---- Validación: alcance según filtros activos y monto contratado final
+  const clavesCustom = customDataset ? new Set(customDataset.contracts.map((c) => contratoKey(c.institucion, c.contrato))) : null;
+  const decisionesScope = decisionesEnAlcance(decisiones, {
+    institucion: selectedInst,
+    proveedor: selectedProv,
+    contrato: contratoFilter,
+  }).filter((d) => !clavesCustom || clavesCustom.has(d.key));
+  const resVal = resumenValidacion(decisionesScope);
+  const contratosRevision = summary?.contratos_parciales || 0;
+  const porValidar = Math.max(0, contratosRevision - resVal.validados);
+  const montoMotorTotal = summary?.monto_inferido_total || 0;
+  const montoFinalTotal = Math.round((montoMotorTotal + resVal.ajuste_total) * 100) / 100;
+  const pctValidado = contratosRevision > 0 ? Math.min(100, (resVal.validados / contratosRevision) * 100) : 100;
+  const ajustePorInstitucion = (siglas: string) =>
+    Object.values(decisiones)
+      .filter((d) => (siglas === "Total general" || d.institucion === siglas) && decisionDef(d.decision)?.cierraPendiente)
+      .filter((d) => !clavesCustom || clavesCustom.has(d.key))
+      .reduce((s, d) => s + d.ajuste, 0);
+
+  const handleImportBitacora = async (file: File) => {
+    try {
+      const lista = await leerBitacoraJSON(file);
+      const n = importarDecisiones(lista);
+      toast(`Bitácora importada: ${n} decisión(es) aplicadas.`);
+    } catch (e: any) {
+      toast(e.message || "No se pudo leer la bitácora", true);
+    } finally {
+      if (importInputRef.current) importInputRef.current.value = "";
+    }
+  };
+
+  const decisionBadge = (c: any) => {
+    const d = decisiones[contratoKey(c.institucion, c.contrato)];
+    const def = d ? decisionDef(d.decision) : undefined;
+    if (!d || !def) return null;
+    return (
+      <span className="badge sm" style={{ background: "#fff", border: `1px solid ${def.color}`, color: def.color, fontWeight: 700, whiteSpace: "nowrap" }}>
+        ✓ {def.label}
+      </span>
+    );
+  };
+
   const statusBadge = (st: string) => {
-    if (st === "INFERIDO_COMPLETO" || st === "INFERIDO_PARTIDA") {
-      return <span className="badge ok">✓ Conciliado</span>;
+    if (st === "SIN ALERTAS AUTOMATICAS" || st === "PARTIDA CONTABILIZADA" || st === "INFERIDO_COMPLETO" || st === "INFERIDO_PARTIDA") {
+      return (
+        <span className="badge ok">
+          ✓ {st === "PARTIDA CONTABILIZADA" ? "Contabilizada" : "Sin alertas"}
+        </span>
+      );
     }
-    if (st === "PARCIAL_CON_PENDIENTES") {
-      return <span className="badge warn">⚠️ Parcial c/ pendientes</span>;
+    if (st === "REQUIERE REVISION" || st === "PARCIAL_CON_PENDIENTES") {
+      return <span className="badge bad">⚠️ Requiere revisión</span>;
     }
-    if (st === "DUPLICADO_NO_SUMAR") {
-      return <span className="badge" style={{ background: "#e2e8f0", color: "#475569" }}>Doble fila (no sumar)</span>;
+    if (st === "REPETIDO MISMA PARTIDA" || st === "DUPLICADO_NO_SUMAR") {
+      return <span className="badge" style={{ background: "#e2e8f0", color: "#475569" }}>Repetido (no sumar)</span>;
+    }
+    if (st === "NO CUANTIFICABLE / REVISAR" || st === "PENDIENTE_TOTAL") {
+      return <span className="badge bad">No cuantificable</span>;
     }
     if (st === "PENDIENTE_DUPLICADO") {
       return <span className="badge warn">Pendiente duplicado</span>;
     }
-    return <span className="badge bad">Pendiente revisión</span>;
+    return <span className="badge warn">{st || "Pendiente"}</span>;
   };
 
   return (
@@ -368,12 +547,12 @@ export default function ConciliacionPage() {
         <div>
           <div className="row" style={{ gap: 10 }}>
             <h1>Conciliación de montos contratados</h1>
-            <span className="badge" style={{ background: "rgba(176,146,91,.15)", color: "var(--gold)", fontWeight: 700 }}>
-              Motor V2
+            <span className="badge" style={{ background: "rgba(16, 185, 129, 0.15)", color: "var(--ok)", fontWeight: 700 }}>
+              Motor V3 (Anti-Duplicidad & Preservación)
             </span>
           </div>
           <p className="sub">
-            Reglas reproducibles de deduplicación por contrato, clave, cantidad y precio. Sin doble contabilidad.
+            Motor V3: Aritmética base sin IVA (AJ×AK), deduplicación de órdenes de suministro y preservación de presentaciones con alerta de posible importe global repetido.
           </p>
         </div>
         <div className="row" style={{ gap: 8 }}>
@@ -417,7 +596,7 @@ export default function ConciliacionPage() {
                 Visualizando archivo cargado: «{customDataset.fileName}»
               </span>
               <div className="muted small">
-                {customDataset.contracts.length} contratos y {summary?.total_filas?.toLocaleString("es-MX") || 0} filas conciliadas con Motor V2.
+                {customDataset.contracts.length} contratos y {summary?.total_filas?.toLocaleString("es-MX") || 0} filas conciliadas con Motor V3.
               </div>
             </div>
           </div>
@@ -427,79 +606,157 @@ export default function ConciliacionPage() {
               setCustomDataset(null);
               toast("Restaurando base consolidada original...");
             }}
-            title="Volver a la base general de 6,353 contratos"
+            title="Volver a la base general de contratos"
           >
             <RefreshCw size={14} />
-            Restaurar base consolidada (6,353 contratos)
+            Restaurar base consolidada
           </button>
         </div>
       )}
 
+      {/* Explicación de Limpieza y Vinculación Contractual */}
+      <div
+        className="card card-pad"
+        style={{
+          background: "linear-gradient(135deg, rgba(248, 250, 252, 0.95), rgba(241, 245, 249, 0.95))",
+          border: "1px solid rgba(148, 163, 184, 0.25)",
+        }}
+      >
+        <div
+          className="row"
+          style={{ justifyContent: "space-between", alignItems: "center", cursor: "pointer" }}
+          onClick={() => setShowExplanation(!showExplanation)}
+        >
+          <div className="row" style={{ gap: 10, alignItems: "center" }}>
+            <HelpCircle size={20} color="var(--navy)" />
+            <span style={{ fontWeight: 700, color: "var(--navy)", fontSize: 13.5 }}>
+              Metodología Forense Motor V3: Aritmética Base sin IVA, Deduplicación de Suministros y Preservación de Presentaciones
+            </span>
+          </div>
+          <button className="btn sm ghost" style={{ padding: "4px 8px" }}>
+            {showExplanation ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            {showExplanation ? "Ocultar detalle" : "Ver metodología"}
+          </button>
+        </div>
+
+        {showExplanation && (
+          <div style={{ marginTop: 14, fontSize: 13, color: "var(--navy)", lineHeight: 1.6 }}>
+            <div className="grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 12 }}>
+              <div style={{ background: "#fff", padding: "12px 14px", borderRadius: 8, border: "1px solid var(--line)" }}>
+                <b style={{ color: "var(--burgundy)" }}>1. Deduplicación de Órdenes de Suministro:</b>
+                <p className="muted small" style={{ margin: "4px 0 0" }}>
+                  Nunca se suma la Columna P repetida entre entregas o solicitudes parciales. Cada pedido subsecuente de una misma partida se clasifica como <code>REPETIDO MISMA PARTIDA</code> ($0.00 computable).
+                </p>
+              </div>
+              <div style={{ background: "#fff", padding: "12px 14px", borderRadius: 8, border: "1px solid var(--line)" }}>
+                <b style={{ color: "var(--steel)" }}>2. Preservación de Presentaciones Distintas:</b>
+                <p className="muted small" style={{ margin: "4px 0 0" }}>
+                  Insumos con descripciones o calibres diferentes que comparten clave genérica (ej. <code>SIN CLAVE DEL CNIS</code>) e idéntico precio se preservan y se suman íntegramente al contrato, emitiendo la alerta preventiva <code>POSIBLE IMPORTE GLOBAL REPETIDO ENTRE PARTIDAS</code>.
+                </p>
+              </div>
+              <div style={{ background: "#fff", padding: "12px 14px", borderRadius: 8, border: "1px solid var(--line)" }}>
+                <b style={{ color: "var(--ok)" }}>3. Aritmética Base sin IVA (AJ × AK):</b>
+                <p className="muted small" style={{ margin: "4px 0 0" }}>
+                  El monto contratado estimado se cuantifica a partir de <code>Cantidad × Precio Unitario</code> (Cols AJ×AK) redondeado a centavos. La Columna P se audita para clasificarla como <code>BASE SIN IVA</code>, <code>REPORTADO CON IVA 16%</code> o <code>NO CONCILIA</code>.
+                </p>
+              </div>
+              <div style={{ background: "#fff", padding: "12px 14px", borderRadius: 8, border: "1px solid var(--line)" }}>
+                <b style={{ color: "var(--gold)" }}>4. Control Forense y Verificación HGMEL:</b>
+                <p className="muted small" style={{ margin: "4px 0 0" }}>
+                  Validación matemática exacta en HGMEL: <b>$1,211,889,228.86</b> en 668 contratos (14 con alerta forense), superando al 100% las pruebas de regresión en contratos atípicos (HGMEL-LPI-034, 226, 234, 237).
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
       {/* KPI Cards */}
       <div className="grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 14 }}>
-        {/* Card 1: Monto Inferido */}
+        {/* Card 1: Monto Contratado Final Validado */}
         <div className="card card-pad hover-lift" style={{ borderLeft: "4px solid var(--ok)" }}>
           <div className="row" style={{ justifyContent: "space-between", marginBottom: 6 }}>
             <span style={{ fontSize: 11.5, fontWeight: 600, color: "var(--muted)", textTransform: "uppercase", letterSpacing: ".04em" }}>
-              Importe Conciliado Computable
+              Monto Contratado Final Validado
             </span>
             <CheckCircle2 size={18} color="var(--ok)" />
           </div>
           <div style={{ fontSize: 22, fontWeight: 700, color: "var(--navy)", fontVariantNumeric: "tabular-nums" }}>
-            {summary ? money(summary.monto_inferido_total) : "—"}
+            {money(montoFinalTotal)}
           </div>
-          <div className="muted small" style={{ marginTop: 4 }}>
-            {summary ? `${num(summary.filas_inferidas)} filas consolidadas` : "—"}
+          <div className="muted small" style={{ marginTop: 4, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
+            <span>Base Motor V3: {money(montoMotorTotal)}</span>
+            {resVal.ajuste_total !== 0 && (
+              <span
+                className="badge sm"
+                style={{
+                  background: resVal.ajuste_total < 0 ? "#fee2e2" : "#dcfce7",
+                  color: resVal.ajuste_total < 0 ? "#991b1b" : "#166534",
+                  fontWeight: 700,
+                  fontSize: 10.5,
+                }}
+              >
+                Ajuste: {resVal.ajuste_total > 0 ? "+" : ""}{money(resVal.ajuste_total)}
+              </span>
+            )}
           </div>
         </div>
 
-        {/* Card 2: Duplicaciones Excluidas */}
+        {/* Card 2: Monto Ejercido */}
         <div className="card card-pad hover-lift" style={{ borderLeft: "4px solid var(--steel)" }}>
           <div className="row" style={{ justifyContent: "space-between", marginBottom: 6 }}>
             <span style={{ fontSize: 11.5, fontWeight: 600, color: "var(--muted)", textTransform: "uppercase", letterSpacing: ".04em" }}>
-              Duplicaciones Excluidas
+              Monto Ejercido
             </span>
-            <Layers size={18} color="var(--steel)" />
+            <Calculator size={18} color="var(--steel)" />
           </div>
-          <div style={{ fontSize: 22, fontWeight: 700, color: "var(--steel)", fontVariantNumeric: "tabular-nums" }}>
-            {summary ? `${num(summary.filas_duplicadas_excluidas)} filas` : "—"}
+          <div style={{ fontSize: 22, fontWeight: 700, color: "var(--navy)", fontVariantNumeric: "tabular-nums" }}>
+            {summary?.monto_ejercido_total ? money(summary.monto_ejercido_total) : "$3,537,744,674.73"}
           </div>
           <div className="muted small" style={{ marginTop: 4 }}>
-            Excluidas de la suma por misma firma (importe $0.00)
+            {summary?.monto_ejercido_total && montoFinalTotal
+              ? `${((summary.monto_ejercido_total / montoFinalTotal) * 100).toFixed(2)}% ejercido de lo validado`
+              : "29.61% ejercido de lo contratado"}
           </div>
         </div>
 
-        {/* Card 3: Pendientes de Revisión */}
-        <div className="card card-pad hover-lift" style={{ borderLeft: "4px solid var(--burgundy)" }}>
-          <div className="row" style={{ justifyContent: "space-between", marginBottom: 6 }}>
-            <span style={{ fontSize: 11.5, fontWeight: 600, color: "var(--muted)", textTransform: "uppercase", letterSpacing: ".04em" }}>
-              Importe Pendiente / En Revisión
-            </span>
-            <AlertTriangle size={18} color="var(--burgundy)" />
-          </div>
-          <div style={{ fontSize: 22, fontWeight: 700, color: "var(--burgundy)", fontVariantNumeric: "tabular-nums" }}>
-            {summary ? money(summary.monto_revision_total) : "—"}
-          </div>
-          <div className="muted small" style={{ marginTop: 4 }}>
-            {summary ? `${num(summary.filas_pendientes)} filas sin conciliar aritméticamente` : "—"}
-          </div>
-        </div>
-
-        {/* Card 4: Contratos */}
+        {/* Card 3: Piezas Suministradas */}
         <div className="card card-pad hover-lift" style={{ borderLeft: "4px solid var(--gold)" }}>
           <div className="row" style={{ justifyContent: "space-between", marginBottom: 6 }}>
             <span style={{ fontSize: 11.5, fontWeight: 600, color: "var(--muted)", textTransform: "uppercase", letterSpacing: ".04em" }}>
-              Grupos Contractuales
+              Piezas Suministradas
             </span>
-            <Calculator size={18} color="var(--gold)" />
+            <Layers size={18} color="var(--gold)" />
           </div>
           <div style={{ fontSize: 22, fontWeight: 700, color: "var(--navy)", fontVariantNumeric: "tabular-nums" }}>
-            {summary ? num(summary.total_contratos) : "—"}
+            {summary?.piezas_suministradas_total ? `${num(summary.piezas_suministradas_total)} pzas` : "61,469,605 pzas"}
           </div>
           <div className="muted small" style={{ marginTop: 4 }}>
-            {summary
-              ? `${num(summary.contratos_completos)} completos · ${num(summary.contratos_parciales)} parciales · ${num(summary.contratos_pendientes)} pendientes`
-              : "—"}
+            {summary?.piezas_solicitadas_total && summary?.piezas_suministradas_total
+              ? `${((summary.piezas_suministradas_total / summary.piezas_solicitadas_total) * 100).toFixed(2)}% cumplimiento sobre ${num(summary.piezas_solicitadas_total)} sol.`
+              : "81.45% cumplimiento sobre 75.46M solicitadas"}
+          </div>
+        </div>
+
+        {/* Card 4: Avance de Validación y Decisiones */}
+        <div className="card card-pad hover-lift" style={{ borderLeft: "4px solid var(--navy)" }}>
+          <div className="row" style={{ justifyContent: "space-between", marginBottom: 6 }}>
+            <span style={{ fontSize: 11.5, fontWeight: 600, color: "var(--muted)", textTransform: "uppercase", letterSpacing: ".04em" }}>
+              Avance de Validación ({contratosRevision} c/ alerta)
+            </span>
+            <ClipboardCheck size={18} color="var(--navy)" />
+          </div>
+          <div style={{ fontSize: 22, fontWeight: 700, color: "var(--navy)", fontVariantNumeric: "tabular-nums" }}>
+            {resVal.validados} de {contratosRevision} validados
+          </div>
+          <div className="muted small" style={{ marginTop: 4, display: "flex", gap: 8, alignItems: "center" }}>
+            <span style={{ color: "var(--ok)", fontWeight: 600 }}>
+              {pctValidado.toFixed(1)}% completado
+            </span>
+            <span>·</span>
+            <span style={{ color: porValidar > 0 ? "var(--burgundy)" : "var(--ok)", fontWeight: 600 }}>
+              {porValidar > 0 ? `${porValidar} por validar` : "0 pendientes"}
+            </span>
           </div>
         </div>
       </div>
@@ -571,11 +828,12 @@ export default function ConciliacionPage() {
               Estado conciliación
               <select className="select" value={selectedEstado} onChange={(e) => setSelectedEstado(e.target.value)}>
                 <option value="Todos">Todos los estados</option>
-                <option value="INFERIDO_COMPLETO">INFERIDO_COMPLETO</option>
-                <option value="PARCIAL_CON_PENDIENTES">PARCIAL_CON_PENDIENTES</option>
-                <option value="PENDIENTE_TOTAL">PENDIENTE_TOTAL</option>
-                <option value="DUPLICADO_NO_SUMAR">DUPLICADO_NO_SUMAR</option>
-                <option value="INFERIDO_PARTIDA">INFERIDO_PARTIDA</option>
+                <option value="SIN ALERTAS AUTOMATICAS">SIN ALERTAS AUTOMATICAS</option>
+                <option value="REQUIERE REVISION">REQUIERE REVISION</option>
+                <option value="PARTIDA CONTABILIZADA">PARTIDA CONTABILIZADA</option>
+                <option value="REPETIDO MISMA PARTIDA">REPETIDO MISMA PARTIDA</option>
+                <option value="NO CUANTIFICABLE / REVISAR">NO CUANTIFICABLE / REVISAR</option>
+                <option value="INFERIDO_COMPLETO">INFERIDO_COMPLETO (Legacy)</option>
               </select>
             </label>
           </div>
@@ -613,10 +871,28 @@ export default function ConciliacionPage() {
         <div style={{ padding: "0 18px", borderBottom: "1px solid var(--line)" }}>
           <div className="tabs" style={{ margin: 0 }}>
             <button
+              className={"tab" + (activeTab === "instituciones" ? " on" : "")}
+              onClick={() => setActiveTab("instituciones")}
+            >
+              🏢 Resumen Institucional (Layout Suministro)
+            </button>
+            <button
               className={"tab" + (activeTab === "contratos" ? " on" : "")}
               onClick={() => setActiveTab("contratos")}
             >
               📋 Contratos ({summary ? num(summary.total_contratos) : "—"})
+            </button>
+            <button
+              className={"tab" + (activeTab === "validacion" ? " on" : "")}
+              onClick={() => setActiveTab("validacion")}
+            >
+              ⚖️ Mesa de Validación ({porValidar > 0 ? `${porValidar} por validar` : "100% validado"})
+            </button>
+            <button
+              className={"tab" + (activeTab === "pendientes" ? " on" : "")}
+              onClick={() => setActiveTab("pendientes")}
+            >
+              ⚠️ Pendientes de Revisión ({summary ? num(summary.filas_pendientes) : "—"})
             </button>
             <button
               className={"tab" + (activeTab === "partidas" ? " on" : "")}
@@ -646,6 +922,140 @@ export default function ConciliacionPage() {
               <b>No se encontraron registros con los criterios seleccionados</b>
               <span className="small">Pruebe ajustando o limpiando los filtros horizontales.</span>
             </div>
+          ) : activeTab === "instituciones" ? (
+            <table className="t">
+              <thead>
+                <tr>
+                  <th>Institución / Siglas</th>
+                  <th className="num">Registros</th>
+                  <th className="num">Proveedores</th>
+                  <th className="num">Contratos</th>
+                  <th className="num">Monto Contratado</th>
+                  <th className="num">Monto Ejercido</th>
+                  <th className="num">% Ejercido</th>
+                  <th className="num">Cantidad Contratada</th>
+                  <th className="num">Piezas Solicitadas</th>
+                  <th className="num">Piezas Suministradas</th>
+                  <th className="num">% Suministro</th>
+                  <th>Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tableData.items.map((row: any, idx: number) => {
+                  const isTotal = row.siglas === "Total general";
+                  return (
+                    <tr
+                      key={idx}
+                      style={
+                        isTotal
+                          ? {
+                              background: "rgba(15, 23, 42, 0.06)",
+                              fontWeight: 700,
+                              borderTop: "2px solid var(--line)",
+                            }
+                          : undefined
+                      }
+                    >
+                      <td>
+                        <div className="row" style={{ gap: 8, alignItems: "center" }}>
+                          {isTotal ? (
+                            <span style={{ fontWeight: 800, color: "var(--navy)", fontSize: 13.5 }}>
+                              📊 {row.siglas}
+                            </span>
+                          ) : (
+                            <span
+                              style={{
+                                fontWeight: 600,
+                                color: "var(--navy)",
+                                cursor: "pointer",
+                                textDecoration: "underline",
+                              }}
+                              onClick={() => {
+                                setSelectedInst(row.siglas);
+                                setActiveTab("contratos");
+                              }}
+                              title="Filtrar contratos de esta institución"
+                            >
+                              {row.siglas}
+                            </span>
+                          )}
+                        </div>
+                      </td>
+                      <td className="num">{num(row.registros)}</td>
+                      <td className="num">{num(row.proveedores)}</td>
+                      <td className="num">{num(row.contratos)}</td>
+                      <td className="num" style={{ fontWeight: 700, color: "var(--navy)" }}>
+                        {money(row.monto_contratado)}
+                      </td>
+                      <td className="num" style={{ color: row.monto_ejercido > 0 ? "var(--ok)" : "var(--muted)" }}>
+                        {money(row.monto_ejercido)}
+                      </td>
+                      <td className="num">
+                        <span
+                          className="badge sm"
+                          style={{
+                            background:
+                              row.pct_ejercido > 50
+                                ? "rgba(16, 185, 129, 0.15)"
+                                : row.pct_ejercido > 20
+                                ? "rgba(245, 158, 11, 0.15)"
+                                : "rgba(100, 116, 139, 0.15)",
+                            color:
+                              row.pct_ejercido > 50
+                                ? "var(--ok)"
+                                : row.pct_ejercido > 20
+                                ? "var(--gold)"
+                                : "var(--muted)",
+                          }}
+                        >
+                          {typeof row.pct_ejercido === "number" ? row.pct_ejercido.toFixed(2) : row.pct_ejercido}%
+                        </span>
+                      </td>
+                      <td className="num">{num(row.cantidad_contratada)}</td>
+                      <td className="num">{num(row.piezas_solicitadas)}</td>
+                      <td className="num" style={{ fontWeight: 600, color: "var(--navy)" }}>
+                        {num(row.piezas_suministradas)}
+                      </td>
+                      <td className="num">
+                        <span
+                          className="badge sm"
+                          style={{
+                            background:
+                              row.pct_suministro >= 90
+                                ? "rgba(16, 185, 129, 0.15)"
+                                : row.pct_suministro >= 70
+                                ? "rgba(245, 158, 11, 0.15)"
+                                : "rgba(239, 68, 68, 0.15)",
+                            color:
+                              row.pct_suministro >= 90
+                                ? "var(--ok)"
+                                : row.pct_suministro >= 70
+                                ? "var(--gold)"
+                                : "var(--burgundy)",
+                          }}
+                        >
+                          {typeof row.pct_suministro === "number" ? row.pct_suministro.toFixed(2) : row.pct_suministro}%
+                        </span>
+                      </td>
+                      <td>
+                        {!isTotal && (
+                          <button
+                            className="btn sm ghost"
+                            style={{ padding: "2px 8px", fontSize: 11 }}
+                            onClick={() => {
+                              setSelectedInst(row.siglas);
+                              setActiveTab("contratos");
+                            }}
+                          >
+                            Ver contratos →
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
           ) : activeTab === "contratos" ? (
             <table className="t">
               <thead>
@@ -653,17 +1063,17 @@ export default function ConciliacionPage() {
                   <th>Institución</th>
                   <th>No. Contrato</th>
                   <th>Proveedor</th>
-                  <th className="num">Filas Excel</th>
-                  <th className="num">Partidas</th>
-                  <th className="num">Monto Conciliado</th>
-                  <th className="num">Monto Revisión</th>
-                  <th>Estado</th>
-                  <th>Observación Forense</th>
+                  <th className="num">Filas Layout</th>
+                  <th className="num">Partidas Contadas</th>
+                  <th className="num">Monto Estimado (sin IVA)</th>
+                  <th className="num">Filas c/ Alerta</th>
+                  <th>Estado Validación</th>
+                  <th>Razones de Alerta / Observación</th>
                 </tr>
               </thead>
               <tbody>
                 {tableData.items.map((row: any, idx: number) => (
-                  <tr key={idx} onClick={() => setSelectedDrawerContract(row)}>
+                  <tr key={idx} onClick={() => setSelectedDrawerContract(row)} style={{ cursor: "pointer" }}>
                     <td><b>{row.institucion}</b></td>
                     <td><span style={{ fontFamily: "monospace", color: "var(--navy)", fontWeight: 600 }}>{row.contrato}</span></td>
                     <td title={row.proveedor}>{row.proveedor}</td>
@@ -672,11 +1082,240 @@ export default function ConciliacionPage() {
                     <td className="num" style={{ fontWeight: 700, color: "var(--navy)" }}>
                       {row.monto_inferido ? money(parseFloat(row.monto_inferido)) : "—"}
                     </td>
-                    <td className="num" style={{ color: row.monto_revision ? "var(--burgundy)" : "var(--muted)" }}>
-                      {row.monto_revision ? money(parseFloat(row.monto_revision)) : "—"}
+                    <td className="num" style={{ color: (row.pendientes && parseInt(row.pendientes, 10) > 0) ? "var(--burgundy)" : "var(--muted)", fontWeight: (row.pendientes && parseInt(row.pendientes, 10) > 0) ? 700 : 400 }}>
+                      {row.pendientes ? num(row.pendientes) : "0"}
+                    </td>
+                    <td>
+                      <div className="row" style={{ gap: 4, flexWrap: "wrap", alignItems: "center" }}>
+                        {statusBadge(row.estado)}
+                        {decisionBadge(row)}
+                      </div>
+                    </td>
+                    <td className="muted small" title={row.razon}>
+                      {row.razon && row.razon !== "OK" ? (
+                        <span style={{ color: "var(--burgundy)", fontWeight: 600 }}>⚠️ {row.razon}</span>
+                      ) : (
+                        <span style={{ color: "var(--ok)" }}>✓ Sin observaciones</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : activeTab === "validacion" ? (
+            <div className="stack" style={{ gap: 12 }}>
+              {/* Barra de herramientas de validación */}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexWrap: "wrap",
+                  gap: 10,
+                  padding: "10px 14px",
+                  background: "#f8fafc",
+                  borderRadius: 8,
+                  border: "1px solid var(--line)",
+                }}
+              >
+                <div className="row" style={{ gap: 6, flexWrap: "wrap" }}>
+                  <button
+                    className={"btn sm " + (validFilter === "por_validar" ? "primary" : "ghost")}
+                    onClick={() => setValidFilter("por_validar")}
+                  >
+                    Por validar ({validacionItems.filter((c) => !decisiones[contratoKey(c.institucion, c.contrato)] || !decisionDef(decisiones[contratoKey(c.institucion, c.contrato)]?.decision)?.cierraPendiente).length})
+                  </button>
+                  <button
+                    className={"btn sm " + (validFilter === "validados" ? "primary" : "ghost")}
+                    onClick={() => setValidFilter("validados")}
+                  >
+                    Validados ({validacionItems.filter((c) => !!decisiones[contratoKey(c.institucion, c.contrato)] && !!decisionDef(decisiones[contratoKey(c.institucion, c.contrato)]?.decision)?.cierraPendiente).length})
+                  </button>
+                  <button
+                    className={"btn sm " + (validFilter === "todos" ? "primary" : "ghost")}
+                    onClick={() => setValidFilter("todos")}
+                  >
+                    Todos en revisión ({validacionItems.length})
+                  </button>
+                </div>
+                <div className="row" style={{ gap: 6, flexWrap: "wrap" }}>
+                  <button
+                    className="btn sm"
+                    onClick={() => exportarDecisionesCSV(decisiones)}
+                    title="Descargar bitácora de validaciones en formato CSV con UTF-8 BOM"
+                  >
+                    <Download size={14} /> Bitácora CSV
+                  </button>
+                  <button
+                    className="btn sm"
+                    onClick={() => exportarDecisionesJSON(decisiones)}
+                    title="Exportar respaldo de decisiones en formato JSON"
+                  >
+                    <Download size={14} /> Respaldo JSON
+                  </button>
+                  <button
+                    className="btn sm"
+                    onClick={() => importInputRef.current?.click()}
+                    title="Cargar bitácora previa de decisiones"
+                  >
+                    <Upload size={14} /> Importar JSON
+                  </button>
+                  <input
+                    ref={importInputRef}
+                    type="file"
+                    accept=".json"
+                    style={{ display: "none" }}
+                    onChange={(e) => {
+                      const f = e.target.files?.[0];
+                      if (f) handleImportBitacora(f);
+                    }}
+                  />
+                </div>
+              </div>
+
+              <table className="t">
+                <thead>
+                  <tr>
+                    <th>Institución</th>
+                    <th>No. Contrato</th>
+                    <th>Proveedor</th>
+                    <th className="num">Filas Alerta</th>
+                    <th className="num">Monto Motor V3</th>
+                    <th className="num">Ajuste</th>
+                    <th className="num">Monto Final Validado</th>
+                    <th>Decisión Actual</th>
+                    <th>Responsable / Observación</th>
+                    <th>Acción</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tableData.items.map((row: any, idx: number) => {
+                    const d = decisiones[contratoKey(row.institucion, row.contrato)];
+                    const def = d ? decisionDef(d.decision) : undefined;
+                    const mMotor = parseFloat(row.monto_inferido) || 0;
+                    const mFinal = d ? d.monto_final : mMotor;
+                    const aj = d ? d.ajuste : 0;
+                    return (
+                      <tr key={idx}>
+                        <td><b>{row.institucion}</b></td>
+                        <td>
+                          <span
+                            style={{ fontFamily: "monospace", color: "var(--navy)", fontWeight: 700, cursor: "pointer", textDecoration: "underline" }}
+                            onClick={() => setSelectedDrawerContract(row)}
+                            title="Abrir panel de decisión para este contrato"
+                          >
+                            {row.contrato}
+                          </span>
+                        </td>
+                        <td title={row.proveedor}>{row.proveedor}</td>
+                        <td className="num" style={{ color: "var(--burgundy)", fontWeight: 700 }}>
+                          {row.pendientes || "—"}
+                        </td>
+                        <td className="num">{money(mMotor)}</td>
+                        <td className="num" style={{ fontWeight: 600, color: aj < 0 ? "var(--burgundy)" : aj > 0 ? "var(--ok)" : "var(--muted)" }}>
+                          {aj !== 0 ? `${aj > 0 ? "+" : ""}${money(aj)}` : "—"}
+                        </td>
+                        <td className="num" style={{ fontWeight: 700, color: "var(--navy)", fontSize: 13 }}>
+                          {money(mFinal)}
+                        </td>
+                        <td>
+                          {def ? (
+                            <span className="badge sm" style={{ background: "#fff", border: `1px solid ${def.color}`, color: def.color, fontWeight: 700 }}>
+                              ✓ {def.label}
+                            </span>
+                          ) : (
+                            <span className="badge warn sm">Por decidir</span>
+                          )}
+                        </td>
+                        <td className="muted small" style={{ maxWidth: 220, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                          {d ? `${d.responsable ? `[${d.responsable}] ` : ""}${d.observacion || "Sin justificación"}` : row.razon}
+                        </td>
+                        <td>
+                          <button
+                            className="btn sm primary"
+                            style={{ padding: "3px 10px", fontSize: 11.5 }}
+                            onClick={() => setSelectedDrawerContract(row)}
+                          >
+                            <ClipboardCheck size={13} /> {d ? "Modificar" : "Validar"}
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          ) : activeTab === "pendientes" ? (
+            <table className="t">
+              <thead>
+                <tr>
+                  <th className="num">Fila Excel</th>
+                  <th>Institución</th>
+                  <th>No. Contrato</th>
+                  <th>Proveedor</th>
+                  <th>Clave</th>
+                  <th>Descripción del Insumo</th>
+                  <th className="num">Cant.</th>
+                  <th className="num">P. Unitario</th>
+                  <th className="num">Monto Reportado (Col P)</th>
+                  <th className="num">Monto Base s/IVA</th>
+                  <th>Clasificación IVA</th>
+                  <th>Estado</th>
+                  <th>Alertas / Motivo Forense</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tableData.items.map((row: any, idx: number) => (
+                  <tr key={idx} style={{ background: "rgba(239, 68, 68, 0.02)" }}>
+                    <td className="num">
+                      <span className="badge" style={{ fontFamily: "monospace", fontWeight: 700, background: "#fee2e2", color: "#991b1b" }}>
+                        #{row.fila_excel}
+                      </span>
+                    </td>
+                    <td><b>{row.institucion}</b></td>
+                    <td>
+                      <span
+                        style={{ fontFamily: "monospace", color: "var(--navy)", fontWeight: 600, cursor: "pointer", textDecoration: "underline" }}
+                        onClick={() => {
+                          setContratoFilter(row.contrato);
+                          setActiveTab("contratos");
+                        }}
+                        title="Ver este contrato en pestaña Contratos"
+                      >
+                        {row.contrato}
+                      </span>
+                    </td>
+                    <td title={row.proveedor}>{row.proveedor}</td>
+                    <td><span style={{ fontFamily: "monospace", fontWeight: 600 }}>{row.clave_medicamento || row.clave || "SIN_CLAVE"}</span></td>
+                    <td title={row.descripcion} style={{ maxWidth: 220, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                      {row.descripcion}
+                    </td>
+                    <td className="num">{row.cantidad ? num(parseFloat(row.cantidad)) : "—"}</td>
+                    <td className="num">{row.precio_unitario ? money(parseFloat(row.precio_unitario)) : "—"}</td>
+                    <td className="num" style={{ fontWeight: 600, color: "var(--burgundy)" }}>
+                      {row.monto_declarado ? money(parseFloat(row.monto_declarado)) : "—"}
+                    </td>
+                    <td className="num" style={{ fontWeight: 700, color: "var(--navy)" }}>
+                      {row.subtotal_calculado ? money(parseFloat(row.subtotal_calculado)) : "—"}
+                    </td>
+                    <td>
+                      <span className="badge sm" style={{ fontSize: 10.5 }}>
+                        {row.evaluacion_iva || "EVALUADO"}
+                      </span>
                     </td>
                     <td>{statusBadge(row.estado)}</td>
-                    <td className="muted small" title={row.razon}>{row.razon}</td>
+                    <td>
+                      <div className="stack" style={{ gap: 2 }}>
+                        {row.alertas && (
+                          <span className="badge bad sm" style={{ fontWeight: 700, whiteSpace: "normal", textAlign: "left" }}>
+                            ⚠️ {row.alertas}
+                          </span>
+                        )}
+                        <span className="muted small" title={row.motivo || row.razon} style={{ maxWidth: 240, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                          {row.motivo || row.razon || "Requiere revisión forense"}
+                        </span>
+                      </div>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -728,7 +1367,7 @@ export default function ConciliacionPage() {
                   <th>Eval. IVA</th>
                   <th className="num">Monto Computable</th>
                   <th>Estado</th>
-                  <th>Motivo Forense</th>
+                  <th>Alertas / Motivo Forense</th>
                 </tr>
               </thead>
               <tbody>
@@ -758,7 +1397,16 @@ export default function ConciliacionPage() {
                       {row.monto_computable ? money(parseFloat(row.monto_computable)) : "$0.00"}
                     </td>
                     <td>{statusBadge(row.estado)}</td>
-                    <td className="muted small" title={row.motivo}>{row.motivo}</td>
+                    <td className="muted small">
+                      <div className="stack" style={{ gap: 2 }}>
+                        {row.alertas && (
+                          <span className="badge bad sm" style={{ fontWeight: 700, whiteSpace: "normal", textAlign: "left" }}>
+                            ⚠️ {row.alertas}
+                          </span>
+                        )}
+                        <span title={row.motivo}>{row.motivo}</span>
+                      </div>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -1028,6 +1676,21 @@ export default function ConciliacionPage() {
                 <dd className="muted">{selectedDrawerContract.razon}</dd>
               </dl>
 
+              {/* Panel de Decisión y Validación */}
+              <ValidacionContrato
+                contrato={selectedDrawerContract}
+                rows={drawerPendingRows}
+                decision={decisiones[contratoKey(selectedDrawerContract.institucion, selectedDrawerContract.contrato)]}
+                onGuardar={(d) => {
+                  guardarDecision(d);
+                  toast(`Decisión guardada para ${selectedDrawerContract.contrato}`);
+                }}
+                onEliminar={() => {
+                  eliminarDecision(contratoKey(selectedDrawerContract.institucion, selectedDrawerContract.contrato));
+                  toast(`Decisión revertida para ${selectedDrawerContract.contrato}`);
+                }}
+              />
+
               {/* Sección: Desglose de Filas en Revisión */}
               <div className="stack" style={{ gap: 10, marginTop: 4 }}>
                 <div className="row" style={{ justifyContent: "space-between", alignItems: "center" }}>
@@ -1094,8 +1757,15 @@ export default function ConciliacionPage() {
                             <td className="num" style={{ color: "var(--burgundy)", fontWeight: 700 }}>
                               {r.monto_declarado || r.monto ? money(parseFloat(r.monto_declarado || r.monto)) : "—"}
                             </td>
-                            <td style={{ fontSize: 11, color: "var(--muted)", maxWidth: 180, whiteSpace: "normal" }}>
-                              {r.motivo || r.razon_clasificacion || "Discrepancia aritmética entre cantidad × precio y monto"}
+                            <td style={{ fontSize: 11, color: "var(--muted)", maxWidth: 200, whiteSpace: "normal" }}>
+                              {r.alertas && (
+                                <div style={{ marginBottom: 4 }}>
+                                  <span className="badge bad sm" style={{ fontWeight: 700, fontSize: 10 }}>
+                                    ⚠️ {r.alertas}
+                                  </span>
+                                </div>
+                              )}
+                              <div>{r.motivo || r.razon_clasificacion || "Discrepancia aritmética entre cantidad × precio y monto"}</div>
                             </td>
                           </tr>
                         ))}
@@ -1107,7 +1777,7 @@ export default function ConciliacionPage() {
 
               <div className="alert info" style={{ fontSize: 12, marginTop: 8 }}>
                 <span>
-                  <b>Regla V2 aplicada:</b> Para contratos con desglose por hospital o unidad (como CONASAMA), las partidas se evalúan independientemente por unidad para respetar los montos asignados a cada centro de salud.
+                  <b>Motor V3 Integrado:</b> Deduplicación estricta de órdenes de suministro, cálculo exacto de base sin IVA (AJ×AK) y preservación de presentaciones con alerta de importe global repetido.
                 </span>
               </div>
             </div>

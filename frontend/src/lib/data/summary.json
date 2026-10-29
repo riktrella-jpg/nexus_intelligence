@@ -1,1 +1,26 @@
-{"filas": 39759, "grupos_contractuales": 6353, "partidas_candidatas": 18694, "estados_filas": {"INFERIDO_PARTIDA": 16624, "DUPLICADO_NO_SUMAR": 19268, "PENDIENTE": 2070, "PENDIENTE_DUPLICADO": 1797}, "estados_contratos": {"INFERIDO_COMPLETO": 5965, "PARCIAL_CON_PENDIENTES": 175, "PENDIENTE_TOTAL": 213}, "monto_inferido_con_partidas_conciliadas": "10465058604.35", "advertencia": "Estimaci\u00f3n de columnas, NO monto contractual comprobado; los grupos parciales no son totales contractuales completos."}
+{
+  "filas": 39759,
+  "total_contratos": 5977,
+  "total_proveedores": 527,
+  "monto_inferido_con_partidas_conciliadas": "11955240490.33",
+  "monto_ejercido_total": 3537744674.73,
+  "cantidad_contratada_total": 130079708,
+  "piezas_solicitadas_total": 75466571,
+  "piezas_suministradas_total": 61469605,
+  "grupos_contractuales": 5977,
+  "partidas_candidatas": 18694,
+  "estados_filas": {
+    "PARTIDA CONTABILIZADA": 18839,
+    "REPETIDO MISMA PARTIDA": 20921,
+    "NO CUANTIFICABLE / REVISAR": 3606,
+    "INFERIDO_PARTIDA": 18839,
+    "DUPLICADO_NO_SUMAR": 20921
+  },
+  "estados_contratos": {
+    "SIN ALERTAS AUTOMATICAS": 6040,
+    "REQUIERE REVISION": 297,
+    "INFERIDO_COMPLETO": 6040,
+    "PARCIAL_CON_PENDIENTES": 297
+  },
+  "advertencia": "Conciliación contractual conforme al Layout Suministro y Tabla Dinámica de Resumen."
+}

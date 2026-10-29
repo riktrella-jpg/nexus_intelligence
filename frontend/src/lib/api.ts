@@ -179,12 +179,20 @@ export async function getReconciliationDetails(params: Record<string, any> = {})
   return api(`/api/reconciliation/details${buildQueryString(params)}`);
 }
 
+export async function getReconciliationPendientes(params: Record<string, any> = {}) {
+  return api(`/api/reconciliation/pendientes${buildQueryString(params)}`);
+}
+
 export async function getReconciliationFilters() {
   return api("/api/reconciliation/filters");
 }
 
 export async function getReconciliationFiles() {
   return api("/api/reconciliation/files");
+}
+
+export async function getReconciliationInstitutions(params: Record<string, any> = {}) {
+  return api(`/api/reconciliation/institutions${buildQueryString(params)}`);
 }
 
 export async function processReconciliation(bodyOrForm: { file_path?: string; upload_id?: string; sheet_name?: string } | FormData) {
