@@ -5,6 +5,7 @@ import {
   ArrowRight,
   BarChart3,
   Brain,
+  Calculator,
   CheckCircle2,
   Database,
   FileSpreadsheet,
@@ -284,6 +285,22 @@ export default function Home() {
             </div>
             <p className="muted small" style={{ lineHeight: 1.5 }}>
               Generación de informes ejecutivos con formato institucional de alta dirección, listos para imprimir o exportar en PDF y Word.
+            </p>
+          </Link>
+
+          {/* Módulo 5 - Conciliación & Motor V4 */}
+          <Link href="/conciliacion" className="card hover-lift" style={{ textDecoration: "none", color: "inherit", padding: "1.5rem", borderTop: "3px solid #10b981" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.75rem" }}>
+              <div style={{ padding: "0.6rem", borderRadius: "10px", background: "rgba(16, 185, 129, 0.12)", color: "#10b981" }}>
+                <Calculator size={22} />
+              </div>
+              <div>
+                <span className="badge" style={{ background: "rgba(16, 185, 129, 0.18)", color: "#10b981", fontWeight: 700 }}>Motor V4</span>
+                <h3 style={{ fontSize: "1.1rem", margin: "0.2rem 0 0" }}>Conciliación de Contratos</h3>
+              </div>
+            </div>
+            <p className="muted small" style={{ lineHeight: 1.5 }}>
+              Consolidación contractual auditable ($1,205,182,002.31 en 668 contratos HGMEL), conciliación contra cálculo automático e identificación de diferencias.
             </p>
           </Link>
         </div>

@@ -13,7 +13,7 @@ const NAV: NavItem[] = [
   { href: "/datasets", label: "Bases de datos", icon: Database },
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/cross", label: "Análisis cruzado", icon: BarChart3, tag: "Nuevo" },
-  { href: "/conciliacion", label: "Conciliación de montos contratados", icon: Calculator, tag: "Motor V3" },
+  { href: "/conciliacion", label: "Conciliación de montos contratados", icon: Calculator, tag: "Motor V4" },
   { href: "/explorer", label: "Explorador", icon: Table2 },
   { href: "/risks", label: "Análisis de riesgos", icon: ShieldAlert },
   { href: "/ai", label: "NEXUS AI", icon: Brain },

@@ -154,7 +154,10 @@ def test_nexus_v4_csv_verification():
     """Verifica sumas exactas de montos_contratados_consolidados.csv y conciliacion_contratos.csv."""
     import csv
     from decimal import Decimal
-    from backend.app.config import BASE_DIR, RECONCILIATION_DIR
+    try:
+        from app.config import BASE_DIR, RECONCILIATION_DIR
+    except ImportError:
+        from backend.app.config import BASE_DIR, RECONCILIATION_DIR
 
     # 1. Verificar montos_contratados_consolidados.csv
     csv_path = RECONCILIATION_DIR / "montos_contratados_consolidados.csv"
