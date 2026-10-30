@@ -12,6 +12,7 @@ Uso:
  python nexus_montos_consolidados_v4.py --origen "Layout_Suministro_Septiembre  (monto contratados).xlsx" --referencia "Layout_Suministro_Septiembre_Nota_12-10-26.xlsx" --institucion HGMEL --salida resultados_nexus_v4
 """
 import argparse,csv,json,sys
+from pathlib import Path
 from collections import defaultdict
 from decimal import Decimal,ROUND_HALF_UP
 try:
@@ -81,5 +82,5 @@ def ejecutar(origen,referencia=None,institucion='HGMEL',salida='resultados_nexus
     if esperado is not None and suma_csv.quantize(C)!=esperado.quantize(C):raise ValueError('La referencia no coincide con el objetivo: revisar fuente, no forzar ajuste.')
     print(json.dumps(informe,indent=2,ensure_ascii=False));return informe
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--origen',required=True);p.add_argument('--referencia');p.add_argument('--institucion',default='HGMEL');p.add_argument('--salida',default='resultados_nexus_v4');p.add_argument('--objetivo',default='1205182002.31')
+    p=argparse.ArgumentParser();p.add_argument('--origen',required=True);p.add_argument('--referencia');p.add_argument('--institucion',default='HGMEL');p.add_argument('--salida',default='resultados_nexus_v4');p.add_argument('--objetivo',default=None)  # Integración NEXUS: sin cifra objetivo por defecto (no forzar resultados)
     a=p.parse_args();ejecutar(a.origen,a.referencia,a.institucion,a.salida,a.objetivo if a.referencia else None)
