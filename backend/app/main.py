@@ -588,10 +588,18 @@ def reconciliation_export(
 ):
     filters = {k: v for k, v in {"institucion": institucion, "proveedor": proveedor, "contrato": contrato, "clave_medicamento": clave_medicamento, "estado": estado, "search": search}.items() if v}
     buf = REC.export_csv(view_type, filters)
-    filename = f"conciliacion_{view_type}.csv"
+    # Nombre descriptivo para el archivo según la vista solicitada
+    FILENAMES = {
+        "contratos": "conciliacion_contratos.csv",
+        "contratos_considerados": "contratos_considerados_para_monto_contratado.csv",
+        "pendientes": "conciliacion_pendientes.csv",
+        "partidas": "conciliacion_partidas.csv",
+        "detalle": "conciliacion_detalle.csv",
+    }
+    filename = FILENAMES.get(view_type, f"conciliacion_{view_type}.csv")
     return StreamingResponse(
         buf,
-        media_type="text/csv",
+        media_type="text/csv; charset=utf-8",
         headers={"Content-Disposition": f'attachment; filename="{filename}"'},
     )
 

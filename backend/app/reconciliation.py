@@ -940,13 +940,23 @@ def get_filter_options() -> dict:
 
 
 def export_csv(view_type: str = "contratos", filters: dict | None = None) -> io.BytesIO:
-    """Genera archivo CSV con BOM UTF-8 para apertura directa en Microsoft Excel."""
+    """Genera archivo CSV con BOM UTF-8 para apertura directa en Microsoft Excel.
+
+    view_type admite además "contratos_considerados" para exportar el detalle
+    completo de todas las filas del layout evaluadas por el motor, relacionadas
+    con el monto contratado final de cada contrato.
+    """
     db_path = get_reconciliation_db()
     if not db_path.exists():
         buf = io.BytesIO()
         buf.write("No hay datos disponibles\n".encode("utf-8-sig"))
         buf.seek(0)
         return buf
+
+    # ------------------------------------------------------------------ nuevo
+    if view_type == "contratos_considerados":
+        return _export_contratos_considerados(db_path, filters)
+    # ------------------------------------------------------------------ /nuevo
 
     conn = sqlite3.connect(str(db_path))
     table = "contratos"
@@ -1000,6 +1010,146 @@ def export_csv(view_type: str = "contratos", filters: dict | None = None) -> io.
     for row in cur:
         writer.writerow(row)
     conn.close()
+
+    b_buf = io.BytesIO()
+    b_buf.write(buf.getvalue().encode("utf-8-sig"))
+    b_buf.seek(0)
+    return b_buf
+
+
+def _export_contratos_considerados(db_path: Path, filters: dict | None) -> io.BytesIO:
+    """Exporta el detalle de TODAS las filas del layout evaluadas por el motor,
+    mostrando para cada una si fue contabilizada o descartada, y relacionando
+    el monto_contratado final con el número de contrato.
+
+    Columnas del CSV resultante:
+      numero_contrato, institucion, proveedor,
+      fila_excel, clave_medicamento, descripcion,
+      cantidad_contratada, precio_unitario, monto_partida_sin_iva,
+      estado_partida, duplicado_de_fila,
+      monto_contratado_contrato (solo en la primera fila de cada contrato),
+      partidas_contabilizadas, estado_contrato
+    """
+    conn = sqlite3.connect(str(db_path))
+    conn.row_factory = sqlite3.Row
+
+    # Filtros aplicables sobre la tabla detalle (mismas columnas que en otros endpoints)
+    allowed_cols = {
+        "institucion": "d.institucion",
+        "proveedor": "d.proveedor",
+        "contrato": "d.contrato",
+        "clave_medicamento": "d.clave_medicamento",
+        "estado": "c.estado",
+        "search": "d.contrato",
+    }
+    raw_filters = filters or {}
+    where_parts: list[str] = []
+    args: list[Any] = []
+
+    for key, val in raw_filters.items():
+        if val is None or val == "" or val == "Todos":
+            continue
+        col_name = allowed_cols.get(key)
+        if not col_name:
+            continue
+        if key in ("search",):
+            where_parts.append(f"{col_name} LIKE ?")
+            args.append(f"%{val}%")
+        elif key in ("contrato", "proveedor", "clave_medicamento"):
+            where_parts.append(f"{col_name} LIKE ?")
+            args.append(f"%{val}%")
+        else:
+            where_parts.append(f"{col_name} = ?")
+            args.append(val)
+
+    w = ("WHERE " + " AND ".join(where_parts)) if where_parts else ""
+
+    # Verificar columnas opcionales disponibles en detalle
+    cols_d = [r[1] for r in conn.execute("PRAGMA table_info(detalle)").fetchall()]
+    dup_col = "d.duplicado_de_fila" if "duplicado_de_fila" in cols_d else "'' AS duplicado_de_fila"
+    tipo_col = "d.tipo_clave" if "tipo_clave" in cols_d else "'' AS tipo_clave"
+
+    # JOIN detalle ← contratos para traer monto_inferido y estado del contrato
+    query = f"""
+        SELECT
+            d.contrato            AS numero_contrato,
+            d.institucion,
+            d.proveedor,
+            d.fila_excel,
+            d.clave_medicamento,
+            d.descripcion,
+            d.cantidad,
+            d.precio_unitario,
+            d.subtotal_calculado  AS monto_partida_sin_iva,
+            d.estado              AS estado_partida,
+            {dup_col},
+            {tipo_col},
+            d.evaluacion_iva,
+            d.monto_computable    AS monto_aportado,
+            c.monto_inferido      AS monto_contratado_contrato,
+            c.partidas            AS partidas_contabilizadas,
+            c.estado              AS estado_contrato
+        FROM detalle d
+        LEFT JOIN contratos c ON c.contrato = d.contrato AND c.institucion = d.institucion
+        {w}
+        ORDER BY d.institucion, d.contrato, d.fila_excel
+    """
+
+    rows = conn.execute(query, args).fetchall()
+    conn.close()
+
+    # Marcar la primera fila de cada contrato para colocar el monto ahí únicamente
+    HEADERS = [
+        "numero_contrato",
+        "institucion",
+        "proveedor",
+        "fila_excel",
+        "clave_medicamento",
+        "descripcion",
+        "cantidad_contratada",
+        "precio_unitario",
+        "monto_partida_sin_iva",
+        "estado_partida",
+        "es_primera_ocurrencia",
+        "duplicado_de_fila",
+        "tipo_clave",
+        "evaluacion_iva",
+        "monto_aportado",
+        "monto_contratado_contrato",
+        "partidas_contabilizadas",
+        "estado_contrato",
+    ]
+
+    buf = io.StringIO()
+    writer = csv.writer(buf)
+    writer.writerow(HEADERS)
+
+    contratos_vistos: set[str] = set()
+    for r in rows:
+        clave_contrato = f"{r['institucion']}|{r['numero_contrato']}"
+        es_primera = clave_contrato not in contratos_vistos
+        contratos_vistos.add(clave_contrato)
+
+        writer.writerow([
+            r["numero_contrato"],
+            r["institucion"],
+            r["proveedor"],
+            r["fila_excel"],
+            r["clave_medicamento"],
+            r["descripcion"],
+            r["cantidad"],
+            r["precio_unitario"],
+            r["monto_partida_sin_iva"],
+            r["estado_partida"],
+            "SI" if es_primera else "NO",         # es_primera_ocurrencia
+            r["duplicado_de_fila"],
+            r["tipo_clave"],
+            r["evaluacion_iva"],
+            r["monto_aportado"],
+            r["monto_contratado_contrato"] if es_primera else "",  # solo 1ª fila
+            r["partidas_contabilizadas"],
+            r["estado_contrato"],
+        ])
 
     b_buf = io.BytesIO()
     b_buf.write(buf.getvalue().encode("utf-8-sig"))

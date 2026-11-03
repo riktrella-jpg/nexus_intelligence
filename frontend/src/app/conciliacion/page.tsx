@@ -2150,6 +2150,24 @@ export default function ConciliacionPage() {
                   >
                     <Download size={13} /> Montos Consolidados V4 (CSV)
                   </button>
+                  <button
+                    className="btn sm accent"
+                    onClick={() => {
+                      setShowExportModal(false);
+                      const params = new URLSearchParams({ view_type: "contratos_considerados" });
+                      if (selectedInst && selectedInst !== "Todos") params.set("institucion", selectedInst);
+                      if (selectedProv && selectedProv !== "Todos") params.set("proveedor", selectedProv);
+                      if (contratoFilter) params.set("contrato", contratoFilter);
+                      if (claveFilter) params.set("clave_medicamento", claveFilter);
+                      if (selectedEstado && selectedEstado !== "Todos") params.set("estado", selectedEstado);
+                      if (search) params.set("search", search);
+                      window.open(`/api/reconciliation/export?${params.toString()}`, "_blank");
+                    }}
+                    title="Exporta TODAS las filas del layout evaluadas: contabilizadas, repetidas y no cuantificables, relacionadas con el monto contratado final de cada contrato"
+                    style={{ fontWeight: 700 }}
+                  >
+                    <Download size={13} /> ⭐ Contratos Considerados para Monto (CSV)
+                  </button>
                 </div>
               </div>
             </div>

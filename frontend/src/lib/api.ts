@@ -15,7 +15,10 @@ export async function api<T = any>(path: string, opts: { method?: string; body?:
   const isLocalSupported =
     path.startsWith("/api/reconciliation") ||
     path.startsWith("/api/uploads") ||
-    path.startsWith("/api/imports");
+    path.startsWith("/api/imports") ||
+    path.startsWith("/api/datasets") ||
+    path.startsWith("/api/demo") ||
+    path.startsWith("/api/data-kinds");
 
   let res: Response | null = null;
 

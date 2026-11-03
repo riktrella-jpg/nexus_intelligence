@@ -61,18 +61,32 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const refresh = useCallback(async (selectId?: string) => {
     try {
       const list = await api<Dataset[]>("/api/datasets");
+      const safeList = Array.isArray(list) ? list : [];
       setBackendOk(true);
-      setDatasets(list);
+      setDatasets(safeList);
       const stored = selectId || localStorage.getItem("nexus.active") || "";
-      const id = list.find((d) => d.id === stored)?.id || list[0]?.id;
+      const id = safeList.find((d) => d && d.id === stored)?.id || safeList[0]?.id;
       if (id) {
-        const full = await api<Dataset>("/api/datasets/" + id);
-        setActive(full);
-        localStorage.setItem("nexus.active", id);
-        if (selectId || !active || active.id !== id) loadFilters(id);
-      } else setActive(null);
+        try {
+          const full = await api<Dataset>("/api/datasets/" + id);
+          if (full && typeof full === "object" && !("detail" in full)) {
+            setActive(full);
+            localStorage.setItem("nexus.active", id);
+            if (selectId || !active || active.id !== id) loadFilters(id);
+          } else {
+            setActive(null);
+          }
+        } catch {
+          const fallback = safeList.find((d) => d && d.id === id);
+          setActive(fallback || null);
+        }
+      } else {
+        setActive(null);
+      }
     } catch {
       setBackendOk(false);
+      setDatasets([]);
+      setActive(null);
     } finally {
       setLoading(false);
     }
