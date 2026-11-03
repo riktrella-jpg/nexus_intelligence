@@ -72,7 +72,7 @@ export default function DataTable({ title = "Detalle de registros", pageSize = 5
   return (
     <section className="card" aria-label={title}>
       <div className="card-head">
-        <div><h2>{title}</h2><div className="muted small">{data ? `${data.total.toLocaleString("es-MX")} registros · ${data.ms} ms` : "Cargando…"}</div></div>
+        <div><h2>{title}</h2><div className="muted small">{data ? `${(data.total ?? 0).toLocaleString("es-MX")} registros · ${data.ms ?? 0} ms` : "Cargando…"}</div></div>
         <div className="row">
           <div style={{ position: "relative" }}>
             <Search size={14} style={{ position: "absolute", left: 10, top: 10, color: "var(--muted)" }} />
