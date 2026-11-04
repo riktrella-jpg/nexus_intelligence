@@ -52,7 +52,7 @@ export default function Dashboard() {
       <div className="page-head">
         <div>
           <h1>{active.name}</h1>
-          <p className="sub">{active.institution ? active.institution + " · " : ""}{active.row_count.toLocaleString("es-MX")} registros · Fecha de corte: {active.cutoff || "no indicada"} · {active.data_kind_label}</p>
+          <p className="sub">{active.institution ? active.institution + " · " : ""}{(active.row_count ?? 0).toLocaleString("es-MX")} registros · Fecha de corte: {active.cutoff || "no indicada"} · {active.data_kind_label}</p>
         </div>
       </div>
       <FilterBar />

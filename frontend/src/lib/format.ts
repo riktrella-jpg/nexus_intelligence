@@ -18,8 +18,13 @@ export const num = (v: any) => fmt(v, "int");
 
 export function fmtDate(ts?: number | string | null) {
   if (!ts) return "—";
-  const d = typeof ts === "number" ? new Date(ts * 1000) : new Date(ts);
-  return d.toLocaleString("es-MX", { dateStyle: "medium", timeStyle: typeof ts === "number" ? "short" : undefined });
+  try {
+    const d = typeof ts === "number" ? new Date(ts > 1e11 ? ts : ts * 1000) : new Date(ts);
+    if (isNaN(d.getTime())) return String(ts);
+    return d.toLocaleString("es-MX", { dateStyle: "medium", timeStyle: typeof ts === "number" ? "short" : undefined });
+  } catch {
+    return String(ts);
+  }
 }
 export function bytes(n: number) {
   if (n < 1024) return n + " B";

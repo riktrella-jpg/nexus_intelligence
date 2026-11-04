@@ -87,7 +87,7 @@ export function MultiSelect({ ds, col, label, cond, onChange, ctxFilter, onUnpin
             {opts.map((o) => (
               <label className="opt" key={o.value}>
                 <input type="checkbox" checked={sel.includes(o.value)} onChange={() => toggle(o.value)} />
-                <span style={{ overflow: "hidden", textOverflow: "ellipsis" }}>{o.value}</span><span className="n">{o.count.toLocaleString("es-MX")}</span>
+                <span style={{ overflow: "hidden", textOverflow: "ellipsis" }}>{o.value}</span><span className="n">{(o.count ?? 0).toLocaleString("es-MX")}</span>
               </label>
             ))}
           </div>
@@ -315,7 +315,7 @@ export default function FilterBar({ total }: { total?: number }) {
         <button className="btn" onClick={clear} id="clear-filters" disabled={!draft.conds.length && !applied.conds.length}>Limpiar filtros</button>
         <Saved ds={ds} />
         <div className="result-count" aria-live="polite" id="result-count">
-          <b>{(filteredCount ?? ds.row_count).toLocaleString("es-MX")}</b> de {(total ?? ds.row_count).toLocaleString("es-MX")} registros
+          <b>{(filteredCount ?? ds.row_count ?? 0).toLocaleString("es-MX")}</b> de {(total ?? ds.row_count ?? 0).toLocaleString("es-MX")} registros
         </div>
       </div>
       {chips.length > 0 && (
