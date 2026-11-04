@@ -25,7 +25,7 @@ import {
   ClipboardCheck,
 } from "lucide-react";
 import ValidacionContrato from "@/components/ValidacionContrato";
-import { exportarLayoutValidado } from "@/lib/exportLayout";
+import { exportarLayoutValidado, exportarContratosConsideradosCSV } from "@/lib/exportLayout";
 import {
   useDecisiones,
   decisionDef,
@@ -446,6 +446,7 @@ export default function ConciliacionPage() {
         fileName: customDataset?.fileName || "Layout_Suministro_Septiembre",
         decisiones,
         contracts: allContracts,
+        details: customDataset?.details,
         format: fmt,
       });
 
@@ -454,6 +455,53 @@ export default function ConciliacionPage() {
     } catch (err: any) {
       console.error("Error al exportar layout:", err);
       toast(err.message || "Error al exportar layout validado", true);
+    } finally {
+      setExportingLayout(false);
+    }
+  };
+
+  const handleExportContratosConsiderados = async () => {
+    setExportingLayout(true);
+    toast("Generando CSV de Contratos Considerados para Monto Contratado...");
+    try {
+      let allContracts = customDataset?.contracts;
+      if (!allContracts || allContracts.length === 0) {
+        try {
+          const res = await getReconciliationContracts({ page: 1, page_size: 10000 });
+          allContracts = res?.items || [];
+        } catch {
+          allContracts = tableData.items || [];
+        }
+      }
+
+      await exportarContratosConsideradosCSV({
+        details: customDataset?.details,
+        contracts: allContracts,
+        decisiones,
+        fileName: "contratos_considerados_para_monto_contratado",
+        filters: {
+          institucion: selectedInst,
+          proveedor: selectedProv,
+          contrato: contratoFilter,
+          clave_medicamento: claveFilter,
+          estado: selectedEstado,
+          search,
+        },
+      });
+
+      toast("¡CSV de contratos considerados exportado exitosamente!");
+      setShowExportModal(false);
+    } catch (err: any) {
+      console.error("Error en exportación cliente, usando endpoint API:", err);
+      const params = new URLSearchParams({ view_type: "contratos_considerados" });
+      if (selectedInst && selectedInst !== "Todos") params.set("institucion", selectedInst);
+      if (selectedProv && selectedProv !== "Todos") params.set("proveedor", selectedProv);
+      if (contratoFilter) params.set("contrato", contratoFilter);
+      if (claveFilter) params.set("clave_medicamento", claveFilter);
+      if (selectedEstado && selectedEstado !== "Todos") params.set("estado", selectedEstado);
+      if (search) params.set("search", search);
+      window.open(`/api/reconciliation/export?${params.toString()}`, "_blank");
+      setShowExportModal(false);
     } finally {
       setExportingLayout(false);
     }
@@ -2152,18 +2200,9 @@ export default function ConciliacionPage() {
                   </button>
                   <button
                     className="btn sm accent"
-                    onClick={() => {
-                      setShowExportModal(false);
-                      const params = new URLSearchParams({ view_type: "contratos_considerados" });
-                      if (selectedInst && selectedInst !== "Todos") params.set("institucion", selectedInst);
-                      if (selectedProv && selectedProv !== "Todos") params.set("proveedor", selectedProv);
-                      if (contratoFilter) params.set("contrato", contratoFilter);
-                      if (claveFilter) params.set("clave_medicamento", claveFilter);
-                      if (selectedEstado && selectedEstado !== "Todos") params.set("estado", selectedEstado);
-                      if (search) params.set("search", search);
-                      window.open(`/api/reconciliation/export?${params.toString()}`, "_blank");
-                    }}
-                    title="Exporta TODAS las filas del layout evaluadas: contabilizadas, repetidas y no cuantificables, relacionadas con el monto contratado final de cada contrato"
+                    onClick={handleExportContratosConsiderados}
+                    disabled={exportingLayout}
+                    title="Exporta TODAS las filas del layout evaluadas: contabilizadas, repetidas y no cuantificables, relacionadas con el monto contratado final de cada contrato (mostrado únicamente en la primera fila de cada contrato)"
                     style={{ fontWeight: 700 }}
                   >
                     <Download size={13} /> ⭐ Contratos Considerados para Monto (CSV)

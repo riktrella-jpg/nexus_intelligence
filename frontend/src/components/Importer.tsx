@@ -46,10 +46,11 @@ export default function Importer() {
     setErr(null); setResult(null); setPrev(null); setBusy(true);
     try {
       const fd = new FormData(); fd.append("file", file);
-      const st: Staged = await track(api("/api/uploads", { form: fd }));
-      setStaged(st); setSheet(st.sheets[0]); setHeaderRow(1);
+      const st: Staged & { suggested_header_row?: number } = await track(api("/api/uploads", { form: fd }));
+      const hr = st.suggested_header_row || 1;
+      setStaged(st); setSheet(st.sheets[0]); setHeaderRow(hr);
       setF((x) => ({ ...x, name: x.name || file.name.replace(/\.[^.]+$/, "") }));
-      await loadPreview(st, st.sheets[0], 1, target);
+      await loadPreview(st, st.sheets[0], hr, target);
     } catch (e: any) { setErr(e.message); setStaged(null); } finally { setBusy(false); }
   };
 

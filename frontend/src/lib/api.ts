@@ -1,8 +1,26 @@
-export const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+import { handleLocalApi, handleLocalDownload } from "./localEngine";
+
+export const API =
+  process.env.NEXT_PUBLIC_API_URL ||
+  (typeof window !== "undefined" && window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1"
+    ? "https://nexus-backend-dskz.onrender.com"
+    : "http://localhost:8000");
 
 export class ApiError extends Error {}
 
 export async function api<T = any>(path: string, opts: { method?: string; body?: any; form?: FormData } = {}): Promise<T> {
+  // 1. Motor analítico local en navegador (IndexedDB + XLSX) para /datasets, /uploads, /imports, /dashboard, /cross, /explorer, /reports
+  if (typeof window !== "undefined" && !path.startsWith("/api/reconciliation")) {
+    try {
+      const localRes = await handleLocalApi(path, opts);
+      if (localRes.handled) {
+        return localRes.data as T;
+      }
+    } catch (localErr: any) {
+      throw new ApiError(localErr?.message || "Error al procesar la operación.");
+    }
+  }
+
   const init: RequestInit = { method: opts.method || (opts.body || opts.form ? "POST" : "GET") };
   if (opts.form) {
     init.body = opts.form;
@@ -11,18 +29,11 @@ export async function api<T = any>(path: string, opts: { method?: string; body?:
     init.headers = { "Content-Type": "application/json" };
   }
 
-  // Rutas locales de Next.js que operan de forma autónoma sin depender de Render
-  const isLocalSupported =
-    path.startsWith("/api/reconciliation") ||
-    path.startsWith("/api/uploads") ||
-    path.startsWith("/api/imports") ||
-    path.startsWith("/api/datasets") ||
-    path.startsWith("/api/demo") ||
-    path.startsWith("/api/data-kinds");
+  // 2. Rutas locales de Next.js para conciliación
+  const isLocalSupported = path.startsWith("/api/reconciliation");
 
   let res: Response | null = null;
 
-  // En el navegador, para reconciliación o subidas, usar directamente la ruta local para evitar errores 502 de Render
   if (isLocalSupported && typeof window !== "undefined") {
     try {
       res = await fetch(path, init);
@@ -32,11 +43,10 @@ export async function api<T = any>(path: string, opts: { method?: string; body?:
     } catch {}
   }
 
-  // Intentar backend remoto configurado (o local si es localhost)
+  // 3. Intentar backend remoto configurado
   try {
     res = await fetch(API + path, init);
   } catch {
-    // Si backend remoto falla totalmente a nivel de red
     if (typeof window !== "undefined") {
       try {
         res = await fetch(path, init);
@@ -44,8 +54,6 @@ export async function api<T = any>(path: string, opts: { method?: string; body?:
     }
   }
 
-  // Si el backend remoto respondió con error (502 Bad Gateway, 504 Gateway Timeout, 404 Not Found, 500),
-  // intentar la ruta interna de Next.js como fallback
   if ((!res || !res.ok) && typeof window !== "undefined") {
     try {
       const fallbackRes = await fetch(path, init);
@@ -71,6 +79,10 @@ export async function api<T = any>(path: string, opts: { method?: string; body?:
 }
 
 export async function download(path: string, body: any, fallbackName: string) {
+  if (typeof window !== "undefined") {
+    const handled = await handleLocalDownload(path, body, fallbackName);
+    if (handled) return;
+  }
   const res = await fetch(API + path, { method: body ? "POST" : "GET", headers: body ? { "Content-Type": "application/json" } : undefined, body: body ? JSON.stringify(body) : undefined });
   if (!res.ok) throw new ApiError("No se pudo generar la descarga.");
   const blob = await res.blob();
