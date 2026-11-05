@@ -1366,9 +1366,9 @@ export function buildMirrorWorkbookInMemory(
       } else if (i <= headers.length && headers[i - 1]) {
         nm = headers[i - 1];
       } else {
-        nm = headerTitles[i - baseCol - 1] || `Inconsistencia_${i - baseCol}`;
+        nm = (headerTitles[i - baseCol - 1] || `Inconsistencia_${i - baseCol}`).trim();
       }
-      nm = (nm || `Columna_${i}`).trim();
+      if (!nm) nm = `Columna_${i}`;
       const baseNm = nm;
       let idx = 2;
       while (seenNames.has(nm.toLowerCase())) {
@@ -1385,20 +1385,46 @@ export function buildMirrorWorkbookInMemory(
     newSheetRelsBuf = Buffer.from(relXml, "utf8");
   }
 
+  function sanitizeOoxmlXml(xmlStr: string, isStyles = false): string {
+    let out = xmlStr.replace(/<[A-Za-z0-9_:]+[^>]*\bmc:Ignorable="[^"]+"[^>]*>/g, (tag) => {
+      const ign = tag.match(/\bmc:Ignorable="([^"]+)"/);
+      if (!ign) return tag;
+      const valid = ign[1].split(/\s+/).filter((p) => p && tag.includes(`xmlns:${p}=`));
+      if (valid.length > 0) {
+        return tag.replace(/\bmc:Ignorable="[^"]+"/, `mc:Ignorable="${valid.join(" ")}"`);
+      }
+      return tag.replace(/\s*\bmc:Ignorable="[^"]+"/, "");
+    });
+    if (isStyles) {
+      out = out.replace(/<font>[\s\S]*?<\/font>/g, (f) => {
+        const col = f.match(/<color\b[^/>]*\/>/);
+        if (col && f.includes("<name") && f.indexOf(col[0]) > f.indexOf("<name")) {
+          const withoutCol = f.replace(col[0], "");
+          return withoutCol.replace("<name", `${col[0]}<name`);
+        }
+        return f;
+      });
+    }
+    return out;
+  }
+
   // CRITICAL ECMA-376 CT_Worksheet sequence:
   // <sheetData> -> <autoFilter> -> <mergeCells> -> <pageMargins> -> <tableParts>
   const autoFilterBlock = hasOriginalTable ? "" : `<autoFilter ref="${fullRef}"/>`;
   const tablePartsBlock = hasOriginalTable ? `<tableParts count="1"><tablePart r:id="rId1"/></tableParts>` : "";
 
-  const origWorksheetOpenTag = (
-    sourceSheetXml.match(/<worksheet\b[^>]*>/)?.[0] ||
-    `<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">`
-  ).replace(/\s+\w*:?uid="[^"]*"/g, "");
+  const origWorksheetOpenTag = sanitizeOoxmlXml(
+    (
+      sourceSheetXml.match(/<worksheet\b[^>]*>/)?.[0] ||
+      `<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">`
+    ).replace(/\s+\w*:?uid="[^"]*"/g, "")
+  );
 
   const newWorksheetXml = `<?xml version='1.0' encoding='utf-8'?>\n${origWorksheetOpenTag}${newDimBlock}${newSheetViewsBlock}${sheetFormatPrBlock}${newColsBlock}<sheetData>${newRowsXml.join("")}</sheetData>${autoFilterBlock}${mergeCellsBlock}${pageMarginsBlock}${tablePartsBlock}</worksheet>`;
+  stylesXml = sanitizeOoxmlXml(stylesXml, true);
 
   // Update workbook.xml, workbook.xml.rels, [Content_Types].xml
-  let wbXml = zipMap.get("xl/workbook.xml")!.toString("utf8");
+  let wbXml = sanitizeOoxmlXml(zipMap.get("xl/workbook.xml")!.toString("utf8"));
   let wbRelsXml = zipMap.get("xl/_rels/workbook.xml.rels")!.toString("utf8");
   let ctXml = zipMap.get("[Content_Types].xml")!.toString("utf8");
 

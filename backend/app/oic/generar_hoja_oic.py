@@ -178,9 +178,9 @@ def _duplicate_table(zin, original_sheet_part, dst, ct, existing_names, headers,
                      if int(r.get('r','0'))==header),None)
             cell=next((c for c in row.findall(q(M,'c')) if c.get('r')==f'{col_letter(i)}{header}'),None) if row is not None else None
             raw=cell.find(q(M,'is')) if cell is not None else None
-            name=''.join(t.text or '' for t in raw.iter(q(M,'t'))) if raw is not None else f'Inconsistencia_{i-len(headers)}'
+            name=(''.join(t.text or '' for t in raw.iter(q(M,'t'))) if raw is not None else f'Inconsistencia_{i-len(headers)}').strip()
             col=ET.Element(q(M,'tableColumn'))
-        name=(name or f'Columna_{i}').strip()
+        if not name:name=f'Columna_{i}'
         original_name=name;index=2
         while name.lower() in seen:
             name=f'{original_name}_{index}';index+=1
@@ -349,9 +349,30 @@ def build_mirror_workbook(original,output,source_sheet,header_zero,headers,findi
         # Los lectores de Excel esperan que [Content_Types].xml declare CT
         # como espacio de nombres predeterminado (no ns0:Types).
         # Registrar el namespace a propósito evita depender del último XML leído.
+        def _sanitize_xml_bytes(raw_bytes, is_styles=False):
+            txt = raw_bytes.decode('utf-8')
+            def _fix_ign(m):
+                tag = m.group(0)
+                ign = re.search(r'\bmc:Ignorable="([^"]+)"', tag)
+                if not ign: return tag
+                valid = [p for p in ign.group(1).split() if f'xmlns:{p}=' in tag]
+                if valid:
+                    return re.sub(r'\bmc:Ignorable="[^"]+"', f'mc:Ignorable="{" ".join(valid)}"', tag)
+                return re.sub(r'\s*\bmc:Ignorable="[^"]+"', '', tag)
+            txt = re.sub(r'<[A-Za-z0-9_:]+[^>]*\bmc:Ignorable="[^"]+"[^>]*>', _fix_ign, txt)
+            if is_styles:
+                def _fix_font(m):
+                    f = m.group(0)
+                    col = re.search(r'<color\b[^/>]*/>', f)
+                    if col and '<name' in f and f.index(col.group(0)) > f.index('<name'):
+                        f_no_col = f.replace(col.group(0), '')
+                        return f_no_col.replace('<name', col.group(0) + '<name', 1)
+                    return f
+                txt = re.sub(r'<font>.*?</font>', _fix_font, txt)
+            return txt.encode('utf-8')
         ET.register_namespace('', M)
-        workbook_bytes=dump(workbook)
-        styles_bytes=dump(sty)
+        workbook_bytes=_sanitize_xml_bytes(dump(workbook))
+        styles_bytes=_sanitize_xml_bytes(dump(sty), is_styles=True)
         ET.register_namespace('', PKG)
         wb_rels_bytes=dump(wb_rels)
         ET.register_namespace('', CT)
