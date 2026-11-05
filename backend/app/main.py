@@ -15,6 +15,7 @@ from . import db, kpis, query as Q, store, risks as R, ai as AI, reports as REP,
 from .config import AI_PROVIDER_KEY, CORS_ORIGINS, CORS_ORIGIN_REGEX, ensure_dirs
 from .ingest import ROLE_LABELS
 from .oic.nexus_routes import router as oic_router
+from .oic.api_suministro import router_suministro
 
 
 
@@ -33,9 +34,20 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
     allow_credentials=True,
-    expose_headers=["Content-Disposition"]
+    expose_headers=[
+        "Content-Disposition",
+        "X-OIC-Registros",
+        "X-OIC-Medicamentos",
+        "X-OIC-Material",
+        "X-OIC-Hallazgos",
+        "X-OIC-Errores",
+        "X-OIC-Revisar",
+        "X-OIC-Informativos",
+        "X-OIC-OK",
+    ],
 )
 app.include_router(oic_router)
+app.include_router(router_suministro)
 
 
 @app.get("/api/health")

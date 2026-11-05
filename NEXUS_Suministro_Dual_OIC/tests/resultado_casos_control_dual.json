@@ -1,0 +1,70 @@
+{
+  "archivo_salida": "tests/resultado_casos_control_dual.xlsx",
+  "motor": "suministro_dual",
+  "version": "2.0.0",
+  "modo": "ambos",
+  "hojas_origen": [
+    "base"
+  ],
+  "fecha_corte": "2026-10-31",
+  "dias_pendiente": 15,
+  "tolerancia_monto_contratado": "1",
+  "tolerancia_monto_ejercido": "0.01",
+  "catalogo_cnis_claves": 15925,
+  "registros": 6,
+  "filas_con_inconsistencias": 4,
+  "hallazgos": 11,
+  "errores": 1,
+  "revisar": 3,
+  "informativos": 1,
+  "ok": 1,
+  "reglas": {
+    "AE": 2,
+    "AG": 1,
+    "AH": 1,
+    "AI": 1,
+    "AL": 3,
+    "AN": 1,
+    "MC01": 1,
+    "MD01": 1
+  },
+  "por_tipo": {
+    "MEDICAMENTOS": {
+      "registros": 2,
+      "errores": 1,
+      "revisar": 0,
+      "informativos": 0,
+      "ok": 1,
+      "hallazgos": 4
+    },
+    "MATERIAL DE CURACIÓN": {
+      "registros": 4,
+      "errores": 0,
+      "revisar": 3,
+      "informativos": 1,
+      "ok": 0,
+      "hallazgos": 7
+    }
+  },
+  "por_institucion_tipo": [
+    {
+      "institucion": "INS1",
+      "tipo": "MEDICAMENTOS",
+      "registros": 2,
+      "con_inconsistencia": 1
+    },
+    {
+      "institucion": "INS1",
+      "tipo": "MATERIAL DE CURACIÓN",
+      "registros": 3,
+      "con_inconsistencia": 2
+    },
+    {
+      "institucion": "INS2",
+      "tipo": "MATERIAL DE CURACIÓN",
+      "registros": 1,
+      "con_inconsistencia": 1
+    }
+  ],
+  "advertencia": "Las coincidencias aritméticas con IVA 16 % son indicios, no validación fiscal. El CNIS proviene de la plantilla; verificar su vigencia oficialmente. No sumar importes repetidos."
+}

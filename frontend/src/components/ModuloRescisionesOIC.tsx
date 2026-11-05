@@ -280,7 +280,7 @@ export default function ModuloRescisionesOIC({ apiBase = "" }: { apiBase?: strin
               fontSize: 12.5,
             }}
           >
-            <Pill size={15} /> Submódulo Medicamentos (Preparado)
+            <Pill size={15} /> Submódulo Medicamentos y Curación
           </Link>
           <button
             type="button"
@@ -993,3 +993,4 @@ export default function ModuloRescisionesOIC({ apiBase = "" }: { apiBase?: strin
     </section>
   );
 }
+

@@ -1,0 +1,105 @@
+{
+  "motor": "suministro_dual",
+  "version": "2.0.0",
+  "modo": "ambos",
+  "hojas_origen": [
+    "base"
+  ],
+  "fecha_corte": "2026-10-31",
+  "dias_pendiente": 15,
+  "tolerancia_monto_contratado": "1",
+  "tolerancia_monto_ejercido": "0.01",
+  "catalogo_cnis_claves": 15925,
+  "registros": 10007,
+  "filas_con_inconsistencias": 2417,
+  "hallazgos": 6029,
+  "errores": 0,
+  "revisar": 2417,
+  "informativos": 927,
+  "ok": 6663,
+  "reglas": {
+    "AE": 714,
+    "AH": 1,
+    "AL": 1255,
+    "AM": 22,
+    "AN": 1435,
+    "AO": 144,
+    "AQ": 763,
+    "AR": 868,
+    "AS": 76,
+    "MX03": 248,
+    "MX04": 42,
+    "MX07": 159,
+    "MX09": 43,
+    "MX10": 259
+  },
+  "por_tipo": {
+    "MEDICAMENTOS": {
+      "registros": 6895,
+      "errores": 0,
+      "revisar": 1479,
+      "informativos": 110,
+      "ok": 5306,
+      "hallazgos": 2912
+    },
+    "MATERIAL DE CURACIÓN": {
+      "registros": 3112,
+      "errores": 0,
+      "revisar": 938,
+      "informativos": 817,
+      "ok": 1357,
+      "hallazgos": 3117
+    }
+  },
+  "por_institucion_tipo": [
+    {
+      "institucion": "CIJ",
+      "tipo": "MEDICAMENTOS",
+      "registros": 1,
+      "con_inconsistencia": 1
+    },
+    {
+      "institucion": "HGMEL",
+      "tipo": "MATERIAL DE CURACIÓN",
+      "registros": 1450,
+      "con_inconsistencia": 711
+    },
+    {
+      "institucion": "HGMEL",
+      "tipo": "MEDICAMENTOS",
+      "registros": 2823,
+      "con_inconsistencia": 600
+    },
+    {
+      "institucion": "HGMGG",
+      "tipo": "MEDICAMENTOS",
+      "registros": 2416,
+      "con_inconsistencia": 115
+    },
+    {
+      "institucion": "HGMGG",
+      "tipo": "MATERIAL DE CURACIÓN",
+      "registros": 1370,
+      "con_inconsistencia": 75
+    },
+    {
+      "institucion": "HIMFG",
+      "tipo": "MEDICAMENTOS",
+      "registros": 1363,
+      "con_inconsistencia": 472
+    },
+    {
+      "institucion": "HIMFG",
+      "tipo": "MATERIAL DE CURACIÓN",
+      "registros": 292,
+      "con_inconsistencia": 152
+    },
+    {
+      "institucion": "HJM",
+      "tipo": "MEDICAMENTOS",
+      "registros": 292,
+      "con_inconsistencia": 291
+    }
+  ],
+  "advertencia": "Las coincidencias aritméticas con IVA 16 % son indicios, no validación fiscal. El CNIS proviene de la plantilla; verificar su vigencia oficialmente. No sumar importes repetidos."
+}

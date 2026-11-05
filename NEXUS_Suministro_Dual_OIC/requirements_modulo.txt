@@ -1,0 +1,3 @@
+# FastAPI y Starlette deben estar instalados en el backend de Nexus.
+# Dependencia requerida para recibir multipart/form-data:
+python-multipart>=0.0.9

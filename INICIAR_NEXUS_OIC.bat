@@ -15,3 +15,4 @@ cd /d "%~dp0frontend"
 set "PATH=C:\Users\ricardo.escamilla\nodejs\node-v22.14.0-win-x64;%PATH%"
 npm.cmd run dev
 pause
+

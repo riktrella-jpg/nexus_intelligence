@@ -24,7 +24,7 @@ const NAV: NavItem[] = [
 
 const NAV_OIC: NavItem[] = [
   { href: "/oic/rescisiones", label: "Rescisiones", icon: FileCheck2, tag: "OIC" },
-  { href: "/oic/medicamentos", label: "Medicamentos", icon: Pill, tag: "Próx." },
+  { href: "/oic/medicamentos", label: "Medicamentos", icon: Pill, tag: "OIC" },
 ];
 
 

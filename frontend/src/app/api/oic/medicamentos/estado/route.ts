@@ -1,27 +1,18 @@
 import { NextResponse } from "next/server";
+import { loadCatalog } from "@/lib/oicSuministroEngineServer";
 
 export async function GET() {
+  const cat = loadCatalog();
   return NextResponse.json({
-    modulo: "MEDICAMENTOS",
-    estado: "ARQUITECTURA_PREPARADA",
+    modulo: "MEDICAMENTOS_Y_MATERIAL_CURACION",
+    estado: "ACTIVO",
+    motor: "suministro_dual",
+    version: "2.0.0",
     independiente_de_rescisiones: true,
-    infraestructura_compartida: [
-      "ooxml_rescision.py / oicEngineServer.ts (lectura XML nativa sin alterar hojas originales)",
-      "generar_hoja_oic.py / buildMirrorWorkbookInMemory (hoja espejo REVISION OIC con columnas Inconsistencia_n y resaltado #FFFF00)",
-      "verificar_excel.py (comprobación byte por byte de hojas originales y autofiltros)",
-    ],
-    campos_previstos: [
-      "clave",
-      "descripcion",
-      "contrato",
-      "proveedor",
-      "cantidad_minima",
-      "cantidad_maxima",
-      "cantidad_entregada",
-      "precio_unitario",
-      "monto_maximo",
-      "registro_sanitario",
-      "caducidad",
-    ],
+    reglas_ae_au: 17,
+    controles_transversales: 11,
+    controles_especificos: 3,
+    claves_cnis: Object.keys(cat).length,
+    hojas_exportadas: ["base (intacta)", "REVISION OIC", "OBSERVACIONES OIC", "RESUMEN OIC"],
   });
 }
