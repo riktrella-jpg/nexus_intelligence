@@ -14,6 +14,7 @@ from fastapi.responses import StreamingResponse
 from . import db, kpis, query as Q, store, risks as R, ai as AI, reports as REP, reconciliation as REC
 from .config import AI_PROVIDER_KEY, CORS_ORIGINS, CORS_ORIGIN_REGEX, ensure_dirs
 from .ingest import ROLE_LABELS
+from .oic.nexus_routes import router as oic_router
 
 
 
@@ -34,6 +35,7 @@ app.add_middleware(
     allow_credentials=True,
     expose_headers=["Content-Disposition"]
 )
+app.include_router(oic_router)
 
 
 @app.get("/api/health")

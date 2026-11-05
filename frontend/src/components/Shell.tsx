@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { BarChart3, Bell, BookOpen, Brain, Calculator, ChevronsLeft, ChevronsRight, Database, FileText, Home, LayoutDashboard, Settings, ShieldAlert, Table2 } from "lucide-react";
+import { BarChart3, Bell, BookOpen, Brain, Calculator, CheckCircle2, ChevronsLeft, ChevronsRight, Database, FileCheck2, FileText, Home, LayoutDashboard, Pill, Settings, ShieldAlert, Table2 } from "lucide-react";
 import { useApp } from "@/lib/state";
 import { fmtDate } from "@/lib/format";
 
@@ -20,6 +20,11 @@ const NAV: NavItem[] = [
   { href: "/reports", label: "Report Studio", icon: FileText },
   { href: "/manual", label: "Manual de usuario", icon: BookOpen },
   { href: "/settings", label: "Configuración", icon: Settings },
+];
+
+const NAV_OIC: NavItem[] = [
+  { href: "/oic/rescisiones", label: "Rescisiones", icon: FileCheck2, tag: "OIC" },
+  { href: "/oic/medicamentos", label: "Medicamentos", icon: Pill, tag: "Próx." },
 ];
 
 
@@ -50,6 +55,33 @@ export default function Shell({ children }: { children: React.ReactNode }) {
                 <Icon size={18} />
                 <span className="label">{n.label}</span>
                 {n.tag && <span className="tag">{n.tag}</span>}
+              </Link>
+            );
+          })}
+          <div
+            className="label"
+            style={{
+              marginTop: 12,
+              marginBottom: 4,
+              padding: "8px 12px 2px",
+              fontSize: 10.5,
+              fontWeight: 700,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              color: "var(--gold)",
+              borderTop: "1px solid rgba(255,255,255,0.08)",
+            }}
+          >
+            CONTROL DE CALIDAD OIC
+          </div>
+          {NAV_OIC.map((n) => {
+            const on = path.startsWith(n.href);
+            const Icon = n.icon;
+            return (
+              <Link key={n.href} href={n.href} className={on ? "active" : ""} title={`Control de Calidad OIC · ${n.label}`} aria-current={on ? "page" : undefined} id={"nav-" + n.href.slice(1).replace(/\//g, "-")}>
+                <Icon size={18} />
+                <span className="label">{n.label}</span>
+                {n.tag && <span className="tag" style={n.tag === "OIC" ? { background: "rgba(197,170,114,0.22)", color: "#e5cfa0" } : undefined}>{n.tag}</span>}
               </Link>
             );
           })}

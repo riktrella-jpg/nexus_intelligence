@@ -1,0 +1,55 @@
+INTEGRA EN MI PROYECTO EXISTENTE NEXUS INTELLIGENCE UN MÓDULO LLAMADO
+"CONTROL DE CALIDAD OIC > RESCISIONES". DISPONGO DE UN PAQUETE ZIP
+NEXUS_OIC_INTEGRACION con carpetas backend y frontend.
+
+IMPORTANTE: TRABAJA SOBRE LA APLICACIÓN EXISTENTE. NO CREES OTRA
+PLATAFORMA, NO REEMPLACES LOS DASHBOARDS ACTUALES Y NO CAMBIES SUS
+RUTAS, PROVEEDORES, PERMISOS, BASES DE DATOS NI INTERFACES.
+
+1. Inspecciona la arquitectura real del repositorio (React, Next.js,
+   Python/FastAPI, Streamlit u otra), antes de realizar cambios. Haz una
+   integración compatible con la tecnología existente.
+2. Incorpora los archivos de backend/ como un módulo Python autónomo.
+   El punto de entrada HTTP recomendado es backend/nexus_routes.py:
+       POST /api/oic/rescisiones/previsualizar
+       POST /api/oic/rescisiones/exportar
+   Ambos aceptan multipart/form-data: files (uno o varios XLSX) y
+   fecha_corte (AAAA-MM-DD). Respetar la ruta real si ya existe un prefijo
+   /api: no duplicarlo accidentalmente.
+3. Si NEXUS tiene backend Python con FastAPI, registra el APIRouter.
+   Si NEXUS tiene backend Node/Next, NO intentes ejecutar Python en el
+   navegador: despliega un proceso/servicio Python separado y usa un
+   proxy o rewrite mismo origen para estas rutas. Configura variables
+   de entorno y documenta el comando exacto de arranque.
+4. Integra el componente frontend/ModuloRescisionesOIC.tsx en una nueva
+   pestaña o ruta del menú: Control de calidad > Rescisiones. Respeta
+   el tema institucional azul, vino y dorado de NEXUS.
+5. Flujo: subir uno o más layouts XLSX, seleccionar fecha de corte,
+   analizar, consultar conteos/reglas/observaciones y exportar un XLSX
+   por instituto (ZIP para carga múltiple).
+6. EXPORTACIÓN NO NEGOCIABLE: los archivos originales NO se modifican.
+   Cada libro generado añade una sola hoja 'REVISION OIC', copia las
+   filas y los colores/tabla del layout y agrega columnas
+   Inconsistencia_1...N a la derecha, en la misma fila. Resalta AMARILLO
+   el comentario y TODAS las celdas que intervienen en la observación,
+   solo en REVISION OIC. Preserva el original y los filtros de Excel.
+7. Ejecuta el verificador incluido verificar_excel.py en cada archivo
+   exportado. Si falla la verificación, no devuelvas un archivo dañado:
+   muestra un mensaje con el error.
+8. Usa el diccionario de backend/catalogos.json, sin inventar reglas
+   normativas. Las alertas son preliminares y no sustituyen la revisión
+   del expediente. Nunca corrijas valores automáticamente.
+9. Seguridad: archivos máximos de 25 MB, temporales de uso transitorio,
+   eliminación al finalizar, sin enviar contenido a proveedores de IA,
+   sin URLs públicas de descarga, autorización según roles de NEXUS,
+   limitar acceso a usuarios internos.
+10. DEJAR PREPARADA LA ESTRUCTURA PARA MEDICAMENTOS pero NO implementar
+    todavía reglas de medicamentos dentro del motor de rescisión. Será
+    un módulo separado (motor_medicamentos.py + endpoints + interfaz),
+    que reutilizará solo el exportador Excel y la infraestructura común.
+11. Escribir pruebas de regresión con el Layout 160 y ejemplos incluidos
+    en la aplicación. Verificar que Excel abra sin reparación, hoja original
+    intacta, encabezados, filtros, colores y celdas amarillas correctos.
+
+ENTREGA: cambios integrados en mi NEXUS real (sin reemplazar la app),
+archivos modificados, instrucciones de arranque y pruebas reproducibles.

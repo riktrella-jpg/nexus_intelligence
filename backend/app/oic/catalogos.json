@@ -1,0 +1,5 @@
+{
+  "descripcion": "Categorías de trabajo inferidas de los layouts y ejemplos de inconsistencias aportados. Revisar contra el diccionario oficial vigente antes de cambiarlas.",
+  "fuente": ["Única", "Única con patente", "Patente", "Otra"],
+  "estatus": ["En proceso", "Rescindido", "Suspensión de la rescisión"]
+}
