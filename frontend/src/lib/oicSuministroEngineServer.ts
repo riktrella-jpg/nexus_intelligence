@@ -959,11 +959,12 @@ function sanitizeOoxmlXml(xmlStr: string, isStyles = false): string {
     return tag.replace(/\s*\bmc:Ignorable="[^"]+"/, "");
   });
   if (isStyles) {
-    out = out.replace(/<font>[\s\S]*?<\/font>/g, (f) => {
-      const col = f.match(/<color\b[^/>]*\/>/);
-      if (col && f.includes("<name") && f.indexOf(col[0]) > f.indexOf("<name")) {
+    out = out.replace(/<((?:\w+:)?font)>[\s\S]*?<\/\1>/g, (f) => {
+      const col = f.match(/<(?:\w+:)?color\b[^/>]*\/>/);
+      const nameIdx = f.search(/<(?:\w+:)?name\b/);
+      if (col && nameIdx !== -1 && f.indexOf(col[0]) > nameIdx) {
         const withoutCol = f.replace(col[0], "");
-        return withoutCol.replace("<name", `${col[0]}<name`);
+        return withoutCol.replace(/<((?:\w+:)?name)\b/, `${col[0]}<$1`);
       }
       return f;
     });
@@ -977,23 +978,24 @@ function buildFreshStyles(originalStylesXml: string): {
   headerStyleId: number;
 } {
   let stylesXml = sanitizeOoxmlXml(originalStylesXml, true);
-  const fontsBlock = stylesXml.match(/<fonts\b[^>]*>([\s\S]*?)<\/fonts>/)?.[1] || "";
-  const fillsBlock = stylesXml.match(/<fills\b[^>]*>([\s\S]*?)<\/fills>/)?.[1] || "";
-  const xfsBlock = stylesXml.match(/<cellXfs\b[^>]*>([\s\S]*?)<\/cellXfs>/)?.[1] || "";
+  const p = stylesXml.match(/<(\w+:)?styleSheet\b/)?.[1] || "";
+  const fontsBlock = stylesXml.match(/<(?:\w+:)?fonts\b[^>]*>([\s\S]*?)<\/(?:\w+:)?fonts>/)?.[1] || "";
+  const fillsBlock = stylesXml.match(/<(?:\w+:)?fills\b[^>]*>([\s\S]*?)<\/(?:\w+:)?fills>/)?.[1] || "";
+  const xfsBlock = stylesXml.match(/<(?:\w+:)?cellXfs\b[^>]*>([\s\S]*?)<\/(?:\w+:)?cellXfs>/)?.[1] || "";
 
-  const fontItems = Array.from(fontsBlock.matchAll(/<font\b[^>]*>[\s\S]*?<\/font>|<font\b[^/>]*\/>/g)).map((m) => m[0]);
-  const fillItems = Array.from(fillsBlock.matchAll(/<fill\b[^>]*>[\s\S]*?<\/fill>|<fill\b[^/>]*\/>/g)).map((m) => m[0]);
-  const xfItems = Array.from(xfsBlock.matchAll(/<xf\b[^>]*>[\s\S]*?<\/xf>|<xf\b[^/>]*\/>/g)).map((m) => m[0]);
+  const fontItems = Array.from(fontsBlock.matchAll(/<(?:\w+:)?font\b[^>]*>[\s\S]*?<\/(?:\w+:)?font>|<(?:\w+:)?font\b[^/>]*\/>/g)).map((m) => m[0]);
+  const fillItems = Array.from(fillsBlock.matchAll(/<(?:\w+:)?fill\b[^>]*>[\s\S]*?<\/(?:\w+:)?fill>|<(?:\w+:)?fill\b[^/>]*\/>/g)).map((m) => m[0]);
+  const xfItems = Array.from(xfsBlock.matchAll(/<(?:\w+:)?xf\b[^>]*>[\s\S]*?<\/(?:\w+:)?xf>|<(?:\w+:)?xf\b[^/>]*\/>/g)).map((m) => m[0]);
 
   const setXfAttr = (xfXml: string, attr: string, val: string): string => {
     const re = new RegExp(`\\b${attr}="[^"]*"`);
     if (re.test(xfXml)) return xfXml.replace(re, `${attr}="${val}"`);
-    return xfXml.replace(/^<xf\b/, `<xf ${attr}="${val}"`);
+    return xfXml.replace(/^<((?:\w+:)?xf)\b/, `<$1 ${attr}="${val}"`);
   };
 
   const baseLen = xfItems.length;
   const fillYellowId = fillItems.length;
-  fillItems.push(`<fill><patternFill patternType="solid"><fgColor rgb="FFFFFF00"/><bgColor indexed="64"/></patternFill></fill>`);
+  fillItems.push(`<${p}fill><${p}patternFill patternType="solid"><${p}fgColor rgb="FFFFFF00"/><${p}bgColor indexed="64"/></${p}patternFill></${p}fill>`);
 
   const yellow = new Map<number, number>();
   for (let old = 0; old < baseLen; old++) {
@@ -1005,31 +1007,31 @@ function buildFreshStyles(originalStylesXml: string): {
   }
 
   const headerFontId = fontItems.length;
-  fontItems.push(`<font><b/><sz val="11"/><color rgb="FFFFFFFF"/><name val="Calibri"/></font>`);
+  fontItems.push(`<${p}font><${p}b/><${p}sz val="11"/><${p}color rgb="FFFFFFFF"/><${p}name val="Calibri"/></${p}font>`);
 
   const headerFillId = fillItems.length;
-  fillItems.push(`<fill><patternFill patternType="solid"><fgColor rgb="FF5F233D"/><bgColor indexed="64"/></patternFill></fill>`);
+  fillItems.push(`<${p}fill><${p}patternFill patternType="solid"><${p}fgColor rgb="FF5F233D"/><${p}bgColor indexed="64"/></${p}patternFill></${p}fill>`);
 
-  let headerXf = xfItems[0] || `<xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>`;
+  let headerXf = xfItems[0] || `<${p}xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>`;
   headerXf = setXfAttr(headerXf, "fontId", String(headerFontId));
   headerXf = setXfAttr(headerXf, "fillId", String(headerFillId));
   headerXf = setXfAttr(headerXf, "applyFill", "1");
   headerXf = setXfAttr(headerXf, "applyFont", "1");
   headerXf = setXfAttr(headerXf, "applyAlignment", "1");
-  if (/<alignment\b[^>]*\/>/.test(headerXf)) {
-    headerXf = headerXf.replace(/<alignment\b[^>]*\/>/, `<alignment wrapText="1" vertical="center"/>`);
+  if (/<(?:\w+:)?alignment\b[^>]*\/>/.test(headerXf)) {
+    headerXf = headerXf.replace(/<(?:\w+:)?alignment\b[^>]*\/>/, `<${p}alignment wrapText="1" vertical="center"/>`);
   } else if (headerXf.endsWith("/>")) {
-    headerXf = headerXf.replace(/\/>$/, `><alignment wrapText="1" vertical="center"/></xf>`);
+    headerXf = headerXf.replace(/\/>$/, `><${p}alignment wrapText="1" vertical="center"/></${p}xf>`);
   } else {
-    headerXf = headerXf.replace(/<\/xf>$/, `<alignment wrapText="1" vertical="center"/></xf>`);
+    headerXf = headerXf.replace(/<\/(?:\w+:)?xf>$/, `<${p}alignment wrapText="1" vertical="center"/></${p}xf>`);
   }
   const headerStyleId = xfItems.length;
   xfItems.push(headerXf);
 
   stylesXml = stylesXml
-    .replace(/<fonts\b[^>]*>[\s\S]*?<\/fonts>/, `<fonts count="${fontItems.length}">${fontItems.join("")}</fonts>`)
-    .replace(/<fills\b[^>]*>[\s\S]*?<\/fills>/, `<fills count="${fillItems.length}">${fillItems.join("")}</fills>`)
-    .replace(/<cellXfs\b[^>]*>[\s\S]*?<\/cellXfs>/, `<cellXfs count="${xfItems.length}">${xfItems.join("")}</cellXfs>`);
+    .replace(/<(?:\w+:)?fonts\b[^>]*>[\s\S]*?<\/(?:\w+:)?fonts>/, `<${p}fonts count="${fontItems.length}">${fontItems.join("")}</${p}fonts>`)
+    .replace(/<(?:\w+:)?fills\b[^>]*>[\s\S]*?<\/(?:\w+:)?fills>/, `<${p}fills count="${fillItems.length}">${fillItems.join("")}</${p}fills>`)
+    .replace(/<(?:\w+:)?cellXfs\b[^>]*>[\s\S]*?<\/(?:\w+:)?cellXfs>/, `<${p}cellXfs count="${xfItems.length}">${xfItems.join("")}</${p}cellXfs>`);
 
   return { stylesXml, yellow, headerStyleId };
 }
@@ -1096,6 +1098,7 @@ function buildMirrorSheetXml(
     if (k > maxReportRow) maxReportRow = k;
   }
 
+  const p = sourceXml.match(/<(\w+:)?worksheet\b/)?.[1] || "";
   const sdMatch = sourceXml.match(/<(?:\w+:)?sheetData\b[^>]*>([\s\S]*?)<\/(?:\w+:)?sheetData>/);
   if (!sdMatch || sdMatch.index === undefined) {
     return Buffer.from(sourceXml, "utf8");
@@ -1115,7 +1118,7 @@ function buildMirrorSheetXml(
     });
 
   if (!/<(?:\w+:)?cols\b/.test(prefix)) {
-    const colsXml = `<cols><col min="${start}" max="${start + 16}" width="33" customWidth="1"/><col min="${start + 17}" max="${start + 19}" width="43" customWidth="1"/><col min="${extrasStart}" max="${extrasStart + 1}" width="24" customWidth="1"/></cols>`;
+    const colsXml = `<${p}cols><${p}col min="${start}" max="${start + 16}" width="33" customWidth="1"/><${p}col min="${start + 17}" max="${start + 19}" width="43" customWidth="1"/><${p}col min="${extrasStart}" max="${extrasStart + 1}" width="24" customWidth="1"/></${p}cols>`;
     prefix += colsXml;
   }
 
@@ -1143,12 +1146,12 @@ function buildMirrorSheetXml(
 
       const assign = (col: string, value?: string | null, style?: number | null) => {
         const ref = `${col}${n}`;
-        let cur = cells.get(col) || `<c r="${ref}"/>`;
+        let cur = cells.get(col) || `<${p}c r="${ref}"/>`;
         if (style !== undefined && style !== null) {
           if (/\bs="\d+"/.test(cur)) {
             cur = cur.replace(/\bs="\d+"/, `s="${style}"`);
           } else {
-            cur = cur.replace(/^<c\b/, `<c s="${style}"`);
+            cur = cur.replace(/^<((?:\w+:)?c)\b/, `<$1 s="${style}"`);
           }
         }
         if (value !== undefined && value !== null) {
@@ -1156,7 +1159,7 @@ function buildMirrorSheetXml(
           const space = s.startsWith(" ") || s.endsWith(" ") ? ` xml:space="preserve"` : "";
           const sMatch = cur.match(/\bs="(\d+)"/)?.[1];
           const sAttr = sMatch ? ` s="${sMatch}"` : "";
-          cur = `<c r="${ref}"${sAttr} t="inlineStr"><is><t${space}>${encodeXmlEntities(s)}</t></is></c>`;
+          cur = `<${p}c r="${ref}"${sAttr} t="inlineStr"><${p}is><${p}t${space}>${encodeXmlEntities(s)}</${p}t></${p}is></${p}c>`;
         }
         cells.set(col, cur);
       };
@@ -1216,11 +1219,11 @@ function buildMirrorSheetXml(
 
       const sortedCols = Array.from(cells.keys()).sort((a, b) => colnum(a) - colnum(b));
       const joined = sortedCols.map((c) => cells.get(c)!).join("");
-      return `<row${rAttrs}>${joined}</row>`;
+      return `<${p}row${rAttrs}>${joined}</${p}row>`;
     }
   );
 
-  return Buffer.from(`${prefix}<sheetData>${patchedSdBody}</sheetData>${tail}`, "utf8");
+  return Buffer.from(`${prefix}<${p}sheetData>${patchedSdBody}</${p}sheetData>${tail}`, "utf8");
 }
 
 export function reviewSuministroBuffer(
@@ -1321,6 +1324,11 @@ export function reviewSuministroBuffer(
   // Build output workbook
   const { stylesXml, yellow, headerStyleId } = buildFreshStyles(zipMap.get("xl/styles.xml")!.toString("utf8"));
   let wbXml = sanitizeOoxmlXml(zipMap.get("xl/workbook.xml")!.toString("utf8"));
+  const wp = wbXml.match(/<(\w+:)?workbook\b/)?.[1] || "";
+  wbXml = wbXml.replace(/<((?:\w+:)?workbook\b[^>]*?)>/, (m0, openTag) => {
+    if (/\bxmlns:r=/.test(openTag)) return m0;
+    return `<${openTag} xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">`;
+  });
   let relsXml = zipMap.get("xl/_rels/workbook.xml.rels")!.toString("utf8");
   let ctXml = zipMap.get("[Content_Types].xml")!.toString("utf8");
 
@@ -1347,7 +1355,7 @@ export function reviewSuministroBuffer(
     const rid = `rId${Math.max(0, ...existingRels) + outputSheets.length + 1}`;
     wbXml = wbXml.replace(
       /<\/(?:\w+:)?sheets>/,
-      `<sheet name="${encodeXmlEntities(name)}" sheetId="${nid}" r:id="${rid}"/></sheets>`
+      `<${wp}sheet name="${encodeXmlEntities(name)}" sheetId="${nid}" r:id="${rid}"/></${wp}sheets>`
     );
     relsXml = relsXml.replace(
       /<\/(?:\w+:)?Relationships>/,
