@@ -439,14 +439,14 @@ export function readSheetsFromZip(zipMap: Map<string, Buffer>): ParsedSheetEntry
     let highCol = 0;
     let maxRow = 0;
 
-    const rowRe = /<(?:\w+:)?row\b([^>]*)>([\s\S]*?)<\/(?:\w+:)?row>/g;
+    const rowRe = /<(?:\w+:)?row\b([^/>]*)(?:\/>|>([\s\S]*?)<\/(?:\w+:)?row>)/g;
     let rm: RegExpExecArray | null;
     while ((rm = rowRe.exec(wsXml)) !== null) {
       const rAttr = rm[1].match(/\br="(\d+)"/)?.[1];
       if (!rAttr) continue;
       const rNum = Number(rAttr);
       if (rNum > maxRow) maxRow = rNum;
-      const rowBody = rm[2];
+      const rowBody = rm[2] || "";
       const rowMap = new Map<number, unknown>();
 
       const cellRe = /<(?:\w+:)?c\b([^/>]*)(?:\/>|>([\s\S]*?)<\/(?:\w+:)?c>)/g;
@@ -1074,15 +1074,10 @@ export function buildMirrorWorkbookInMemory(
 
   // Update xl/styles.xml
   let stylesXml = zipMap.get("xl/styles.xml")!.toString("utf8");
-  const countElements = (xmlBlock: string, tag: string) => {
-    const re = new RegExp(`<${tag}(?:\\s+[^>]*|\\s*)?(?:\\/>|>[\\s\\S]*?<\\/${tag}>)`, "g");
-    return (xmlBlock.match(re) || []).length;
-  };
 
-  // Extract fonts, fills, borders, cellXfs blocks
+  // Extract fonts, fills, cellXfs blocks
   const fontsBlock = stylesXml.match(/<fonts\b[^>]*>([\s\S]*?)<\/fonts>/)?.[1] || "";
   const fillsBlock = stylesXml.match(/<fills\b[^>]*>([\s\S]*?)<\/fills>/)?.[1] || "";
-  const bordersBlock = stylesXml.match(/<borders\b[^>]*>([\s\S]*?)<\/borders>/)?.[1] || "";
   const cellXfsBlock = stylesXml.match(/<cellXfs\b[^>]*>([\s\S]*?)<\/cellXfs>/)?.[1] || "";
 
   const fontItems = fontsBlock.match(/<font\b[^/>]*(?:\/>|>[\s\S]*?<\/font>)/g) || [];
@@ -1090,8 +1085,8 @@ export function buildMirrorWorkbookInMemory(
   const fHeadId = fontCount++;
   const fNoteId = fontCount++;
   const newFontXmls = [
-    `<font><b/><sz val="11"/><color rgb="FFFFFFFF"/><name val="Aptos Narrow"/></font>`,
-    `<font><sz val="10"/><color rgb="FF111111"/><name val="Aptos Narrow"/></font>`,
+    `<font><sz val="10"/><b/><color rgb="FFFFFFFF"/><name val="Calibri"/></font>`,
+    `<font><sz val="10"/><color rgb="FF111111"/><name val="Calibri"/></font>`,
   ];
 
   const fillItems = fillsBlock.match(/<fill\b[^/>]*(?:\/>|>[\s\S]*?<\/fill>)/g) || [];
@@ -1103,47 +1098,81 @@ export function buildMirrorWorkbookInMemory(
     `<fill><patternFill patternType="solid"><fgColor rgb="FFFFFF00"/><bgColor indexed="64"/></patternFill></fill>`,
   ];
 
-  const borderItems = bordersBlock.match(/<border\b[^/>]*(?:\/>|>[\s\S]*?<\/border>)/g) || [];
-  const bId = borderItems.length;
-  const newBorderXml = `<border><left style="thin"><color rgb="FFD0D7DE"/></left><right style="thin"><color rgb="FFD0D7DE"/></right><top style="thin"><color rgb="FFD0D7DE"/></top><bottom style="thin"><color rgb="FFD0D7DE"/></bottom></border>`;
-
   const xfItems = cellXfsBlock.match(/<xf\b[^/>]*(?:\/>|>[\s\S]*?<\/xf>)/g) || [];
   let xfCount = xfItems.length;
+
+  // Detect default style from header row's first cell, matching generar_hoja_oic.py line 24
+  const sheetDataMatch = sourceSheetXml.match(/<sheetData\b[^>]*>([\s\S]*?)<\/sheetData>/);
+  const rawRowsXml = sheetDataMatch?.[1] || "";
+  let defaultStyleIdx = 0;
+  const hdrRowMatch = rawRowsXml.match(new RegExp(`<row\\b[^>]*\\br="${header}"[^>]*>([\\s\\S]*?)<\\/row>`));
+  if (hdrRowMatch) {
+    const firstCellS = hdrRowMatch[1].match(/<c\b[^/>]*\bs="(\d+)"/)?.[1];
+    if (firstCellS !== undefined) {
+      const parsedS = Number(firstCellS);
+      if (parsedS >= 0 && parsedS < xfItems.length) defaultStyleIdx = parsedS;
+    }
+  }
+  const baseHeaderXf = xfItems[defaultStyleIdx] || xfItems[0] || `<xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>`;
+  const setXfAttr = (tag: string, k: string, v: string) => {
+    const re = new RegExp(`\\b${k}="[^"]*"`);
+    if (re.test(tag)) return tag.replace(re, `${k}="${v}"`);
+    return tag.replace(/^<xf\b/, `<xf ${k}="${v}"`);
+  };
+  const makeRoleXf = (fontId: number, fillId: number, horiz: "center" | "left") => {
+    let xf = baseHeaderXf;
+    xf = setXfAttr(xf, "fontId", String(fontId));
+    xf = setXfAttr(xf, "fillId", String(fillId));
+    xf = setXfAttr(xf, "applyFill", "1");
+    xf = setXfAttr(xf, "applyFont", "1");
+    xf = setXfAttr(xf, "applyAlignment", "1");
+    const alignXml = `<alignment vertical="center" horizontal="${horiz}" wrapText="1"/>`;
+    if (xf.endsWith("/>")) {
+      xf = xf.replace(/\/>$/, `>${alignXml}</xf>`);
+    } else if (/<alignment\b[^/>]*\/>/.test(xf)) {
+      xf = xf.replace(/<alignment\b[^/>]*\/>/, alignXml);
+    } else {
+      xf = xf.replace(/<\/xf>$/, `${alignXml}</xf>`);
+    }
+    return xf;
+  };
+
   const headerStyleId = xfCount++;
   const noteStyleId = xfCount++;
   const newXfXmls = [
-    `<xf numFmtId="0" fontId="${fHeadId}" fillId="${fillHeaderId}" borderId="${bId}" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center" wrapText="1"/></xf>`,
-    `<xf numFmtId="0" fontId="${fNoteId}" fillId="${fillYellowId}" borderId="${bId}" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="left" vertical="top" wrapText="1"/></xf>`,
+    makeRoleXf(fHeadId, fillHeaderId, "center"),
+    makeRoleXf(fNoteId, fillYellowId, "left"),
   ];
 
   const paintedCache = new Map<number, number>();
   const readableFontCache = new Map<number, number>();
 
   function getPaintedStyle(oldStyleStr: string): number {
-    const oldId = Number(oldStyleStr || "0");
+    let oldId = Number(oldStyleStr || "0");
+    if (isNaN(oldId) || oldId < 0 || oldId >= xfItems.length) oldId = 0;
     if (paintedCache.has(oldId)) return paintedCache.get(oldId)!;
     const origXf = xfItems[oldId] || xfItems[0] || `<xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>`;
     const origFontId = Number(origXf.match(/\bfontId="(\d+)"/)?.[1] || "0");
     if (!readableFontCache.has(origFontId)) {
-      const srcFont = fontItems[origFontId] || `<font><sz val="10"/><name val="Aptos Narrow"/></font>`;
-      const cleanedFont = srcFont
-        .replace(/<color\b[^>]*\/>/g, "")
-        .replace(/<\/font>$/, `<color rgb="FF111111"/></font>`);
+      const srcFont = fontItems[origFontId] || fontItems[0] || `<font><sz val="10"/><name val="Calibri"/></font>`;
+      let cleanedFont = srcFont;
+      if (/<color\b[^/>]*\/>/.test(cleanedFont)) {
+        cleanedFont = cleanedFont.replace(/<color\b[^/>]*\/>/g, `<color rgb="FF111111"/>`);
+      } else if (/<name\b/.test(cleanedFont)) {
+        cleanedFont = cleanedFont.replace(/<name\b/, `<color rgb="FF111111"/><name`);
+      } else {
+        cleanedFont = cleanedFont.replace(/<\/font>$/, `<color rgb="FF111111"/></font>`);
+      }
       const rfId = fontCount++;
       newFontXmls.push(cleanedFont);
       readableFontCache.set(origFontId, rfId);
     }
     const rfId = readableFontCache.get(origFontId)!;
     let updatedXf = origXf;
-    const setAttr = (tag: string, k: string, v: string) => {
-      const re = new RegExp(`\\b${k}="[^"]*"`);
-      if (re.test(tag)) return tag.replace(re, `${k}="${v}"`);
-      return tag.replace(/^<xf\b/, `<xf ${k}="${v}"`);
-    };
-    updatedXf = setAttr(updatedXf, "fillId", String(fillYellowId));
-    updatedXf = setAttr(updatedXf, "applyFill", "1");
-    updatedXf = setAttr(updatedXf, "fontId", String(rfId));
-    updatedXf = setAttr(updatedXf, "applyFont", "1");
+    updatedXf = setXfAttr(updatedXf, "fillId", String(fillYellowId));
+    updatedXf = setXfAttr(updatedXf, "applyFill", "1");
+    updatedXf = setXfAttr(updatedXf, "fontId", String(rfId));
+    updatedXf = setXfAttr(updatedXf, "applyFont", "1");
     const newXfId = xfCount++;
     newXfXmls.push(updatedXf);
     paintedCache.set(oldId, newXfId);
@@ -1151,9 +1180,7 @@ export function buildMirrorWorkbookInMemory(
   }
 
   // Transform sheetData rows
-  const sheetDataMatch = sourceSheetXml.match(/<sheetData\b[^>]*>([\s\S]*?)<\/sheetData>/);
-  const rawRowsXml = sheetDataMatch?.[1] || "";
-  const rowRe = /<row\b([^>]*)>([\s\S]*?)<\/row>/g;
+  const rowRe = /<row\b([^/>]*)(?:\/>|>([\s\S]*?)<\/row>)/g;
   let rm: RegExpExecArray | null;
   const newRowsXml: string[] = [];
   const headerTitles: string[] = [];
@@ -1163,7 +1190,7 @@ export function buildMirrorWorkbookInMemory(
 
   while ((rm = rowRe.exec(rawRowsXml)) !== null) {
     let rAttrs = rm[1];
-    const rBody = rm[2];
+    const rBody = rm[2] || "";
     const rNum = Number(rAttrs.match(/\br="(\d+)"/)?.[1] || "0");
 
     // Parse existing cells in row
@@ -1220,6 +1247,9 @@ export function buildMirrorWorkbookInMemory(
       }
     }
 
+    if (rNum >= header) {
+      rAttrs = rAttrs.replace(/\s+hidden="[^"]*"/g, "");
+    }
     if (/\bspans="[^"]*"/.test(rAttrs)) {
       rAttrs = rAttrs.replace(/\bspans="[^"]*"/, `spans="1:${lastCol}"`);
     } else {
@@ -1231,11 +1261,10 @@ export function buildMirrorWorkbookInMemory(
     newRowsXml.push(`<row${rAttrs}>${joinedCells}</row>`);
   }
 
-  // Finalize stylesXml with updated fonts, fills, borders, cellXfs
+  // Finalize stylesXml with updated fonts, fills, cellXfs (preserving original borders intact)
   stylesXml = stylesXml
     .replace(/<fonts\b[^>]*>[\s\S]*?<\/fonts>/, `<fonts count="${fontCount}">${fontItems.join("")}${newFontXmls.join("")}</fonts>`)
     .replace(/<fills\b[^>]*>[\s\S]*?<\/fills>/, `<fills count="${fillCount}">${fillItems.join("")}${newFillXmls.join("")}</fills>`)
-    .replace(/<borders\b[^>]*>[\s\S]*?<\/borders>/, `<borders count="${bId + 1}">${borderItems.join("")}${newBorderXml}</borders>`)
     .replace(/<cellXfs\b[^>]*>[\s\S]*?<\/cellXfs>/, `<cellXfs count="${xfCount}">${xfItems.join("")}${newXfXmls.join("")}</cellXfs>`);
 
   // Build cols and dimension for new worksheet
@@ -1257,6 +1286,13 @@ export function buildMirrorWorkbookInMemory(
           return `<sheetView${a0.replace(/\btopLeftCell="[^"]*"/, 'topLeftCell="A1"')}`;
         }
         return `<sheetView topLeftCell="A1"${a0}`;
+      })
+      .replace(/<pane\b([^>]*)/g, (m0, a0) => {
+        const ySplit = Number(a0.match(/\bySplit="(\d+)"/)?.[1] || "0");
+        if (ySplit > 0 && /\btopLeftCell="[^"]*"/.test(a0)) {
+          return `<pane${a0.replace(/\btopLeftCell="[^"]*"/, `topLeftCell="A${ySplit + 1}"`)}`;
+        }
+        return m0;
       });
   }
   const sheetFormatPrBlock = sourceSheetXml.match(/<sheetFormatPr\b[^>]*\/>/)?.[0] || `<sheetFormatPr defaultRowHeight="15"/>`;
@@ -1281,9 +1317,13 @@ export function buildMirrorWorkbookInMemory(
         const tPath = path.posix.normalize(path.posix.join(path.posix.dirname(entry.part), target));
         if (zipMap.has(tPath)) {
           const tXml = zipMap.get(tPath)!.toString("utf8");
+          const tRef = tXml.match(/\bref="([^"]+)"/)?.[1] || "";
+          if (!tRef.toUpperCase().startsWith(`A${header}:`)) {
+            continue;
+          }
           const tsi = tXml.match(/<tableStyleInfo\b[^>]*\/>/)?.[0];
           if (tsi) originalTableStyleInfo = tsi;
-          const tcRe = /<tableColumn\b([^>]*)\/?>/g;
+          const tcRe = /<tableColumn\b([^/>]*)\/?>/g;
           let tcm: RegExpExecArray | null;
           while ((tcm = tcRe.exec(tXml)) !== null) {
             const nm = decodeXmlEntities(tcm[1].match(/\bname="([^"]+)"/)?.[1] || "");
@@ -1345,15 +1385,17 @@ export function buildMirrorWorkbookInMemory(
     newSheetRelsBuf = Buffer.from(relXml, "utf8");
   }
 
-  const filterOrTableParts = hasOriginalTable
-    ? `${pageMarginsBlock}<tableParts count="1"><tablePart r:id="rId1"/></tableParts>`
-    : `<autoFilter ref="${fullRef}"/>${pageMarginsBlock}`;
+  // CRITICAL ECMA-376 CT_Worksheet sequence:
+  // <sheetData> -> <autoFilter> -> <mergeCells> -> <pageMargins> -> <tableParts>
+  const autoFilterBlock = hasOriginalTable ? "" : `<autoFilter ref="${fullRef}"/>`;
+  const tablePartsBlock = hasOriginalTable ? `<tableParts count="1"><tablePart r:id="rId1"/></tableParts>` : "";
 
-  const origWorksheetOpenTag =
+  const origWorksheetOpenTag = (
     sourceSheetXml.match(/<worksheet\b[^>]*>/)?.[0] ||
-    `<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">`;
+    `<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">`
+  ).replace(/\s+\w*:?uid="[^"]*"/g, "");
 
-  const newWorksheetXml = `<?xml version='1.0' encoding='utf-8'?>\n${origWorksheetOpenTag}${newDimBlock}${newSheetViewsBlock}${sheetFormatPrBlock}${newColsBlock}<sheetData>${newRowsXml.join("")}</sheetData>${mergeCellsBlock}${filterOrTableParts}</worksheet>`;
+  const newWorksheetXml = `<?xml version='1.0' encoding='utf-8'?>\n${origWorksheetOpenTag}${newDimBlock}${newSheetViewsBlock}${sheetFormatPrBlock}${newColsBlock}<sheetData>${newRowsXml.join("")}</sheetData>${autoFilterBlock}${mergeCellsBlock}${pageMarginsBlock}${tablePartsBlock}</worksheet>`;
 
   // Update workbook.xml, workbook.xml.rels, [Content_Types].xml
   let wbXml = zipMap.get("xl/workbook.xml")!.toString("utf8");
@@ -1431,8 +1473,22 @@ export function previewWorkbookBuffer(
   if (sheets.length === 0) {
     throw new Error("No se encontraron encabezados reconocibles del layout de rescisión.");
   }
-  const main = sheets[0];
-  const findings = runAuditorAmpliado(main, cutoffIso);
+  const main =
+    sheets.find((s) => normalize(s.sheet) === "BASE") ||
+    sheets.find((s) => normalize(s.sheet) === "DGCOES") ||
+    sheets[0];
+  const rawFindings = runAuditorAmpliado(main, cutoffIso);
+  const sevPriority: Record<string, number> = { ERROR: 0, REVISAR: 1, DOCUMENTAL: 2 };
+  const findings = [...rawFindings].sort((a, b) => {
+    if (a.row !== b.row) return a.row - b.row;
+    const pa = sevPriority[a.severity] ?? 9;
+    const pb = sevPriority[b.severity] ?? 9;
+    if (pa !== pb) return pa - pb;
+    const ca = indexRef(a.cell)[1];
+    const cb = indexRef(b.cell)[1];
+    if (ca !== cb) return ca - cb;
+    return a.rule.localeCompare(b.rule);
+  });
   const { mapping, rows } = main;
 
   let numRows = 0;

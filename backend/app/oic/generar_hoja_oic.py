@@ -64,7 +64,12 @@ def _append_styles(root,source_header):
             source=fonts[original_font] if original_font<len(fonts) else fonts[0]
             legible=deepcopy(source)
             for oldcolor in list(legible.findall(q(M,'color'))): legible.remove(oldcolor)
-            ET.SubElement(legible,q(M,'color'),{'rgb':'FF111111'})
+            new_color=ET.Element(q(M,'color'),{'rgb':'FF111111'})
+            name_el=legible.find(q(M,'name'))
+            if name_el is not None:
+                legible.insert(list(legible).index(name_el),new_color)
+            else:
+                legible.append(new_color)
             readable_font_cache[original_font]=len(fonts)
             fonts.append(legible)
             fonts.set('count',str(len(fonts)))
@@ -288,6 +293,8 @@ def build_mirror_workbook(original,output,source_sheet,header_zero,headers,findi
                     if cell is None:
                         cell=ET.SubElement(r,q(M,'c'),{'r':f'{col_letter(cc)}{no}'})
                     cell.set('s',str(painted_style(cell.get('s','0'))))
+            if no>=header:
+                r.attrib.pop('hidden',None)
             r.set('spans',f'1:{last_col}')
             r[:]=sorted(r,key=lambda cell:index_ref(cell.get('r','A1'))[1] if cell.tag==q(M,'c') else 0)
         ds[:]=sorted(list(ds),key=lambda r:int(r.get('r','0')))
@@ -317,6 +324,12 @@ def build_mirror_workbook(original,output,source_sheet,header_zero,headers,findi
                 view.attrib.pop('tabSelected',None)
                 # Revisión comienza en parte izquierda, no al final del layout.
                 view.set('topLeftCell','A1')
+                pane=view.find(q(M,'pane'))
+                if pane is not None and pane.get('ySplit'):
+                    try:
+                        ys=int(float(pane.get('ySplit','0')))
+                        if ys>0:pane.set('topLeftCell',f'A{ys+1}')
+                    except ValueError:pass
         # Inscripción de la nueva hoja en partes de Excel.
         sheet_xml=workbook.find(q(M,'sheets'))
         new_id=max((int(s.get('sheetId','0')) for s in sheet_xml),default=0)+1
